@@ -7,7 +7,7 @@ import frc.robot.commands.chassis.ModifiedArcadeDrive;
 
 public class AutoMove extends CommandGroup {
     public AutoMove() {
-        //6 ball auto below
+        
         addSequential(new AutoArcadeDrive());
 
      
