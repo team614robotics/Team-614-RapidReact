@@ -7,8 +7,12 @@ package frc.robot;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.chassis.AutoMove;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.commands.chassis.AutoMove;
+
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,6 +27,9 @@ public class Robot extends TimedRobot {
   public static Drivetrain m_drivetrain = new Drivetrain();
 
   public static AHRS m_navX;
+
+  Command m_autonomousCommand;
+
 
   // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
   public final SlewRateLimiter m_speedLimiter = new SlewRateLimiter(3);
@@ -39,8 +46,35 @@ public class Robot extends TimedRobot {
   }
 
   @Override
+  public void autonomousInit(){
+    
+    SmartDashboard.putNumber("Left Encoder Values", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
+    Robot.m_drivetrain.leftMotorA.getEncoder().setPosition(0);
+    Robot.m_drivetrain.leftMotorB.getEncoder().setPosition(0);
+    SmartDashboard.putNumber("Right Encoder Values", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
+    Robot.m_drivetrain.rightMotorA.getEncoder().setPosition(0);
+    Robot.m_drivetrain.rightMotorB.getEncoder().setPosition(0);
+    SmartDashboard.putNumber("Distance Covered (Right Wheels) (In Feet)", Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.rightMotorA.getEncoder().getPosition()));
+    SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)", Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.leftMotorA.getEncoder().getPosition()));
+    
+    SmartDashboard.putNumber("Output (Left Wheels)", 0);
+    SmartDashboard.putNumber("Output (Right Wheels)", 0);
+    SmartDashboard.putNumber("Heading ", 0);
+    SmartDashboard.putNumber("Angle ", Robot.m_navX.getAngle());
+    
+    m_autonomousCommand = new AutoMove();
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.start();
+    }
+  }
+  
+  @Override
   public void autonomousPeriodic() {
-    teleopPeriodic();
+    
+    
+    Scheduler.getInstance().run();
+
+    
     // m_drivetrain.updateOdometry();
   }
 
@@ -67,6 +101,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Output (Right Wheels)", 0);
     SmartDashboard.putNumber("Heading ", 0);
     SmartDashboard.putNumber("Angle ", Robot.m_navX.getAngle());
+
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.cancel();
+    }
   }
 
   @Override
