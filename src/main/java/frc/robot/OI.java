@@ -8,11 +8,12 @@
 //poopy butt face
 package frc.robot;
 import com.fasterxml.jackson.databind.deser.impl.SetterlessProperty;
-
+import frc.robot.commands.climber.*;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 //import frc.robot.commands.intake.runOuttake;
 /**
@@ -83,8 +84,8 @@ public class OI {
   //Intake controller
   public static final XboxController operatorController = new XboxController(1);
   
-  // public static final Button MoveClimberUpwards = new JoystickButton(operatorController, RobotMap.LeftBumper);
-  // public static final Button MoveClimberDownwards = new JoystickButton(operatorController, RobotMap.RightBumper); 
+  public static final Button MoveClimberUpwards = new JoystickButton(operatorController, RobotMap.LeftBumper);
+  public static final Button MoveClimberDownwards = new JoystickButton(operatorController, RobotMap.RightBumper); 
   // public static final Button RunFeederBackwards = new JoystickButton(operatorController, RobotMap.AButton);
   // public static final Button RunIntakeBackwards = new JoystickButton(operatorController, RobotMap.BButton);
   // public static final Button RunSerializerBackwards = new JoystickButton(operatorController, RobotMap.YButton);
@@ -95,7 +96,9 @@ public class OI {
     
 
     /* Operator Controller */
-    
+    SmartDashboard.putNumber("Entering Climb", -1);
+    MoveClimberUpwards.whileHeld(new MoveClimberUpwards());
+    MoveClimberDownwards.whileHeld(new MoveClimberDownwards());
   }
 }
 

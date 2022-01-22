@@ -33,10 +33,10 @@ public class RobotMap {
 
   public static boolean isDumb = false;
   //Chassis
-  public static final int leftMotorAPort = 7; //previously 1
-  public static final int leftMotorBPort = 8; //previously 2
-  public static final int rightMotorAPort = 9; //previously 3
-  public static final int rightMotorBPort = 13; //next 12, previously 4
+  public static final int leftMotorAPort = 9; //previously 1
+  public static final int leftMotorBPort = 10; //previously 2
+  public static final int rightMotorAPort = 11; //previously 3
+  public static final int rightMotorBPort = 12; //next 12, previously 4
   public static final MotorType brushless = MotorType.kBrushless;
   public static final MotorType brushed = MotorType.kBrushed;
   public static final double ticksInARevolution = 10.659;
@@ -73,11 +73,11 @@ public class RobotMap {
   // public static double highGoalSpeed = 5000;
 
   //Climber
-  // public static final int limitSwitchPortA = 0;
-  // public static final int limitSwitchPortB = 1;
+  public static final int limitSwitchPortA = 0;
+  public static final int limitSwitchPortB = 1;
   // public static final int limitSwitchPortC = 2;
   // public static final int limitSwitchPortD = 3;
-  // public static final int climberMotorPort = 2;
+  public static final int climberMotorPort = 6; //actually 2
   // public static final double climberPValue = 0.0001;
   // public static final double climberIValue = 0;
   // public static final double climberDValue = 0;
@@ -127,8 +127,8 @@ public class RobotMap {
 	// public static final int BButton = 2;
 	// public static final int XButton = 3;
 	// public static final int YButton = 4;
-	// public static final int LeftBumper = 5;
-	// public static final int RightBumper = 6;
+	public static final int LeftBumper = 5;
+	public static final int RightBumper = 6;
 	// public static final int BackButton = 7;
 	// public static final int StartButton = 8;
 	 public static final int LeftStick = 9;

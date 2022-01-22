@@ -12,6 +12,7 @@ import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.chassis.AutoMove;
+import frc.robot.subsystems.climber.*;
 
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -25,11 +26,14 @@ import com.revrobotics.CANSparkMax;
 public class Robot extends TimedRobot {
   public static XboxController m_controller = new XboxController(0);
   public static Drivetrain m_drivetrain = new Drivetrain();
+  public static Climber m_climber = new Climber();
+
 
   public static AHRS m_navX;
 
   Command m_autonomousCommand;
 
+  public static OI m_oi;
 
   // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
   public final SlewRateLimiter m_speedLimiter = new SlewRateLimiter(3);
@@ -43,6 +47,8 @@ public class Robot extends TimedRobot {
     } catch (RuntimeException e) {
       DriverStation.reportError("NAVX ERROR: " + e.getMessage(), true);
     }
+
+    m_oi = new OI();
   }
 
   @Override

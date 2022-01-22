@@ -3,23 +3,38 @@ package frc.robot.commands.chassis;
 import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.Timer;
 
 public class AutoArcadeDrive extends Command {
+	public static Timer timer;
+	Timer timer2;
 	
     
     public AutoArcadeDrive() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.m_drivetrain);
+
+		timer = new Timer();
+		timer2 = new Timer();
+	
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		timer.reset();
+		timer2.reset();
+		timer.start();
+		timer2.start();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.m_drivetrain.arcadeDrive(.8 * (0.5 < 0 ? -Math.pow(0.5, 2) : Math.pow(0.5, 2)), .8 * (0 < 0 ? Math.pow(0, 2) : -Math.pow(0, 2)));
+		if (timer2.get() < 5) {
+			Robot.m_drivetrain.arcadeDrive(.8 * (0.5 < 0 ? -Math.pow(0.5, 2) 
+			: Math.pow(0.5, 2)), 0); 
+		}
+		//.8 * (0 < 0 ? Math.pow(0, 2) : -Math.pow(0, 2)));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
