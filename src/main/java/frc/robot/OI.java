@@ -14,6 +14,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.intake.*;
+import frc.robot.subsystems.shooter.Shooter;
+import frc.robot.commands.shooter.*;
 
 //import frc.robot.commands.intake.runOuttake;
 /**
@@ -73,13 +76,12 @@ public class OI {
   //Driver Controller 
   public static final XboxController driverController = new XboxController(0);
 
-  // public static final Button RunShooterHigh = new JoystickButton(driverController, RobotMap.RightBumper);
-  // public static final Button RunShooterLow = new JoystickButton(driverController, RobotMap.LeftBumper);
+  public static final Button RunShooter = new JoystickButton(driverController, RobotMap.LeftBumper);
   // public static final Button RunIntakeSerializer = new JoystickButton(driverController, RobotMap.LeftBumper);
   // public static final Button RunFeeder = new JoystickButton(driverController, RobotMap.RightBumper);
   // public static final Button RunLimelightHighTurnToAngle = new JoystickButton(driverController, RobotMap.YButton);
   // public static final Button RunLimelightLowTurnToAngle = new JoystickButton(driverController, RobotMap.BButton);
-  // public static final Button ToggleIntake = new JoystickButton(driverController, RobotMap.XButton);
+  public static final Button ToggleIntake = new JoystickButton(driverController, RobotMap.XButton);
 
   //Intake controller
   public static final XboxController operatorController = new XboxController(1);
@@ -92,8 +94,9 @@ public class OI {
 
   public OI() {
     /* Driver Controller */
-    
-    
+    RunShooter.whileHeld(new RunShooter());
+    ToggleIntake.whenPressed(new IntakeToggle());
+
 
     /* Operator Controller */
     SmartDashboard.putNumber("Entering Climb", -1);

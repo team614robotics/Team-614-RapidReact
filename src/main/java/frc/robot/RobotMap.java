@@ -67,7 +67,7 @@ public class RobotMap {
   // public static final double maxOutput = 1;
   // public static final double minOutput = -1;
   // public static final double maxRPM = 5700;
-  // public static final int shooterMotorPort = 6;
+  public static final int shooterMotorPort = 6;
   // public static final int acceleratorMotorPort = 7; //5 previous
   // public static double lowGoalSpeed = 4900;
   // public static double highGoalSpeed = 5000;
@@ -77,7 +77,7 @@ public class RobotMap {
   public static final int limitSwitchPortB = 1;
   // public static final int limitSwitchPortC = 2;
   // public static final int limitSwitchPortD = 3;
-  public static final int climberMotorPort = 6; //actually 2
+  public static final int climberMotorPort = 7; //actually 2
   // public static final double climberPValue = 0.0001;
   // public static final double climberIValue = 0;
   // public static final double climberDValue = 0;
@@ -94,11 +94,11 @@ public class RobotMap {
   // public static final int climberPistonPortB = 1;
   
   //Intake
-  // public static final int intakeMotorPort = 50; //3 next? previously 8
-  // public static final int doubleSolenoidAPort1 = 4;
-  // public static final int doubleSolenoidAPort2 = 5;
-  // public static final int doubleSolenoidBPort1 = 6;
-  // public static final int doubleSolenoidBPort2 = 7;
+  public static final int intakeMotorPort = 50; //3 next? previously 8
+  public static final int doubleSolenoidAPort1 = 4;
+  public static final int doubleSolenoidAPort2 = 5;
+  public static final int doubleSolenoidBPort1 = 6;//we will remove double solenoid B
+  public static final int doubleSolenoidBPort2 = 7;
 
   // //Vision 
   // public static final double limelightToTarget = 25.7;
@@ -120,12 +120,12 @@ public class RobotMap {
   // public static final int pipelineExtra = 2;
 
   // //pneumatics
-	// public static final int compressor = 0;
+	public static final int compressor = 0;
 
   // //Controller.
   // public static final int AButton = 1;
 	// public static final int BButton = 2;
-	// public static final int XButton = 3;
+	public static final int XButton = 3;
 	// public static final int YButton = 4;
 	public static final int LeftBumper = 5;
 	public static final int RightBumper = 6;

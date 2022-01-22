@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.chassis.AutoMove;
 import frc.robot.subsystems.climber.*;
+import frc.robot.subsystems.pneumatics.*;
+import frc.robot.subsystems.intake.*;
+import frc.robot.subsystems.shooter.*;
 
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -27,9 +30,12 @@ public class Robot extends TimedRobot {
   public static XboxController m_controller = new XboxController(0);
   public static Drivetrain m_drivetrain = new Drivetrain();
   public static Climber m_climber = new Climber();
+  public static Intake m_intake;
+  public static Shooter m_shooter;
 
 
   public static AHRS m_navX;
+  public static Pneumatics pneumatics;
 
   Command m_autonomousCommand;
 
@@ -47,7 +53,11 @@ public class Robot extends TimedRobot {
     } catch (RuntimeException e) {
       DriverStation.reportError("NAVX ERROR: " + e.getMessage(), true);
     }
+    pneumatics = new Pneumatics();
 
+    m_intake = new Intake();
+    m_shooter = new Shooter();
+    
     m_oi = new OI();
   }
 
