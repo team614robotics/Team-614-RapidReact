@@ -126,7 +126,7 @@ public class RobotMap {
   // public static final int AButton = 1;
 	// public static final int BButton = 2;
 	public static final int XButton = 3;
-	// public static final int YButton = 4;
+	public static final int YButton = 4;
 	public static final int LeftBumper = 5;
 	public static final int RightBumper = 6;
 	// public static final int BackButton = 7;
@@ -142,7 +142,7 @@ public class RobotMap {
   // public static final int setCurrent = 30;
 
   // //Feeder
-  // public static final int feederMotorPort = 8; //1 previously
+   public static final int feederMotorPort = 8; //1 previously
   // public static final double feederPValue = 5e-5;
   // public static final double feederIValue = 0;
   // public static final double feederDValue = 0;

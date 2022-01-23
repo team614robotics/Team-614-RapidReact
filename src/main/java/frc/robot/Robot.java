@@ -16,6 +16,12 @@ import frc.robot.subsystems.climber.*;
 import frc.robot.subsystems.pneumatics.*;
 import frc.robot.subsystems.intake.*;
 import frc.robot.subsystems.shooter.*;
+import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.util.Color;
+import frc.robot.subsystems.feeder.*;
+
+
+import com.revrobotics.ColorSensorV3;
 
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -33,9 +39,13 @@ public class Robot extends TimedRobot {
   public static Intake m_intake;
   public static Shooter m_shooter;
 
+  private static I2C.Port i2cPort = I2C.Port.kMXP;
+
 
   public static AHRS m_navX;
   public static Pneumatics pneumatics;
+
+  public static ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
 
   Command m_autonomousCommand;
 
@@ -129,7 +139,11 @@ public class Robot extends TimedRobot {
     // negative values when we push forward.
     // final var xSpeed = -m_speedLimiter.calculate(m_controller.getLeftY()) *
     // Drivetrain.kMaxSpeed;
+
     Scheduler.getInstance().run();
+    SmartDashboard.putNumber("Ball 1 Type", Feeder.checkBall1());
+    SmartDashboard.putNumber("Ball 2 Type", Feeder.checkBall2());
+    
     // Get the rate of angular rotation. We are inverting this because we want a
     // positive value when we pull to the left (remember, CCW is positive in
     // mathematics). Xbox controllers return positive values when you pull to

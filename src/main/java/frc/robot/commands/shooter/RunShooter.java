@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.feeder.*;
 
 public class RunShooter extends Command {
 
@@ -38,11 +39,18 @@ public class RunShooter extends Command {
 
   // Called once the command ends or is interrupted.
   public void end() {
+    SmartDashboard.putNumber("ShooterEnd",-10);
     Robot.m_shooter.shooterMotor.set(0);
+    Feeder.setBall1Type(0);
+    Feeder.setBall2Type(0);
   }
 
   public void interrupted() {
     Robot.m_shooter.shooterMotor.set(0);
+    SmartDashboard.putNumber("ShooterInt",-10);
+    Feeder.setBall1Type(0);
+    Feeder.setBall2Type(0);
+
   }
 
 }
