@@ -13,6 +13,7 @@ import frc.robot.subsystems.feeder.*;
 
 public class GetColor extends Command{
     boolean isBall = false;
+    boolean isRecorded = false;
 
     public GetColor() {
 		// Use requires() here to declare subsystem dependencies
@@ -27,43 +28,79 @@ public class GetColor extends Command{
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
         Color detectedColor = Robot.m_colorSensor.getColor();
+        int proximity = Robot.m_colorSensor.getProximity();
+        SmartDashboard.putNumber("Proximity", proximity);
         double IR = Robot.m_colorSensor.getIR();
         
         SmartDashboard.putNumber("Red", detectedColor.red*255);
         SmartDashboard.putNumber("Green", detectedColor.green*255);
         SmartDashboard.putNumber("Blue", detectedColor.blue*255);
         SmartDashboard.putNumber("IR", IR);
-        if (130>=(detectedColor.blue*255)&&(detectedColor.blue*255)>=100){
-            SmartDashboard.putString("Ball Type", "BLUE");
-            if (isBall == false){
-
-                if (Feeder.checkBall1() == 0){
-                    Feeder.setBall1Type(1);
-                }
-                else if (Feeder.checkBall2() == 0){
-                    Feeder.setBall2Type(1);
-                }
-                isBall = true;
-            }
+        if (proximity > 100){
+            isBall = true;
         }
-        else if (90<=detectedColor.red*255 && detectedColor.red*255<=155){
-            SmartDashboard.putString("Ball Type", "RED");
-            if (isBall == false){
+        else {
+            SmartDashboard.putString("Ball Type", "NONE");
+            isRecorded = false;
+            isBall = false;
+        }
+        if (detectedColor.red>detectedColor.blue){
+            if (isBall){SmartDashboard.putString("Ball Type", "RED");}
+            if (!isRecorded && isBall){ 
                 if (Feeder.checkBall1() == 0){
                     Feeder.setBall1Type(2);
                 }
                 else if (Feeder.checkBall2() == 0){
                     Feeder.setBall2Type(2);
                 }
-                isBall = true;
+                isRecorded = true;
             }
         }
-        else{
-            SmartDashboard.putString("Ball Type", "NONE");
-            isBall = false;
-
-
+        else if (detectedColor.blue>detectedColor.red){
+            if (isBall){SmartDashboard.putString("Ball Type", "BLUE");}
+            if (!isRecorded && isBall){
+                if (Feeder.checkBall1() == 0){
+                    Feeder.setBall1Type(1);
+                }
+                else if (Feeder.checkBall2() == 0){
+                    Feeder.setBall2Type(1);
+                }
+                isRecorded = true;
+            }
         }
+        
+        
+        // if (130>=(detectedColor.blue*255)&&(detectedColor.blue*255)>=100){
+        //     SmartDashboard.putString("Ball Type", "BLUE");
+        //     if (isBall == false){
+
+        //         if (Feeder.checkBall1() == 0){
+        //             Feeder.setBall1Type(1);
+        //         }
+        //         else if (Feeder.checkBall2() == 0){
+        //             Feeder.setBall2Type(1);
+        //         }
+        //         isBall = true;
+        //     }
+        // }
+        // else if (90<=detectedColor.red*255 && detectedColor.red*255<=155){
+        //     SmartDashboard.putString("Ball Type", "RED");
+        //     if (isBall == false){
+        //         if (Feeder.checkBall1() == 0){
+        //             Feeder.setBall1Type(2);
+        //         }
+        //         else if (Feeder.checkBall2() == 0){
+        //             Feeder.setBall2Type(2);
+        //         }
+        //         isBall = true;
+        //     }
+        // }
+        // else{
+        //     SmartDashboard.putString("Ball Type", "NONE");
+        //     isBall = false;
+
+
+        // }
 	
 	}
 
