@@ -8,18 +8,20 @@ import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.subsystems.feeder.*;
 
-import com.revrobotics.ColorSensorV3;
+//import com.revrobotics.ColorSensorV3;
 
 
 public class GetColor extends Command{
-    
+    boolean isBall = false;
+
     public GetColor() {
 		// Use requires() here to declare subsystem dependencies
-        
+
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+        
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -33,24 +35,34 @@ public class GetColor extends Command{
         SmartDashboard.putNumber("IR", IR);
         if (130>=(detectedColor.blue*255)&&(detectedColor.blue*255)>=100){
             SmartDashboard.putString("Ball Type", "BLUE");
-            if (Feeder.checkBall1() == 0){
-                Feeder.setBall1Type(1);
-            }
-            else {
-                Feeder.setBall2Type(1);
+            if (isBall == false){
+
+                if (Feeder.checkBall1() == 0){
+                    Feeder.setBall1Type(1);
+                }
+                else if (Feeder.checkBall2() == 0){
+                    Feeder.setBall2Type(1);
+                }
+                isBall = true;
             }
         }
         else if (90<=detectedColor.red*255 && detectedColor.red*255<=155){
             SmartDashboard.putString("Ball Type", "RED");
-            if (Feeder.checkBall1() == 0){
-                Feeder.setBall1Type(2);
-            }
-            else {
-                Feeder.setBall2Type(2);
+            if (isBall == false){
+                if (Feeder.checkBall1() == 0){
+                    Feeder.setBall1Type(2);
+                }
+                else if (Feeder.checkBall2() == 0){
+                    Feeder.setBall2Type(2);
+                }
+                isBall = true;
             }
         }
         else{
             SmartDashboard.putString("Ball Type", "NONE");
+            isBall = false;
+
+
         }
 	
 	}

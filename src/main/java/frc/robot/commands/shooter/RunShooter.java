@@ -39,7 +39,7 @@ public class RunShooter extends Command {
 
   // Called once the command ends or is interrupted.
   public void end() {
-    SmartDashboard.putNumber("ShooterEnd",-10);
+    //SmartDashboard.putNumber("ShooterEnd",-10);
     Robot.m_shooter.shooterMotor.set(0);
     Feeder.setBall1Type(0);
     Feeder.setBall2Type(0);
@@ -47,7 +47,7 @@ public class RunShooter extends Command {
 
   public void interrupted() {
     Robot.m_shooter.shooterMotor.set(0);
-    SmartDashboard.putNumber("ShooterInt",-10);
+    //SmartDashboard.putNumber("ShooterInt",-10);
     Feeder.setBall1Type(0);
     Feeder.setBall2Type(0);
 

@@ -19,6 +19,8 @@ import frc.robot.subsystems.shooter.*;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.subsystems.feeder.*;
+import frc.robot.commands.feeder.*;
+
 
 
 import com.revrobotics.ColorSensorV3;
@@ -48,6 +50,7 @@ public class Robot extends TimedRobot {
   public static ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
 
   Command m_autonomousCommand;
+  Command m_getColor;
 
   public static OI m_oi;
 
@@ -74,19 +77,19 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit(){
     
-    SmartDashboard.putNumber("Left Encoder Values", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
+    // SmartDashboard.putNumber("Left Encoder Values", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
     Robot.m_drivetrain.leftMotorA.getEncoder().setPosition(0);
     Robot.m_drivetrain.leftMotorB.getEncoder().setPosition(0);
-    SmartDashboard.putNumber("Right Encoder Values", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
+    // SmartDashboard.putNumber("Right Encoder Values", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
     Robot.m_drivetrain.rightMotorA.getEncoder().setPosition(0);
     Robot.m_drivetrain.rightMotorB.getEncoder().setPosition(0);
-    SmartDashboard.putNumber("Distance Covered (Right Wheels) (In Feet)", Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.rightMotorA.getEncoder().getPosition()));
-    SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)", Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.leftMotorA.getEncoder().getPosition()));
+    // SmartDashboard.putNumber("Distance Covered (Right Wheels) (In Feet)", Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.rightMotorA.getEncoder().getPosition()));
+    // SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)", Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.leftMotorA.getEncoder().getPosition()));
     
-    SmartDashboard.putNumber("Output (Left Wheels)", 0);
-    SmartDashboard.putNumber("Output (Right Wheels)", 0);
-    SmartDashboard.putNumber("Heading ", 0);
-    SmartDashboard.putNumber("Angle ", Robot.m_navX.getAngle());
+    // SmartDashboard.putNumber("Output (Left Wheels)", 0);
+    // SmartDashboard.putNumber("Output (Right Wheels)", 0);
+    // SmartDashboard.putNumber("Heading ", 0);
+    // SmartDashboard.putNumber("Angle ", Robot.m_navX.getAngle());
     
     m_autonomousCommand = new AutoMove();
     if (m_autonomousCommand != null) {
@@ -112,21 +115,23 @@ public class Robot extends TimedRobot {
     Robot.m_drivetrain.rightMotorA.setIdleMode(CANSparkMax.IdleMode.kCoast);
     Robot.m_drivetrain.rightMotorB.setIdleMode(CANSparkMax.IdleMode.kCoast);
 
-    SmartDashboard.putNumber("Left Encoder Values", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
+    // SmartDashboard.putNumber("Left Encoder Values", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
     Robot.m_drivetrain.leftMotorA.getEncoder().setPosition(0);
     Robot.m_drivetrain.leftMotorB.getEncoder().setPosition(0);
-    SmartDashboard.putNumber("Right Encoder Values", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
+    // SmartDashboard.putNumber("Right Encoder Values", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
     Robot.m_drivetrain.rightMotorA.getEncoder().setPosition(0);
     Robot.m_drivetrain.rightMotorB.getEncoder().setPosition(0);
-    SmartDashboard.putNumber("Distance Covered (Right Wheels) (In Feet)",
-        Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.rightMotorA.getEncoder().getPosition()));
-    SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)",
-        Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.leftMotorA.getEncoder().getPosition()));
-
-    SmartDashboard.putNumber("Output (Left Wheels)", 0);
-    SmartDashboard.putNumber("Output (Right Wheels)", 0);
-    SmartDashboard.putNumber("Heading ", 0);
-    SmartDashboard.putNumber("Angle ", Robot.m_navX.getAngle());
+    
+    // SmartDashboard.putNumber("Distance Covered (Right Wheels) (In Feet)",
+    //     Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.rightMotorA.getEncoder().getPosition()));
+    // SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)",
+    //     Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.leftMotorA.getEncoder().getPosition()));
+    m_getColor = new GetColor();
+    m_getColor.start();
+    // SmartDashboard.putNumber("Output (Left Wheels)", 0);
+    // SmartDashboard.putNumber("Output (Right Wheels)", 0);
+    // SmartDashboard.putNumber("Heading ", 0);
+    // SmartDashboard.putNumber("Angle ", Robot.m_navX.getAngle());
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();

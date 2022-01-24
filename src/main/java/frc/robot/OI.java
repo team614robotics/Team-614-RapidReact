@@ -80,7 +80,7 @@ public class OI {
   public static final Button RunShooter = new JoystickButton(driverController, RobotMap.LeftBumper);
   // public static final Button RunIntakeSerializer = new JoystickButton(driverController, RobotMap.LeftBumper);
   // public static final Button RunFeeder = new JoystickButton(driverController, RobotMap.RightBumper);
-  public static final Button GetColor = new JoystickButton(driverController, RobotMap.YButton);
+  //public static final Button GetColor = new JoystickButton(driverController, RobotMap.YButton);
   // public static final Button RunLimelightLowTurnToAngle = new JoystickButton(driverController, RobotMap.BButton);
   public static final Button ToggleIntake = new JoystickButton(driverController, RobotMap.XButton);
 
@@ -97,10 +97,10 @@ public class OI {
     /* Driver Controller */
     RunShooter.whileHeld(new RunShooter());
     ToggleIntake.whenPressed(new IntakeToggle());
-    GetColor.whenPressed(new GetColor());
+    //GetColor.whenPressed(new GetColor());
 
     /* Operator Controller */
-    SmartDashboard.putNumber("Entering Climb", -1);
+    //SmartDashboard.putNumber("Entering Climb", -1);
     MoveClimberUpwards.whileHeld(new MoveClimberUpwards());
     MoveClimberDownwards.whileHeld(new MoveClimberDownwards());
   }

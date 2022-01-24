@@ -3,10 +3,10 @@ package frc.robot.commands.climber;
 // import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+//import edu.wpi.first.wpilibj.DoubleSolenoid;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.Timer;
-import com.revrobotics.CANSparkMax;
+//import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
@@ -16,30 +16,30 @@ public class MoveClimberUpwards extends Command {
 
   public MoveClimberUpwards() {
     timer = new Timer();
-    SmartDashboard.putNumber("ClimberInit", 0);
+    //SmartDashboard.putNumber("ClimberInit", 0);
     
   }
 
   // Called when the command is initially scheduled.
   public void initialize() {
     Robot.m_climber.climberMotor.set(0);
-    SmartDashboard.putNumber("ClimberInit", 1);
+    //SmartDashboard.putNumber("ClimberInit", 1);
     timer.reset();
     timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   public void execute() {
-    SmartDashboard.putNumber("ClimberExecute", 1);
+    //SmartDashboard.putNumber("ClimberExecute", 1);
     if(!Robot.m_climber.limitSwitch1.get() || !Robot.m_climber.limitSwitch2.get()) {
       // if(timer.get() > .2) {
-      SmartDashboard.putNumber("ClimberExecute", 2);
+      //SmartDashboard.putNumber("ClimberExecute", 2);
       Robot.m_climber.climberMotor.set(0);
       Robot.m_climber.climberMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
        //}
     } else {
       Robot.m_climber.climberMotor.set(0.5);
-      SmartDashboard.putNumber("ClimberExecute", 3);
+      //SmartDashboard.putNumber("ClimberExecute", 3);
     }
   }
 

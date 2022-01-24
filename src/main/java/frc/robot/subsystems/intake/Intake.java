@@ -34,7 +34,7 @@ public class Intake extends Subsystem {
       intakeMotor = new CANSparkMax(RobotMap.intakeMotorPort, MotorType.kBrushed);
       intakeSolenoidA = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, RobotMap.doubleSolenoidAPort1, RobotMap.doubleSolenoidAPort2);
       intakeSolenoidB = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, RobotMap.doubleSolenoidBPort1, RobotMap.doubleSolenoidBPort2);
-      SmartDashboard.putNumber("Intake: Intake Speed", 0.0);
+      //SmartDashboard.putNumber("Intake: Intake Speed", 0.0);
    }
 
    @Override
