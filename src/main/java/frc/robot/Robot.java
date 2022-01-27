@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.commands.chassis.AutoMove;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -41,6 +42,11 @@ public class Robot extends TimedRobot {
   public static Intake m_intake;
   public static Shooter m_shooter;
   public static Feeder m_feeder;
+  public static int allianceColor;
+  public static DriverStation ds;
+  //public static final DriverStation.Alliance R_ALLIANCE;
+  Alliance bAlliance;
+  Alliance rAlliance;
 
   private static I2C.Port i2cPort = I2C.Port.kMXP;
 
@@ -52,6 +58,7 @@ public class Robot extends TimedRobot {
 
   Command m_autonomousCommand;
   Command m_getColor;
+  // SendableChooser allianceChooser;
 
   public static OI m_oi;
 
@@ -69,10 +76,16 @@ public class Robot extends TimedRobot {
     }
     pneumatics = new Pneumatics();
 
+    // allianceChooser = new SendableChooser<>();
+    // allianceColor = 0;
+    // allianceChooser.addOption("Blue Alliance", allianceColor = 1);
+    // allianceChooser.addOption("Red Alliance", allianceColor = 2);
+
     m_intake = new Intake();
     m_shooter = new Shooter();
     m_feeder = new Feeder();
     m_oi = new OI();
+    
   }
 
   @Override
@@ -84,6 +97,14 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("Right Encoder Values", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
     Robot.m_drivetrain.rightMotorA.getEncoder().setPosition(0);
     Robot.m_drivetrain.rightMotorB.getEncoder().setPosition(0);
+    if (ds.getAlliance().toString().toLowerCase().equals("blue")) {
+      SmartDashboard.putString("Alliance: ", "Blue");
+      allianceColor = 1;
+    }
+    else if (ds.getAlliance().toString().toLowerCase().equals("red")) {
+      SmartDashboard.putString("Alliance: ", "Red");
+      allianceColor = 2;
+    }
     // SmartDashboard.putNumber("Distance Covered (Right Wheels) (In Feet)", Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.rightMotorA.getEncoder().getPosition()));
     // SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)", Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.leftMotorA.getEncoder().getPosition()));
     
@@ -123,6 +144,15 @@ public class Robot extends TimedRobot {
     Robot.m_drivetrain.rightMotorA.getEncoder().setPosition(0);
     Robot.m_drivetrain.rightMotorB.getEncoder().setPosition(0);
     
+    if (ds.getAlliance().toString().toLowerCase().equals("blue")) {
+      SmartDashboard.putString("Alliance: ", "Blue");
+      allianceColor = 1;
+    }
+    else if (ds.getAlliance().toString().toLowerCase().equals("red")) {
+      SmartDashboard.putString("Alliance: ", "Red");
+      allianceColor = 2;
+    }
+
     // SmartDashboard.putNumber("Distance Covered (Right Wheels) (In Feet)",
     //     Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.rightMotorA.getEncoder().getPosition()));
     // SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)",
@@ -149,6 +179,8 @@ public class Robot extends TimedRobot {
     // Drivetrain.kMaxSpeed;
 
     Scheduler.getInstance().run();
+    
+    // SmartDashboard.putData("Alliance Color", allianceChooser);
     SmartDashboard.putNumber("Ball 1 Type", Feeder.checkBall1());
     SmartDashboard.putNumber("Ball 2 Type", Feeder.checkBall2());
     
