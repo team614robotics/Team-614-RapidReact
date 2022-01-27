@@ -77,7 +77,7 @@ public class RobotMap {
   public static final int limitSwitchPortB = 1;
   // public static final int limitSwitchPortC = 2;
   // public static final int limitSwitchPortD = 3;
-  public static final int climberMotorPort = 7; //actually 2
+  public static final int climberMotorPort = 8; //actually 2
   // public static final double climberPValue = 0.0001;
   // public static final double climberIValue = 0;
   // public static final double climberDValue = 0;
@@ -142,7 +142,7 @@ public class RobotMap {
   // public static final int setCurrent = 30;
 
   // //Feeder
-   public static final int feederMotorPort = 8; //1 previously
+  public static final int feederMotorPort = 7; //actually 8
   // public static final double feederPValue = 5e-5;
   // public static final double feederIValue = 0;
   // public static final double feederDValue = 0;

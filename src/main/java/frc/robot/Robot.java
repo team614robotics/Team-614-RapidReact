@@ -40,6 +40,7 @@ public class Robot extends TimedRobot {
   public static Climber m_climber = new Climber();
   public static Intake m_intake;
   public static Shooter m_shooter;
+  public static Feeder m_feeder;
 
   private static I2C.Port i2cPort = I2C.Port.kMXP;
 
@@ -70,7 +71,7 @@ public class Robot extends TimedRobot {
 
     m_intake = new Intake();
     m_shooter = new Shooter();
-    
+    m_feeder = new Feeder();
     m_oi = new OI();
   }
 
@@ -127,6 +128,8 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)",
     //     Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.leftMotorA.getEncoder().getPosition()));
     m_getColor = new GetColor();
+    Feeder.setBall1Type(0);
+    Feeder.setBall2Type(0);
     m_getColor.start();
     // SmartDashboard.putNumber("Output (Left Wheels)", 0);
     // SmartDashboard.putNumber("Output (Right Wheels)", 0);

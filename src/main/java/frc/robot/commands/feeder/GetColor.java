@@ -7,6 +7,7 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.subsystems.feeder.*;
+import edu.wpi.first.wpilibj.*;
 
 //import com.revrobotics.ColorSensorV3;
 
@@ -22,7 +23,9 @@ public class GetColor extends Command{
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-        
+        isBall = false;
+        isRecorded = false;
+        Robot.m_feeder.feederMotor.set(0);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -38,9 +41,14 @@ public class GetColor extends Command{
         SmartDashboard.putNumber("IR", IR);
         if (proximity > 100){
             isBall = true;
+            Feeder.setBall(true);
         }
         else {
+            Feeder.setBall(false);
             SmartDashboard.putString("Ball Type", "NONE");
+            OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, 0);
+            OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, 0);
+            Robot.m_feeder.feederMotor.set(0);
             isRecorded = false;
             isBall = false;
         }
@@ -49,9 +57,13 @@ public class GetColor extends Command{
             if (!isRecorded && isBall){ 
                 if (Feeder.checkBall1() == 0){
                     Feeder.setBall1Type(2);
+                    OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, 0.3);
+                    Robot.m_feeder.feederMotor.set(0.5);
                 }
                 else if (Feeder.checkBall2() == 0){
                     Feeder.setBall2Type(2);
+                    OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, 0.3);
+                    Robot.m_feeder.feederMotor.set(0.5);
                 }
                 isRecorded = true;
             }
@@ -61,9 +73,14 @@ public class GetColor extends Command{
             if (!isRecorded && isBall){
                 if (Feeder.checkBall1() == 0){
                     Feeder.setBall1Type(1);
+                    OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, 0.3);
+                    Robot.m_feeder.feederMotor.set(0.5);
+
                 }
                 else if (Feeder.checkBall2() == 0){
                     Feeder.setBall2Type(1);
+                    OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, 0.3);
+                    Robot.m_feeder.feederMotor.set(0.5);
                 }
                 isRecorded = true;
             }
@@ -111,13 +128,13 @@ public class GetColor extends Command{
 
 	// Called once after isFinished returns true
 	protected void end() {
-
+        SmartDashboard.putNumber("ColorEnd", 1);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-
+        SmartDashboard.putNumber("ColorEnd", 2);
 	}
 
 
