@@ -4,9 +4,8 @@
 
 package frc.robot;
 
+import java.util.function.*;
 import edu.wpi.first.math.filter.SlewRateLimiter;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.commands.chassis.AutoMove;
 import frc.robot.subsystems.Drivetrain;
@@ -17,10 +16,11 @@ import frc.robot.subsystems.climber.*;
 import frc.robot.subsystems.pneumatics.*;
 import frc.robot.subsystems.intake.*;
 import frc.robot.subsystems.shooter.*;
-import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.subsystems.feeder.*;
 import frc.robot.commands.feeder.*;
+import edu.wpi.first.wpilibj.shuffleboard.*;
+import edu.wpi.first.wpilibj.*;
 
 
 
@@ -29,8 +29,6 @@ import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.SPI;
 
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
@@ -44,15 +42,18 @@ public class Robot extends TimedRobot {
   public static Feeder m_feeder;
   public static int allianceColor;
   public static DriverStation ds;
+  public static AddressableLED m_led;
+  public static AddressableLEDBuffer m_ledBuffer;
   //public static final DriverStation.Alliance R_ALLIANCE;
   Alliance bAlliance;
   Alliance rAlliance;
 
   private static I2C.Port i2cPort = I2C.Port.kMXP;
-
+  
 
   public static AHRS m_navX;
   public static Pneumatics pneumatics;
+  
 
   public static ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
 
@@ -85,6 +86,17 @@ public class Robot extends TimedRobot {
     m_shooter = new Shooter();
     m_feeder = new Feeder();
     m_oi = new OI();
+    m_led = new AddressableLED(0);
+    m_ledBuffer = new AddressableLEDBuffer(60);
+    m_led.setLength(m_ledBuffer.getLength());
+
+    // Set the data
+    m_led.setData(m_ledBuffer);
+    for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+      // Sets the specified LED to the RGB values for red
+      m_ledBuffer.setRGB(i, 0, 255, 0);
+    }
+    m_led.start();
     
   }
 
@@ -161,6 +173,10 @@ public class Robot extends TimedRobot {
     Feeder.setBall1Type(0);
     Feeder.setBall2Type(0);
     m_getColor.start();
+    for (var i = 0; i < Robot.m_ledBuffer.getLength(); i++) {
+      // Sets the specified LED to the RGB values for red
+      Robot.m_ledBuffer.setRGB(i, 0, 255, 0);
+    }
     // SmartDashboard.putNumber("Output (Left Wheels)", 0);
     // SmartDashboard.putNumber("Output (Right Wheels)", 0);
     // SmartDashboard.putNumber("Heading ", 0);
@@ -182,8 +198,12 @@ public class Robot extends TimedRobot {
     
     // SmartDashboard.putData("Alliance Color", allianceChooser);
     SmartDashboard.putNumber("Ball 1 Type", Feeder.checkBall1());
-    SmartDashboard.putNumber("Ball 2 Type", Feeder.checkBall2());
+    if (Feeder.checkBall1()==1){
+      // Shuffleboard.getTab("Balls").addBoolean("e", RobotMap.colorTrue).withProperties("ColorWhenTrue", Color.kBlue);
+    }
     
+    SmartDashboard.putNumber("Ball 2 Type", Feeder.checkBall2());
+    m_led.setData(m_ledBuffer);
     // Get the rate of angular rotation. We are inverting this because we want a
     // positive value when we pull to the left (remember, CCW is positive in
     // mathematics). Xbox controllers return positive values when you pull to

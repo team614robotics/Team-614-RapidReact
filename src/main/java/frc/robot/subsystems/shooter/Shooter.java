@@ -8,16 +8,31 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.DigitalInput;
 import com.revrobotics.ControlType;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.SparkMaxRelativeEncoder;
+import com.revrobotics.RelativeEncoder;
+
+import edu.wpi.first.wpilibj.*;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 //import com.playingwithfusion.*;
 
 public class Shooter extends Subsystem {
     public CANSparkMax shooterMotor;
-    
+    private SparkMaxPIDController shooterPIDController;
+    private RelativeEncoder encoder;
+
 
     public Shooter() {
         shooterMotor = new CANSparkMax(RobotMap.shooterMotorPort, MotorType.kBrushless);
         
+        shooterPIDController.setP(RobotMap.shooterPValue);
+        shooterPIDController.setI(RobotMap.shooterIValue);
+        shooterPIDController.setD(RobotMap.shooterDValue);
+        shooterPIDController.setIZone(RobotMap.shooterIZValue);
+        shooterPIDController.setFF(RobotMap.shooterFFValue);
+        shooterPIDController.setOutputRange(RobotMap.minOutput, RobotMap.maxOutput);
+        encoder = shooterMotor.getEncoder();
 
         // climberPIDController.setP(RobotMap.climberPValue);
         // climberPIDController.setI(RobotMap.climberIValue);
@@ -100,6 +115,12 @@ public class Shooter extends Subsystem {
     // public void runTMP(double setpoint) {
     //     climberPIDController.setReference(setpoint, ControlType.kSmartMotion);
     // }
+
+    public void setShooterReference(double setPoint) {
+        shooterPIDController.setReference(setPoint, com.revrobotics.CANSparkMax.ControlType.kVelocity);
+        SmartDashboard.putNumber("Shooter: Process Variable", encoder.getVelocity());
+        SmartDashboard.putNumber("Shooter: Setpoint of Current Shot", setPoint);
+      }
 
     public void setPowerOutput(double power) {
         shooterMotor.set(power);

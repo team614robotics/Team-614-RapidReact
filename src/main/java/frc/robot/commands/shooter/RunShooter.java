@@ -28,7 +28,16 @@ public class RunShooter extends Command {
       
        //}
     
-      Robot.m_shooter.shooterMotor.set(0.5);
+      //Robot.m_shooter.shooterMotor.set(0.5);
+      Robot.m_shooter.setShooterReference(4000);
+      if(Robot.m_shooter.shooterMotor.getEncoder().getVelocity() > 3000){
+        Robot.m_feeder.feederMotor.set(0.5);
+
+      }
+      else {
+        Robot.m_feeder.feederMotor.set(0);
+      }
+      
     
   }
 
@@ -41,16 +50,25 @@ public class RunShooter extends Command {
   public void end() {
     //SmartDashboard.putNumber("ShooterEnd",-10);
     Robot.m_shooter.shooterMotor.set(0);
+    Robot.m_feeder.feederMotor.set(0);
     Feeder.setBall1Type(0);
     Feeder.setBall2Type(0);
+    for (var i = 0; i < Robot.m_ledBuffer.getLength(); i++) {
+      // Sets the specified LED to the RGB values for red
+      Robot.m_ledBuffer.setRGB(i, 0, 255, 0);
+    }
   }
 
   public void interrupted() {
     Robot.m_shooter.shooterMotor.set(0);
+    Robot.m_feeder.feederMotor.set(0);
     //SmartDashboard.putNumber("ShooterInt",-10);
     Feeder.setBall1Type(0);
     Feeder.setBall2Type(0);
-
+    for (var i = 0; i < Robot.m_ledBuffer.getLength(); i++) {
+      // Sets the specified LED to the RGB values for red
+      Robot.m_ledBuffer.setRGB(i, 0, 255, 0);
+    }
   }
 
 }

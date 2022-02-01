@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import java.util.function.BooleanSupplier;
+
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -31,7 +33,7 @@ public class RobotMap {
   //Controller
   //public static final XboxController intakeController;
 
-  public static boolean isDumb = false;
+  public static boolean isDumb = false;//what is this? intake piston activation? - jonas 
   //Chassis
   public static final int leftMotorAPort = 9; //previously 1
   public static final int leftMotorBPort = 10; //previously 2
@@ -59,17 +61,17 @@ public class RobotMap {
 
 
   //Shooter
-  // public static final double shooterPValue = 0.0016;
-  // public static final double shooterIValue = 0;
-  // public static final double shooterDValue = 0;
-  // public static final double shooterIZValue = 0;
-  // public static final double shooterFFValue = 0.00019;
-  // public static final double maxOutput = 1;
-  // public static final double minOutput = -1;
-  // public static final double maxRPM = 5700;
+  public static final double shooterPValue = 0.0008;
+  public static final double shooterIValue = 0;
+  public static final double shooterDValue = 0.001;
+  public static final double shooterIZValue = 0;
+  public static final double shooterFFValue = 0.00023;
+  public static final double maxOutput = 1;
+  public static final double minOutput = -1;
+  public static final double maxRPM = 5700;
   public static final int shooterMotorPort = 6;
   // public static final int acceleratorMotorPort = 7; //5 previous
-  // public static double lowGoalSpeed = 4900;
+  // public static double lowGoalSpeed = 4000;
   // public static double highGoalSpeed = 5000;
 
   //Climber
@@ -143,6 +145,7 @@ public class RobotMap {
 
   // //Feeder
   public static final int feederMotorPort = 7; //actually 8
+  public static final BooleanSupplier colorTrue = () -> true;
   // public static final double feederPValue = 5e-5;
   // public static final double feederIValue = 0;
   // public static final double feederDValue = 0;

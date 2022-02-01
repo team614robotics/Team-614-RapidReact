@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.subsystems.feeder.*;
 import edu.wpi.first.wpilibj.*;
 
+
 //import com.revrobotics.ColorSensorV3;
 
 
@@ -51,36 +52,59 @@ public class GetColor extends Command{
             Robot.m_feeder.feederMotor.set(0);
             isRecorded = false;
             isBall = false;
+            
         }
         if (detectedColor.red>detectedColor.blue){
-            if (isBall){SmartDashboard.putString("Ball Type", "RED");}
+            if (isBall){
+                SmartDashboard.putString("Ball Type", "RED");
+                
+            }
             if (!isRecorded && isBall){ 
                 if (Feeder.checkBall1() == 0){
                     Feeder.setBall1Type(2);
                     OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, 0.3);
                     Robot.m_feeder.feederMotor.set(0.5);
+                    for (var i = 0; i < Robot.m_ledBuffer.getLength()/2; i++) {
+                        // Sets the specified LED to the RGB values for red
+                        Robot.m_ledBuffer.setRGB(i, 255, 0, 0);
+                    }
+                    
                 }
                 else if (Feeder.checkBall2() == 0){
                     Feeder.setBall2Type(2);
                     OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, 0.3);
                     Robot.m_feeder.feederMotor.set(0.5);
+                    for (var i = Robot.m_ledBuffer.getLength()/2; i < Robot.m_ledBuffer.getLength(); i++) {
+                        // Sets the specified LED to the RGB values for red
+                        Robot.m_ledBuffer.setRGB(i, 255, 0, 0);
+                    }
                 }
                 isRecorded = true;
             }
         }
         else if (detectedColor.blue>detectedColor.red){
-            if (isBall){SmartDashboard.putString("Ball Type", "BLUE");}
+            if (isBall){
+                SmartDashboard.putString("Ball Type", "BLUE");
+                
+            }
             if (!isRecorded && isBall){
                 if (Feeder.checkBall1() == 0){
                     Feeder.setBall1Type(1);
                     OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, 0.3);
                     Robot.m_feeder.feederMotor.set(0.5);
-
+                    for (var i = 0; i < Robot.m_ledBuffer.getLength()/2; i++) {
+                        // Sets the specified LED to the RGB values for red
+                        Robot.m_ledBuffer.setRGB(i, 255, 0, 0);
+                    }
                 }
                 else if (Feeder.checkBall2() == 0){
                     Feeder.setBall2Type(1);
                     OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, 0.3);
                     Robot.m_feeder.feederMotor.set(0.5);
+                    for (var i = Robot.m_ledBuffer.getLength()/2; i < Robot.m_ledBuffer.getLength(); i++) {
+                        // Sets the specified LED to the RGB values for red
+                        Robot.m_ledBuffer.setRGB(i, 255, 0, 0);
+                    }
                 }
                 isRecorded = true;
             }
