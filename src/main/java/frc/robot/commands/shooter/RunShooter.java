@@ -30,6 +30,7 @@ public class RunShooter extends Command {
     
       //Robot.m_shooter.shooterMotor.set(0.5);
       Robot.m_shooter.setShooterReference(4000);
+      SmartDashboard.putNumber("Shooter Velocity", Robot.m_shooter.shooterMotor.getEncoder().getVelocity());
       if(Robot.m_shooter.shooterMotor.getEncoder().getVelocity() > 3000){
         Robot.m_feeder.feederMotor.set(0.5);
 

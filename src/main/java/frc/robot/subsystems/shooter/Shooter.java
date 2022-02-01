@@ -25,7 +25,8 @@ public class Shooter extends Subsystem {
 
     public Shooter() {
         shooterMotor = new CANSparkMax(RobotMap.shooterMotorPort, MotorType.kBrushless);
-        
+        shooterPIDController = shooterMotor.getPIDController();
+
         shooterPIDController.setP(RobotMap.shooterPValue);
         shooterPIDController.setI(RobotMap.shooterIValue);
         shooterPIDController.setD(RobotMap.shooterDValue);
