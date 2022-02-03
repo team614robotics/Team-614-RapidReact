@@ -62,7 +62,18 @@ public class GetColor extends Command{
             if (!isRecorded && isBall){ 
                 if (Feeder.checkBall1() == 0){
                     Feeder.setBall1Type(2);
-                    OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, 0.3);
+                    //Rumbles more if the ball is ours
+                    if (Robot.allianceColor == 2){
+                        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, 0.7);
+                    }
+                    else if (Robot.allianceColor == 1){
+                        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, 0.2);
+                    }
+                    else {
+                        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, 0.3);
+                    }
+                    
+                    
                     Robot.m_feeder.feederMotor.set(0.5);
                     for (var i = 0; i < Robot.m_ledBuffer.getLength()/2; i++) {
                         // Sets the specified LED to the RGB values for red
@@ -90,11 +101,21 @@ public class GetColor extends Command{
             if (!isRecorded && isBall){
                 if (Feeder.checkBall1() == 0){
                     Feeder.setBall1Type(1);
-                    OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, 0.3);
+                    //Rumbles more if the ball is ours
+                    if (Robot.allianceColor == 1){
+                        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, 0.7);
+                    }
+                    else if (Robot.allianceColor == 2){
+                        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, 0.2);
+                    }
+                    else {
+                        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, 0.3);
+                    }
+
                     Robot.m_feeder.feederMotor.set(0.5);
                     for (var i = 0; i < Robot.m_ledBuffer.getLength()/2; i++) {
                         // Sets the specified LED to the RGB values for red
-                        Robot.m_ledBuffer.setRGB(i, 255, 0, 0);
+                        Robot.m_ledBuffer.setRGB(i, 0, 0, 255);
                     }
                 }
                 else if (Feeder.checkBall2() == 0){
@@ -103,7 +124,7 @@ public class GetColor extends Command{
                     Robot.m_feeder.feederMotor.set(0.5);
                     for (var i = Robot.m_ledBuffer.getLength()/2; i < Robot.m_ledBuffer.getLength(); i++) {
                         // Sets the specified LED to the RGB values for red
-                        Robot.m_ledBuffer.setRGB(i, 255, 0, 0);
+                        Robot.m_ledBuffer.setRGB(i, 0, 0, 255);
                     }
                 }
                 isRecorded = true;
