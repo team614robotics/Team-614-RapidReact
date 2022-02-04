@@ -84,7 +84,7 @@ public class OI {
   // public static final Button RunLimelightLowTurnToAngle = new JoystickButton(driverController, RobotMap.BButton);
   public static final Button ToggleIntake = new JoystickButton(driverController, RobotMap.XButton);
 
-  //Intake controller
+  //Operator controller
   public static final XboxController operatorController = new XboxController(1);
   
   public static final Button MoveClimberUpwards = new JoystickButton(operatorController, RobotMap.LeftBumper);
