@@ -109,6 +109,7 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("Right Encoder Values", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
     Robot.m_drivetrain.rightMotorA.getEncoder().setPosition(0);
     Robot.m_drivetrain.rightMotorB.getEncoder().setPosition(0);
+    Robot.m_intake.intakeMotor.setSmartCurrentLimit(RobotMap.intakeCurrentLimit);
     if (ds.getAlliance().toString().toLowerCase().equals("blue")) {
       SmartDashboard.putString("Alliance: ", "Blue");
       allianceColor = 1;

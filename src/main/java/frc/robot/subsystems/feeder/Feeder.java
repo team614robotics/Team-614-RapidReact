@@ -19,8 +19,8 @@ public class Feeder extends Subsystem
 
     public Feeder(){
         feederMotor = new CANSparkMax(RobotMap.feederMotorPort, MotorType.kBrushless);
-        ball1Type = 0;
-        ball2Type = 0;
+        ball1Type = RobotMap.noBall;
+        ball2Type = RobotMap.noBall;
         ball = false;
     } 
     

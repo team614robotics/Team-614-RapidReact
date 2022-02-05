@@ -39,7 +39,7 @@ public class Intake extends Subsystem {
 
    @Override
    public void initDefaultCommand() {
-      setDefaultCommand(new RunIntakeBasic(0.5));
+      setDefaultCommand(new RunIntakeBasic(RobotMap.intakeSpeed));
    }
 
    public DoubleSolenoid.Value getDoubleSolenoidA() {

@@ -30,6 +30,10 @@ public class RobotMap {
   // number and the module. For example you with a rangefinder:
   // public static int rangefinderPort = 1;
 
+  //Alliance
+  public static final int BlueAlliance = 1;
+  public static final int RedAlliance = 2;
+  
   //Controller
   //public static final XboxController intakeController;
 
@@ -58,6 +62,11 @@ public class RobotMap {
   public static final double chassisVelocityIZValue = 0;
   public static final double chassisVelocityMinOutput = -1;
   public static final double chassisVelocityMaxOutput = 1;
+  public static final double autoArcadeSpeed = .8 * Math.pow(0.5,2);
+  public static final double autoRotateValue = 0;
+
+  public static final double staticArcadeDriveValue = 0.8;
+  
 
 
   //Shooter
@@ -70,6 +79,11 @@ public class RobotMap {
   public static final double minOutput = -1;
   public static final double maxRPM = 5700;
   public static final int shooterMotorPort = 6;
+  public static final double turnOffShooterMotor = 0;
+  public static final double autoShooterSpeed = 0.5;
+  public static final int shooterVelocitySetpointOurs = 4000;
+  public static final int shooterVelocityThreshold = 3000;
+  public static final int shooterVelocitySetpointOpposing = 3500;
   // public static final int acceleratorMotorPort = 7; //5 previous
   // public static double lowGoalSpeed = 4000;
   // public static double highGoalSpeed = 5000;
@@ -94,6 +108,10 @@ public class RobotMap {
   // public static final int climberSmartMotionPort = 0;
   // public static final int climberPistonPortA = 0;
   // public static final int climberPistonPortB = 1;
+  public static final double initalClimberMotor = 0;
+  public static final double turnOffClimberMotor = 0;
+  public static final double moveClimberDown = -0.5;
+  public static final double moveClimberUp = 0.5;
   
   //Intake
   public static final int intakeMotorPort = 50; //3 next? previously 8
@@ -101,6 +119,9 @@ public class RobotMap {
   public static final int doubleSolenoidAPort2 = 5;
   public static final int doubleSolenoidBPort1 = 6;//we will remove double solenoid B
   public static final int doubleSolenoidBPort2 = 7;
+  public static final double turnOffIntakeMotor = 0;
+  public static final double intakeSpeed = 0.5;
+  public static final int intakeCurrentLimit = 25;
 
   // //Vision 
   // public static final double limelightToTarget = 25.7;
@@ -137,6 +158,7 @@ public class RobotMap {
    public static final int RightStick = 10;
    public static final int driverPort = 0;
    public static final int operatorPort = 2;
+   public static final double triggerPressed = 0.5;
 
   // //Serializer
   // public static final int serializerMotorPortA = 3; //previously 9
@@ -151,4 +173,26 @@ public class RobotMap {
   // public static final double feederDValue = 0;
   // public static final double feederIZValue = 0;
   // public static final double feederFFValue = 0;
+  public static final double initalizeFeederMotor = 0;
+  public static final double turnOffFeederMotor = 0; 
+  public static final int ballProximity = 100; 
+  public static final int colorMultiplier = 255;
+  public static final double rumbleOff = 0;
+  public static final double rumbleOurBall = 0.7;
+  public static final double rumbleOpposingBall = 0.2;
+  public static final double neutralRumble = 0.4;
+  public static final int noBall = 0;
+  public static final int blueBall = 1;
+  public static final int redBall = 2;
+  public static final int blueRValue = 0;
+  public static final int blueGValue = 0;
+  public static final int blueBValue = 255;
+  public static final int redRValue = 255;
+  public static final int redGValue = 0;
+  public static final int redBValue = 0;
+  public static final int defaultRValue = 0;
+  public static final int defaultGValue = 255;
+  public static final int defaultBValue = 0;
+  public static final double feederSpeed = 0.5;
+
 }

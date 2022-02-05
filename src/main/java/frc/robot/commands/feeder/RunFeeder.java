@@ -20,7 +20,7 @@ public class RunFeeder extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-        Robot.m_feeder.feederMotor.set(0);
+        Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
 		// Robot.m_intake.setDoubleSolenoidA(Robot.m_intake.pistonIn);
 		// Robot.m_intake.setDoubleSolenoidB(Robot.m_intake.pistonOut);
         // Robot.m_intake.setDoubleSolenoidB(Robot.m_intake.pistonOut);
@@ -46,7 +46,7 @@ public class RunFeeder extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.m_intake.intakeMotor.set(0);
+		Robot.m_intake.intakeMotor.set(RobotMap.turnOffIntakeMotor);
 		// Robot.m_serializer.serializerMotorA.set(0);
 		// Robot.m_serializer.serializerMotorB.set(0);
 		// Robot.m_feeder.feederMotor.set(0);
@@ -58,7 +58,7 @@ public class RunFeeder extends Command {
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		Robot.m_feeder.feederMotor.set(0);
+		Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
 		// Robot.m_serializer.serializerMotorA.set(0);
 		// Robot.m_serializer.serializerMotorB.set(0);
 		// Robot.m_feeder.feederMotor.set(0);

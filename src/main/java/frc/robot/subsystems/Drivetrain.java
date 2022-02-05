@@ -56,29 +56,29 @@ public class Drivetrain extends Subsystem {
         leftMotorB.follow(leftMotorA);
         rightMotorB.follow(rightMotorA);
 
-        leftMotorA.getPIDController().setP(5e-5);
-        leftMotorA.getPIDController().setI(1e-6);
-        leftMotorA.getPIDController().setD(0);
-        leftMotorA.getPIDController().setIZone(0);
-        leftMotorA.getPIDController().setFF(0);
-        leftMotorA.getPIDController().setOutputRange(-1, 1);
+        // leftMotorA.getPIDController().setP(5e-5);
+        // leftMotorA.getPIDController().setI(1e-6);
+        // leftMotorA.getPIDController().setD(0);
+        // leftMotorA.getPIDController().setIZone(0);
+        // leftMotorA.getPIDController().setFF(0);
+        // leftMotorA.getPIDController().setOutputRange(-1, 1);
         
-        rightMotorA.getPIDController().setP(5e-6);
-        rightMotorA.getPIDController().setI(1e-6);
-        rightMotorA.getPIDController().setD(0);
-        rightMotorA.getPIDController().setIZone(0);
-        rightMotorA.getPIDController().setFF(0);
-        rightMotorA.getPIDController().setOutputRange(-1, 1);
+        // rightMotorA.getPIDController().setP(5e-6);
+        // rightMotorA.getPIDController().setI(1e-6);
+        // rightMotorA.getPIDController().setD(0);
+        // rightMotorA.getPIDController().setIZone(0);
+        // rightMotorA.getPIDController().setFF(0);
+        // rightMotorA.getPIDController().setOutputRange(-1, 1);
 
-        leftMotorA.getPIDController().setSmartMotionMaxVelocity(2000, 0);
-        leftMotorA.getPIDController().setSmartMotionMinOutputVelocity(0, 0);
-        leftMotorA.getPIDController().setSmartMotionMaxAccel(1000, 0);
-        leftMotorA.getPIDController().setSmartMotionAllowedClosedLoopError(0, 0);
+        // leftMotorA.getPIDController().setSmartMotionMaxVelocity(2000, 0);
+        // leftMotorA.getPIDController().setSmartMotionMinOutputVelocity(0, 0);
+        // leftMotorA.getPIDController().setSmartMotionMaxAccel(1000, 0);
+        // leftMotorA.getPIDController().setSmartMotionAllowedClosedLoopError(0, 0);
 
-        rightMotorA.getPIDController().setSmartMotionMaxVelocity(3000, 0);
-        rightMotorA.getPIDController().setSmartMotionMinOutputVelocity(0, 0);
-        rightMotorA.getPIDController().setSmartMotionMaxAccel(1000, 0);
-        rightMotorA.getPIDController().setSmartMotionAllowedClosedLoopError(0, 0);
+        // rightMotorA.getPIDController().setSmartMotionMaxVelocity(3000, 0);
+        // rightMotorA.getPIDController().setSmartMotionMinOutputVelocity(0, 0);
+        // rightMotorA.getPIDController().setSmartMotionMaxAccel(1000, 0);
+        // rightMotorA.getPIDController().setSmartMotionAllowedClosedLoopError(0, 0);
 
         
 
@@ -119,9 +119,9 @@ public class Drivetrain extends Subsystem {
     }
 
 
-    public double distanceInFeet(double encoderValue) {
-        return encoderValue * (((RobotMap.wheelDiameter / 12) * Math.PI) / RobotMap.ticksInARevolution);
-    }
+    // public double distanceInFeet(double encoderValue) {
+    //     return encoderValue * (((RobotMap.wheelDiameter / 12) * Math.PI) / RobotMap.ticksInARevolution);
+    // }
 
     public void resetDrivetrain() {
         Robot.m_navX.reset();

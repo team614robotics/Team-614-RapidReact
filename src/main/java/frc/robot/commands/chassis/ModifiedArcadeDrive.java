@@ -18,7 +18,8 @@ public class ModifiedArcadeDrive extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.m_drivetrain.arcadeDrive(.8 * (OI.driverController.getLeftY() < 0 ? -Math.pow(OI.driverController.getLeftY(), 2) : Math.pow(OI.driverController.getLeftY(), 2)), .8 * (OI.driverController.getRightX() < 0 ? Math.pow(OI.driverController.getRightX(), 2) : -Math.pow(OI.driverController.getRightX(), 2)));
+		Robot.m_drivetrain.arcadeDrive(RobotMap.staticArcadeDriveValue * (OI.driverController.getLeftY() < 0 ? -Math.pow(OI.driverController.getLeftY(), 2) : Math.pow(OI.driverController.getLeftY(), 2)), 
+		RobotMap.staticArcadeDriveValue * (OI.driverController.getRightX() < 0 ? Math.pow(OI.driverController.getRightX(), 2) : -Math.pow(OI.driverController.getRightX(), 2)));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

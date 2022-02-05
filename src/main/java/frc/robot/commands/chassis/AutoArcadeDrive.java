@@ -4,6 +4,7 @@ import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.RobotMap;
 
 public class AutoArcadeDrive extends Command {
 	public static Timer timer;
@@ -31,8 +32,7 @@ public class AutoArcadeDrive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		if (timer2.get() < 5) {
-			Robot.m_drivetrain.arcadeDrive(.8 * (0.5 < 0 ? -Math.pow(0.5, 2) 
-			: Math.pow(0.5, 2)), 0); 
+			Robot.m_drivetrain.arcadeDrive(RobotMap.autoArcadeSpeed, RobotMap.autoRotateValue); 
 		}
 		//.8 * (0 < 0 ? Math.pow(0, 2) : -Math.pow(0, 2)));
 	}

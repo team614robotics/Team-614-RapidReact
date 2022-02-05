@@ -3,6 +3,7 @@ package frc.robot.commands.shooter;
 // import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMax;
@@ -22,7 +23,7 @@ public class AutoShoot extends Command {
 
   // Called when the command is initially scheduled.
   public void initialize() {
-    Robot.m_shooter.shooterMotor.set(0);
+    Robot.m_shooter.shooterMotor.set(RobotMap.turnOffShooterMotor);
     timer.reset();
 		timer2.reset();
 		timer.start();
@@ -33,11 +34,11 @@ public class AutoShoot extends Command {
   public void execute() {
     // Robot.m_shooter.motorBrake.set(DoubleSolenoid.Value.kReverse);
     if (timer2.get() < 5) {
-      Robot.m_shooter.shooterMotor.set(0.5);
+      Robot.m_shooter.shooterMotor.set(RobotMap.autoShooterSpeed);
     }
       
     else{
-      Robot.m_shooter.shooterMotor.set(0);
+      Robot.m_shooter.shooterMotor.set(RobotMap.turnOffShooterMotor);
       isFinished = true;
 
     }  
@@ -53,11 +54,11 @@ public class AutoShoot extends Command {
 
   // Called once the command ends or is interrupted.
   public void end() {
-    Robot.m_shooter.shooterMotor.set(0);
+    Robot.m_shooter.shooterMotor.set(RobotMap.turnOffShooterMotor);
   }
 
   public void interrupted() {
-    Robot.m_shooter.shooterMotor.set(0);
+    Robot.m_shooter.shooterMotor.set(RobotMap.turnOffShooterMotor);
   }
 
 }

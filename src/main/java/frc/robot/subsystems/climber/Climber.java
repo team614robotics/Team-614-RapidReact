@@ -141,7 +141,7 @@ public class Climber extends Subsystem {
     public void interruptClimberTop(double state) {
         //climber.set(checkTop() ? 0 : state);
         if(checkTop()) {
-            climberMotor.set(0);
+            climberMotor.set(RobotMap.turnOffClimberMotor);
         }
         else {
             climberMotor.set(state);
@@ -151,7 +151,7 @@ public class Climber extends Subsystem {
     public void interruptClimberBottom(double state) {
         if(checkBottom())
         {
-            climberMotor.set(0);
+            climberMotor.set(RobotMap.turnOffClimberMotor);
         }
         else {
             climberMotor.set(state);

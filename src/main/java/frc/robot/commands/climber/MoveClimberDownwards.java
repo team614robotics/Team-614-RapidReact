@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotMap;
 
 public class MoveClimberDownwards extends Command {
 
@@ -16,7 +17,7 @@ public class MoveClimberDownwards extends Command {
 
   // Called when the command is initially scheduled.
   public void initialize() {
-    Robot.m_climber.climberMotor.set(0);
+    Robot.m_climber.climberMotor.set(RobotMap.initalClimberMotor);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -25,11 +26,11 @@ public class MoveClimberDownwards extends Command {
     if(!Robot.m_climber.limitSwitch1.get() || !Robot.m_climber.limitSwitch2.get()) {
       // if(timer.get() > .2) {
       
-      Robot.m_climber.climberMotor.set(0);
+      Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);
       Robot.m_climber.climberMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
        //}
     } else {
-      Robot.m_climber.climberMotor.set(-0.5);
+      Robot.m_climber.climberMotor.set(RobotMap.moveClimberDown);
     }
   }
 
@@ -40,12 +41,12 @@ public class MoveClimberDownwards extends Command {
 
   // Called once the command ends or is interrupted.
   public void end() {
-    Robot.m_climber.climberMotor.set(0);
+    Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);
     Robot.m_climber.climberMotor.setIdleMode(IdleMode.kBrake);
   }
 
   public void interrupted() {
-    Robot.m_climber.climberMotor.set(0);
+    Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);
     Robot.m_climber.climberMotor.setIdleMode(IdleMode.kBrake);
   }
 
