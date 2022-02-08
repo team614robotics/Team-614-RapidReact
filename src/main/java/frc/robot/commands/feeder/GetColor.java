@@ -15,8 +15,8 @@ import frc.robot.RobotMap;
 
 
 public class GetColor extends Command{
-    boolean isBall = false;
-    boolean isRecorded = false;
+    boolean isBall = false; //j if there is a ball in system true
+    boolean isRecorded = false;//j what is the point of knowing if the ball is recorded
 
     public GetColor() {
 		// Use requires() here to declare subsystem dependencies
@@ -61,28 +61,28 @@ public class GetColor extends Command{
                 
             }
             if (!isRecorded && isBall){ 
-                if (Feeder.checkBall1() == RobotMap.noBall){
+                if (Feeder.checkBall1() == RobotMap.noBall){ //j checks for first ball if not puts red ball into ball1
                     Feeder.setBall1Type(RobotMap.RedAlliance);
                     //Rumbles more if the ball is ours
-                    if (Robot.allianceColor == RobotMap.RedAlliance){
+                     if (Robot.allianceColor == RobotMap.RedAlliance){ //j allianceColor = 1 if blue = 2 if red
                         OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOurBall);
                     }
                     else if (Robot.allianceColor == RobotMap.BlueAlliance){
                         OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOpposingBall);
                     }
                     else {
-                        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
+                        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);//j allaianceColor never != 1 or 2?
                     }
                     
                     
                     Robot.m_feeder.feederMotor.set(RobotMap.feederSpeed);
-                    for (var i = 0; i < Robot.m_ledBuffer.getLength()/2; i++) {
+                    for (var i = 0; i < Robot.m_ledBuffer.getLength()/2; i++) {//j sets the first half of the LEDs to red
                         // Sets the specified LED to the RGB values for red
                         Robot.m_ledBuffer.setRGB(i, RobotMap.redRValue, RobotMap.redGValue, RobotMap.redBValue);
                     }
                     
                 }
-                else if (Feeder.checkBall2() == RobotMap.noBall){
+                else if (Feeder.checkBall2() == RobotMap.noBall){//j checks for second ball if not puts red ball into ball2
                     Feeder.setBall2Type(RobotMap.RedAlliance);
                     if (Robot.allianceColor == RobotMap.RedAlliance){
                         OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOurBall);
@@ -94,16 +94,15 @@ public class GetColor extends Command{
                         OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
                     }
                     Robot.m_feeder.feederMotor.set(RobotMap.feederSpeed);
-                    for (var i = Robot.m_ledBuffer.getLength()/2; i < Robot.m_ledBuffer.getLength(); i++) {
+                    for (var i = Robot.m_ledBuffer.getLength()/2; i < Robot.m_ledBuffer.getLength(); i++) {//j sets the second half of the LEDs to red
                         // Sets the specified LED to the RGB values for red
                         Robot.m_ledBuffer.setRGB(i, RobotMap.redRValue, RobotMap.redGValue, RobotMap.redBValue);
                     }
                 }
                 isRecorded = true;
-            }
         }
-        else if (detectedColor.blue>detectedColor.red){
-            if (isBall){
+        else if (detectedColor.blue>detectedColor.red){//j why is this here if is not red it has to be blue
+            if (isBall){                               //j does the same thing but for if the ball is blue
                 SmartDashboard.putString("Ball Type", "BLUE");
                 
             }
@@ -147,6 +146,7 @@ public class GetColor extends Command{
                 isRecorded = true;
             }
         }
+    }
         
         
         // if (130>=(detectedColor.blue*255)&&(detectedColor.blue*255)>=100){

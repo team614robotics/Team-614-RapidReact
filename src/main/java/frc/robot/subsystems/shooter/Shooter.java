@@ -1,7 +1,7 @@
 package frc.robot.subsystems.shooter;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import com.revrobotics.CANPIDController;
+// import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -30,7 +30,7 @@ public class Shooter extends Subsystem {
         shooterPIDController.setP(RobotMap.shooterPValue);
         shooterPIDController.setI(RobotMap.shooterIValue);
         shooterPIDController.setD(RobotMap.shooterDValue);
-        shooterPIDController.setIZone(RobotMap.shooterIZValue);
+        //shooterPIDController.setIZone(RobotMap.shooterIZValue);
         shooterPIDController.setFF(RobotMap.shooterFFValue);
         shooterPIDController.setOutputRange(RobotMap.minOutput, RobotMap.maxOutput);
         encoder = shooterMotor.getEncoder();

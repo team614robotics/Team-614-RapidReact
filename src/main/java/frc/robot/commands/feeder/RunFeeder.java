@@ -46,8 +46,8 @@ public class RunFeeder extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.m_intake.intakeMotor.set(RobotMap.turnOffIntakeMotor);
-		// Robot.m_serializer.serializerMotorA.set(0);
+		Robot.m_intake.intakeMotor.set(RobotMap.turnOffFeederMotor);//j should this be .turnOffFeederMotor
+		// Robot.m_serializer.serializerMotorA.set(0);                j should we just have 1 .turnOffMotor they all = 0.0
 		// Robot.m_serializer.serializerMotorB.set(0);
 		// Robot.m_feeder.feederMotor.set(0);
 		// Robot.m_intake.setDoubleSolenoidA(Robot.m_intake.pistonIn);

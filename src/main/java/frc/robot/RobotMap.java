@@ -73,7 +73,7 @@ public class RobotMap {
   public static final double shooterPValue = 0.0008;
   public static final double shooterIValue = 0;
   public static final double shooterDValue = 0.001;
-  public static final double shooterIZValue = 0;
+  // public static final double shooterIZValue = 0;
   public static final double shooterFFValue = 0.00023;
   public static final double maxOutput = 1;
   public static final double minOutput = -1;
@@ -81,12 +81,13 @@ public class RobotMap {
   public static final int shooterMotorPort = 6;
   public static final double turnOffShooterMotor = 0;
   public static final double autoShooterSpeed = 0.5;
-  public static final int shooterVelocitySetpointOurs = 4000;
-  public static final int shooterVelocityThreshold = 3000;
+  public static final int shooterVelocitySetpointOurs = 3600;
+  public static final int shooterVelocityThreshold = 3550;
   public static final int shooterVelocitySetpointOpposing = 3500;
   // public static final int acceleratorMotorPort = 7; //5 previous
   // public static double lowGoalSpeed = 4000;
   // public static double highGoalSpeed = 5000;
+  public static final int autoShootTime = 5;
 
   //Climber
   public static final int limitSwitchPortA = 0;
@@ -94,11 +95,12 @@ public class RobotMap {
   // public static final int limitSwitchPortC = 2;
   // public static final int limitSwitchPortD = 3;
   public static final int climberMotorPort = 8; //actually 2
-  // public static final double climberPValue = 0.0001;
-  // public static final double climberIValue = 0;
-  // public static final double climberDValue = 0;
+  public static final double climberPValue = 0.0008;
+  public static final double climberIValue = 0;
+  public static final double climberDValue = 0.001;
   // public static final double climberIZValue = 0;
-  // public static final double climberFFValue = 0.2;
+  public static final double climberFFValue = 0.2;
+  public static final int climberVelocitySetpoint = 2000;
   // public static final double climberMinOutput = -1;
   // public static final double climberMaxOutput = 1;
   // public static final double climberMaxVel = 2000;
@@ -194,5 +196,6 @@ public class RobotMap {
   public static final int defaultGValue = 255;
   public static final int defaultBValue = 0;
   public static final double feederSpeed = 0.5;
+  public static final int colorTime = 5;
 
 }

@@ -33,7 +33,7 @@ public class AutoShoot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   public void execute() {
     // Robot.m_shooter.motorBrake.set(DoubleSolenoid.Value.kReverse);
-    if (timer2.get() < 5) {
+    if (timer2.get() < RobotMap.autoShootTime) {
       Robot.m_shooter.shooterMotor.set(RobotMap.autoShooterSpeed);
     }
       

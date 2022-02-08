@@ -58,7 +58,7 @@ public class Robot extends TimedRobot {
   public static ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
 
   Command m_autonomousCommand;
-  Command m_getColor;
+  //Command m_getColor;
   // SendableChooser allianceChooser;
 
   public static OI m_oi;
@@ -170,10 +170,10 @@ public class Robot extends TimedRobot {
     //     Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.rightMotorA.getEncoder().getPosition()));
     // SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)",
     //     Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.leftMotorA.getEncoder().getPosition()));
-    m_getColor = new GetColor();
+    // m_getColor = new GetColor();
     Feeder.setBall1Type(0);
     Feeder.setBall2Type(0);
-    m_getColor.start();
+    //m_getColor.start();
     for (var i = 0; i < Robot.m_ledBuffer.getLength(); i++) {
       // Sets the specified LED to the RGB values for red
       Robot.m_ledBuffer.setRGB(i, 0, 255, 0);

@@ -36,12 +36,11 @@ public class MoveClimberUpwards extends Command {
       // if(timer.get() > .2) {
       //SmartDashboard.putNumber("ClimberExecute", 2);
       Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);
-      Robot.m_climber.climberMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
        //}
     } else {
-      Robot.m_climber.climberMotor.set(RobotMap.moveClimberUp);
-      //SmartDashboard.putNumber("ClimberExecute", 3);
+      Robot.m_climber.climberPIDController.setReference(RobotMap.climberVelocitySetpoint, com.revrobotics.CANSparkMax.ControlType.kVelocity);      //SmartDashboard.putNumber("ClimberExecute", 3);
     }
+    
   }
 
     // Returns true when the command should end.

@@ -1,7 +1,8 @@
 package frc.robot.subsystems.climber;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import com.revrobotics.CANPIDController;
+// import com.revrobotics.CANPIDController;
+import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -13,7 +14,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class Climber extends Subsystem {
     public CANSparkMax climberMotor;
-    public CANPIDController climberPIDController;
+    public SparkMaxPIDController climberPIDController;
     public DigitalInput limitSwitch1;
     public DigitalInput limitSwitch2;
     public DigitalInput limitSwitch3;
@@ -28,10 +29,11 @@ public class Climber extends Subsystem {
         climberMotor = new CANSparkMax(RobotMap.climberMotorPort, MotorType.kBrushless);
         climberPIDController = climberMotor.getPIDController();
 
-        // climberPIDController.setP(RobotMap.climberPValue);
-        // climberPIDController.setI(RobotMap.climberIValue);
-        // climberPIDController.setD(RobotMap.climberDValue);
-        // climberPIDController.setFF(RobotMap.climberFFValue);
+
+        climberPIDController.setP(RobotMap.climberPValue);
+        climberPIDController.setI(RobotMap.climberIValue);
+        climberPIDController.setD(RobotMap.climberDValue);
+        climberPIDController.setFF(RobotMap.climberFFValue);
         // climberPIDController.setIZone(RobotMap.climberIZValue);
 
         // climberPIDController.setSmartMotionMaxVelocity(RobotMap.climberMaxVel, RobotMap.climberSmartMotionPort);
