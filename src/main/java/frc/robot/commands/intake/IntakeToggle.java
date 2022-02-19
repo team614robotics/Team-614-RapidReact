@@ -18,13 +18,14 @@ public class IntakeToggle extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		// Robot.arm.sparkMaxB.setInverted(true);
+		//isDumb checks whether the piston is extended
 	  RobotMap.isDumb = !RobotMap.isDumb;
       if(RobotMap.isDumb) {
         Robot.m_intake.intakeSolenoidA.set(DoubleSolenoid.Value.kReverse);
-        Robot.m_intake.intakeSolenoidB.set(DoubleSolenoid.Value.kForward);
+        Robot.m_intake.intakeSolenoidB.set(DoubleSolenoid.Value.kReverse);
       } else {
         Robot.m_intake.intakeSolenoidA.set(DoubleSolenoid.Value.kForward);
-    	Robot.m_intake.intakeSolenoidB.set(DoubleSolenoid.Value.kReverse);
+    	Robot.m_intake.intakeSolenoidB.set(DoubleSolenoid.Value.kForward);
       }
 	}
 

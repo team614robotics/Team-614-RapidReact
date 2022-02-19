@@ -21,11 +21,13 @@ public class RunIntakeBasic extends Command {
 	Command intakeGetColor = new GetColor();
 	Timer timer;
 	boolean continueColor;
-	public RunIntakeBasic(double speed) {
+	boolean doColor;
+	public RunIntakeBasic(double speed, boolean doColor) {
         requires(Robot.m_intake);
         this.speed = speed;
 		timer = new Timer();
 		continueColor = false;
+		this.doColor = doColor;
 	}
 
 	// Called just before this Command runs the first time
@@ -42,34 +44,27 @@ public class RunIntakeBasic extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if(OI.driverController.getLeftTriggerAxis() > RobotMap.triggerPressed) {
-		intakeGetColor.start();
-		Robot.m_intake.intakeMotor.set(speed);
+
+		if (doColor){
+			intakeGetColor.start();
+		}
+			Robot.m_intake.intakeMotor.set(speed);
 		continueColor = true;
 
 			
 		// Robot.m_serializer.serializerMotorA.set(-0.35);
 		// Robot.m_serializer.serializerMotorB.set(0.2);
 		//Robot.m_feeder.changeCounterBasic();
-	    } 
-		else {
-			Robot.m_intake.intakeMotor.set(RobotMap.turnOffIntakeMotor);
-			if (continueColor == true){
-				timer.start();
-				if (timer.get() > RobotMap.colorTime){
-					intakeGetColor.cancel();
-					timer.stop();
-					continueColor = false;
-					timer.reset();
-				}
-			}
+	} 
+		
+			
 
 				
 		// Robot.m_serializer.serializerMotorA.set(0);
 		// Robot.m_serializer.serializerMotorB.set(0);
 		// Robot.m_feeder.feederMotor.set(0);
-		}
-	}
+		
+	
 
 	// Make this return true when this Command no lo
 	protected boolean isFinished() {
@@ -79,7 +74,17 @@ public class RunIntakeBasic extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
 		Robot.m_intake.intakeMotor.set(RobotMap.turnOffIntakeMotor);
-		
+		if (doColor){
+			if (continueColor == true){
+				timer.start();
+				if (timer.get() > RobotMap.colorTime){
+					intakeGetColor.cancel();
+					timer.stop();
+					continueColor = false;
+					timer.reset();
+				}
+			}
+		}
 		//Robot.m_feeder.feederMotor.set(0);
 		// Robot.m_serializer.serializerMotorA.set(0);
 		// Robot.m_serializer.serializerMotorB.set(0);
@@ -93,6 +98,17 @@ public class RunIntakeBasic extends Command {
 	// subsystems is scheduled to run
 	protected void interrupted() {
 		Robot.m_intake.intakeMotor.set(RobotMap.turnOffIntakeMotor);
+		if (doColor){
+			if (continueColor == true){
+				timer.start();
+				if (timer.get() > RobotMap.colorTime){
+					intakeGetColor.cancel();
+					timer.stop();
+					continueColor = false;
+					timer.reset();
+				}
+			}
+		}
 		//Robot.m_feeder.feederMotor.set(0);
 		// Robot.m_serializer.serializerMotorA.set(0);
 		// Robot.m_serializer.serializerMotorB.set(0);

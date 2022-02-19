@@ -30,7 +30,9 @@ public class MoveClimberDownwards extends Command {
       Robot.m_climber.climberMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
        //}
     } else {
-      Robot.m_climber.climberPIDController.setReference(-RobotMap.climberVelocitySetpoint, com.revrobotics.CANSparkMax.ControlType.kVelocity);    }
+      Robot.m_climber.climberPIDController.setReference(-1 * RobotMap.climberVelocitySetpoint, com.revrobotics.CANSparkMax.ControlType.kVelocity);    
+      SmartDashboard.putNumber("ClimberDOWN", 1);
+    }
   }
 
   // Returns true when the command should end.

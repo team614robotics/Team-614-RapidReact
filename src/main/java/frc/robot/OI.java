@@ -18,6 +18,7 @@ import frc.robot.commands.intake.*;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.commands.shooter.*;
 import frc.robot.commands.feeder.*;
+import frc.robot.commands.intake.*;
 
 //import frc.robot.commands.intake.runOuttake;
 /**
@@ -77,33 +78,37 @@ public class OI {
   //Driver Controller 
   public static final XboxController driverController = new XboxController(0);
 
-  public static final Button RunShooter = new JoystickButton(driverController, RobotMap.LeftBumper);
-  // public static final Button RunIntakeSerializer = new JoystickButton(driverController, RobotMap.LeftBumper);
-  // public static final Button RunIntake = new JoystickButton(driverController, RobotMap.RightBumper);
-  // public static final Button GetColor = new JoystickButton(driverController, RobotMap.YButton);
-  // public static final Button RunLimelightLowTurnToAngle = new JoystickButton(driverController, RobotMap.BButton);
-  public static final Button ToggleIntake = new JoystickButton(driverController, RobotMap.XButton);
+  public static final Button RunIntake = new JoystickButton(driverController, RobotMap.LeftBumper);
+  public static final Button ReverseIntake = new JoystickButton(driverController, RobotMap.XButton);
+  // public static final Button RunFeeder = new JoystickButton(driverController, RobotMap.AButton);
+  public static final Button ToggleIntake = new JoystickButton(driverController, RobotMap.RightBumper);
+  // public static final Button ReverseFeeder = new JoystickButton(driverController, RobotMap.BackButton);
 
   //Operator controller
   public static final XboxController operatorController = new XboxController(1);
   
-  public static final Button MoveClimberUpwards = new JoystickButton(operatorController, RobotMap.LeftBumper);
-  public static final Button MoveClimberDownwards = new JoystickButton(operatorController, RobotMap.RightBumper); 
-  // public static final Button RunFeederBackwards = new JoystickButton(operatorController, RobotMap.AButton);
-  // public static final Button RunIntakeBackwards = new JoystickButton(operatorController, RobotMap.BButton);
-  // public static final Button RunSerializerBackwards = new JoystickButton(operatorController, RobotMap.YButton);
+  public static final Button MoveClimberUpwards = new JoystickButton(operatorController, RobotMap.YButton);
+  public static final Button MoveClimberDownwards = new JoystickButton(operatorController, RobotMap.XButton);
+  public static final Button ShootLowWithLogic = new JoystickButton(operatorController, RobotMap.LeftBumper); 
+  public static final Button AccelerateFlywheel = new JoystickButton(operatorController, RobotMap.BButton);
+  public static final Button RunFeeder = new JoystickButton(operatorController, RobotMap.AButton);
+  public static final Button ReverseFeeder = new JoystickButton(operatorController, RobotMap.BackButton);
+  public static final Button ReverseShooter = new JoystickButton(operatorController, RobotMap.StartButton);
 
   public OI() {
     /* Driver Controller */
-    RunShooter.whileHeld(new RunShooter());
+    RunIntake.whileHeld(new RunIntakeBasic(-1 * RobotMap.intakeSpeed, RobotMap.doIntakeColor));
     ToggleIntake.whenPressed(new IntakeToggle());
-    //RunIntake.whileHeld(new IntakeSequence());
-    //GetColor.whenPressed(new GetColor());
+    ReverseIntake.whileHeld(new RunIntakeBasic(-1 * RobotMap.intakeSpeed, RobotMap.doNotIntakeColor));
 
     /* Operator Controller */
-    //SmartDashboard.putNumber("Entering Climb", -1);
     MoveClimberUpwards.whileHeld(new MoveClimberUpwards());
     MoveClimberDownwards.whileHeld(new MoveClimberDownwards());
+    ShootLowWithLogic.whileHeld(new RunShooterLowLogic());
+    AccelerateFlywheel.whileHeld(new AccelerateFlywheel());
+    RunFeeder.whileHeld(new RunFeeder(RobotMap.feederSpeed));
+    ReverseFeeder.whileHeld(new RunFeeder(-1 * RobotMap.feederSpeed));
+    ReverseShooter.whileHeld(new ReverseShooter(RobotMap.reverseShooterSpeed));
   }
 }
 

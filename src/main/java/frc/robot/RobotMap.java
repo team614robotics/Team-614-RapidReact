@@ -37,12 +37,12 @@ public class RobotMap {
   //Controller
   //public static final XboxController intakeController;
 
-  public static boolean isDumb = false;//what is this? intake piston activation? - jonas 
+  public static boolean isDumb = true;//intake piston activation 
   //Chassis
-  public static final int leftMotorAPort = 9; //previously 1
-  public static final int leftMotorBPort = 10; //previously 2
-  public static final int rightMotorAPort = 11; //previously 3
-  public static final int rightMotorBPort = 12; //next 12, previously 4
+  public static final int leftMotorAPort = 1; //previously 1
+  public static final int leftMotorBPort = 2; //previously 2
+  public static final int rightMotorAPort = 3; //previously 3
+  public static final int rightMotorBPort = 4; //next 12, previously 4
   public static final MotorType brushless = MotorType.kBrushless;
   public static final MotorType brushed = MotorType.kBrushed;
   public static final double ticksInARevolution = 10.659;
@@ -66,11 +66,14 @@ public class RobotMap {
   public static final double autoRotateValue = 0;
 
   public static final double staticArcadeDriveValue = 0.8;
+  public static final int autoDriveTime = 5;
+  public static final boolean forward = true;
+  public static final boolean backward = false;
   
 
 
   //Shooter
-  public static final double shooterPValue = 0.0008;
+  public static final double shooterPValue = 0.00008;
   public static final double shooterIValue = 0;
   public static final double shooterDValue = 0.001;
   // public static final double shooterIZValue = 0;
@@ -78,29 +81,32 @@ public class RobotMap {
   public static final double maxOutput = 1;
   public static final double minOutput = -1;
   public static final double maxRPM = 5700;
-  public static final int shooterMotorPort = 6;
+  public static final int shooterMotorPort = 21;
   public static final double turnOffShooterMotor = 0;
   public static final double autoShooterSpeed = 0.5;
-  public static final int shooterVelocitySetpointOurs = 3600;
-  public static final int shooterVelocityThreshold = 3550;
-  public static final int shooterVelocitySetpointOpposing = 3500;
+  public static final int shooterVelocitySetpointOurs = 2350; //2350 worked well
+  public static final int shooterVelocityThreshold = 2350;//changed from 3500
+  public static final int shooterVelocitySetpointOpposing = 2350;//changed from 3500
   // public static final int acceleratorMotorPort = 7; //5 previous
   // public static double lowGoalSpeed = 4000;
   // public static double highGoalSpeed = 5000;
   public static final int autoShootTime = 5;
+  public static final double reverseShooterSpeed = -0.5;
 
   //Climber
   public static final int limitSwitchPortA = 0;
   public static final int limitSwitchPortB = 1;
   // public static final int limitSwitchPortC = 2;
   // public static final int limitSwitchPortD = 3;
-  public static final int climberMotorPort = 8; //actually 2
+  public static final int climberMotorPort = 31; //actually 2
   public static final double climberPValue = 0.0008;
   public static final double climberIValue = 0;
   public static final double climberDValue = 0.001;
   // public static final double climberIZValue = 0;
   public static final double climberFFValue = 0.2;
-  public static final int climberVelocitySetpoint = 2000;
+  public static final int climberVelocitySetpoint = 1000;
+  public static final int climberMaxVelocity = 2000;
+  public static final double joystickClimbThreshold = 0.2;
   // public static final double climberMinOutput = -1;
   // public static final double climberMaxOutput = 1;
   // public static final double climberMaxVel = 2000;
@@ -116,14 +122,21 @@ public class RobotMap {
   public static final double moveClimberUp = 0.5;
   
   //Intake
-  public static final int intakeMotorPort = 50; //3 next? previously 8
-  public static final int doubleSolenoidAPort1 = 4;
-  public static final int doubleSolenoidAPort2 = 5;
-  public static final int doubleSolenoidBPort1 = 6;//we will remove double solenoid B
-  public static final int doubleSolenoidBPort2 = 7;
+  public static final double intakePValue = 0.0008;
+  public static final double intakeIValue = 0;
+  public static final double intakeDValue = 0.001;
+  public static final double intakeFFValue = 0.00023;
+  public static final int intakeMotorPort = 11; //3 next? previously 8
+  public static final int doubleSolenoidAPort1 = 1;
+  public static final int doubleSolenoidAPort2 = 0;
+  public static final int doubleSolenoidBPort1 = 2;//we will remove double solenoid B
+  public static final int doubleSolenoidBPort2 = 3;
   public static final double turnOffIntakeMotor = 0;
   public static final double intakeSpeed = 0.5;
   public static final int intakeCurrentLimit = 25;
+  public static final boolean doIntakeColor = true;
+  public static final boolean doNotIntakeColor = false;
+  
 
   // //Vision 
   // public static final double limelightToTarget = 25.7;
@@ -145,17 +158,17 @@ public class RobotMap {
   // public static final int pipelineExtra = 2;
 
   // //pneumatics
-	public static final int compressor = 0;
+	public static final int compressor = 1;
 
-  // //Controller.
-  // public static final int AButton = 1;
-	// public static final int BButton = 2;
+  //Controller.
+  public static final int AButton = 1;
+	public static final int BButton = 2;
 	public static final int XButton = 3;
 	public static final int YButton = 4;
 	public static final int LeftBumper = 5;
 	public static final int RightBumper = 6;
-	// public static final int BackButton = 7;
-	// public static final int StartButton = 8;
+	public static final int BackButton = 7;
+	public static final int StartButton = 8;
 	 public static final int LeftStick = 9;
    public static final int RightStick = 10;
    public static final int driverPort = 0;
@@ -168,7 +181,7 @@ public class RobotMap {
   // public static final int setCurrent = 30;
 
   // //Feeder
-  public static final int feederMotorPort = 7; //actually 8
+  public static final int feederMotorPort = 22; //actually 8
   public static final BooleanSupplier colorTrue = () -> true;
   // public static final double feederPValue = 5e-5;
   // public static final double feederIValue = 0;

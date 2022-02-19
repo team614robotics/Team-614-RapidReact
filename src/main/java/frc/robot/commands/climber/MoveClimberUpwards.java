@@ -39,13 +39,14 @@ public class MoveClimberUpwards extends Command {
        //}
     } else {
       Robot.m_climber.climberPIDController.setReference(RobotMap.climberVelocitySetpoint, com.revrobotics.CANSparkMax.ControlType.kVelocity);      //SmartDashboard.putNumber("ClimberExecute", 3);
+      SmartDashboard.putNumber("ClimberUP", 1);
     }
     
   }
 
     // Returns true when the command should end.
    public boolean isFinished() {
-	  return !Robot.m_climber.limitSwitch1.get() || !Robot.m_climber.limitSwitch2.get() ;
+	  return false;//!Robot.m_climber.limitSwitch1.get() || !Robot.m_climber.limitSwitch2.get() ;
    }
 
   // Called once the command ends or is interrupted.

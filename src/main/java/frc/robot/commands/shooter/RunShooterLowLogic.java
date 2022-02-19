@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.feeder.*;
 
 
-public class RunShooter extends Command {
+public class RunShooterLowLogic extends Command {
   private boolean ourBall;
   private double shooterVelocity;
   private boolean atSpeed;
 
-  public RunShooter() {
+  public RunShooterLowLogic() {
   }
 
   // Called when the command is initially scheduled.

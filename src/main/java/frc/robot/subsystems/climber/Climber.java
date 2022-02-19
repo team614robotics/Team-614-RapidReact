@@ -7,6 +7,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import frc.robot.commands.climber.JoystickClimb;
 import edu.wpi.first.wpilibj.DigitalInput;
 import com.revrobotics.ControlType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -27,6 +28,7 @@ public class Climber extends Subsystem {
 
     public Climber() {
         climberMotor = new CANSparkMax(RobotMap.climberMotorPort, MotorType.kBrushless);
+        SmartDashboard.putNumber("ClimberMotor", 3);
         climberPIDController = climberMotor.getPIDController();
 
 
@@ -34,6 +36,8 @@ public class Climber extends Subsystem {
         climberPIDController.setI(RobotMap.climberIValue);
         climberPIDController.setD(RobotMap.climberDValue);
         climberPIDController.setFF(RobotMap.climberFFValue);
+        climberMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+
         // climberPIDController.setIZone(RobotMap.climberIZValue);
 
         // climberPIDController.setSmartMotionMaxVelocity(RobotMap.climberMaxVel, RobotMap.climberSmartMotionPort);
@@ -59,7 +63,9 @@ public class Climber extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-
+        SmartDashboard.putNumber("ClimberJoystick", -3);
+        setDefaultCommand(new JoystickClimb());
+        
     }
 
     // public void createTelemetry() {

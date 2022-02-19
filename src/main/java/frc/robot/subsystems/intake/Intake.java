@@ -8,6 +8,8 @@
 package frc.robot.subsystems.intake;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
@@ -18,12 +20,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import frc.robot.commands.intake.IntakeOnJoystick;
 //import frc.robot.subsystems.compressorcontrol.*;
 import frc.robot.commands.intake.RunIntakeBasic;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.SparkMaxRelativeEncoder;
+import com.revrobotics.RelativeEncoder;
+
+
 public class Intake extends Subsystem {
    // Put methods for controlling this subsystem
    // here. Call these from Commands.
 
    // One Intake Motor, simple speed
    public CANSparkMax intakeMotor;
+   private SparkMaxPIDController intakePIDController;
+   //private RelativeEncoder encoder;
+
    public DoubleSolenoid intakeSolenoidA;
    public DoubleSolenoid intakeSolenoidB;
 
@@ -31,15 +41,27 @@ public class Intake extends Subsystem {
    public DoubleSolenoid.Value pistonOut = DoubleSolenoid.Value.kForward;
 
    public Intake() {
-      intakeMotor = new CANSparkMax(RobotMap.intakeMotorPort, MotorType.kBrushed);
-      intakeSolenoidA = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, RobotMap.doubleSolenoidAPort1, RobotMap.doubleSolenoidAPort2);
-      intakeSolenoidB = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, RobotMap.doubleSolenoidBPort1, RobotMap.doubleSolenoidBPort2);
+      intakeMotor = new CANSparkMax(RobotMap.intakeMotorPort, MotorType.kBrushless);
+      intakeSolenoidA = new DoubleSolenoid(PneumaticsModuleType.REVPH, RobotMap.doubleSolenoidAPort1, RobotMap.doubleSolenoidAPort2);
+      intakeSolenoidB = new DoubleSolenoid(PneumaticsModuleType.REVPH, RobotMap.doubleSolenoidBPort1, RobotMap.doubleSolenoidBPort2);
+      intakeMotor.setSmartCurrentLimit(RobotMap.intakeCurrentLimit);
       //SmartDashboard.putNumber("Intake: Intake Speed", 0.0);
+
+      // intakePIDController = intakeMotor.getPIDController();
+
+      // intakePIDController.setP(RobotMap.intakePValue);
+      // intakePIDController.setI(RobotMap.intakeIValue);
+      // intakePIDController.setD(RobotMap.intakeDValue);
+      // //shooterPIDController.setIZone(RobotMap.shooterIZValue);
+      // intakePIDController.setFF(RobotMap.intakeFFValue);
+      // intakePIDController.setOutputRange(RobotMap.minOutput, RobotMap.maxOutput);
+      //encoder = intakeMotor.getEncoder();
+
    }
 
    @Override
    public void initDefaultCommand() {
-      setDefaultCommand(new RunIntakeBasic(RobotMap.intakeSpeed));
+      // setDefaultCommand(new RunIntakeBasic(RobotMap.intakeSpeed));
    }
 
    public DoubleSolenoid.Value getDoubleSolenoidA() {

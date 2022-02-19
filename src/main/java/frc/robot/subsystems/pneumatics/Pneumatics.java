@@ -18,7 +18,7 @@ public class Pneumatics extends Subsystem {
 	public Compressor compressor;
 
 	public Pneumatics() {
-		compressor = new Compressor(RobotMap.compressor, PneumaticsModuleType.CTREPCM);
+		compressor = new Compressor(RobotMap.compressor, PneumaticsModuleType.REVPH);
 		// grabberPiston = new DoubleSolenoid(RobotMap.grabberPistonA, RobotMap.grabberPistonB);
 		// grabberPiston.set(RobotMap.PistonIn);
 	}

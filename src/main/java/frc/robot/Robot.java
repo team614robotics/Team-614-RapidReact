@@ -87,7 +87,7 @@ public class Robot extends TimedRobot {
     m_feeder = new Feeder();
     m_oi = new OI();
     m_led = new AddressableLED(0);
-    m_ledBuffer = new AddressableLEDBuffer(60);
+    m_ledBuffer = new AddressableLEDBuffer(61);
     m_led.setLength(m_ledBuffer.getLength());
 
     // Set the data
@@ -149,7 +149,10 @@ public class Robot extends TimedRobot {
     Robot.m_drivetrain.leftMotorB.setIdleMode(CANSparkMax.IdleMode.kCoast);
     Robot.m_drivetrain.rightMotorA.setIdleMode(CANSparkMax.IdleMode.kCoast);
     Robot.m_drivetrain.rightMotorB.setIdleMode(CANSparkMax.IdleMode.kCoast);
-
+    for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+      // Sets the specified LED to the RGB values for green
+      m_ledBuffer.setRGB(i, 0, 255, 0);
+    }
     // SmartDashboard.putNumber("Left Encoder Values", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
     Robot.m_drivetrain.leftMotorA.getEncoder().setPosition(0);
     Robot.m_drivetrain.leftMotorB.getEncoder().setPosition(0);

@@ -1,0 +1,13 @@
+Driver Controller:
+    X: Reverse Intake
+    Left Bumper: Run Intake
+    Right Bumper: Actuate Intake
+
+Operator Controller:
+    B: Accelerate Shooter Flywheel
+    X: Move Climber DOWN
+    Y: Move Climber UP
+    Left Joystick: Climber UP/DOWN
+    Left Bumper: Shoot Low (Color Logic)
+    Back: Reverse Feeder
+    Start: Reverse Shooter

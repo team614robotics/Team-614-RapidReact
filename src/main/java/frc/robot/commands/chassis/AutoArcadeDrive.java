@@ -9,15 +9,20 @@ import frc.robot.RobotMap;
 public class AutoArcadeDrive extends Command {
 	public static Timer timer;
 	Timer timer2;
-	
+	int time;
+	boolean forward;
+	boolean finish;
     
-    public AutoArcadeDrive() {
+    public AutoArcadeDrive(int time, boolean forward) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.m_drivetrain);
 
 		timer = new Timer();
 		timer2 = new Timer();
+		this.time = time;
+		this.forward = forward;
+		
 	
 	}
 
@@ -27,19 +32,23 @@ public class AutoArcadeDrive extends Command {
 		timer2.reset();
 		timer.start();
 		timer2.start();
+		finish = false;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (timer2.get() < 5) {
+		if (timer2.get() < time) {
 			Robot.m_drivetrain.arcadeDrive(RobotMap.autoArcadeSpeed, RobotMap.autoRotateValue); 
+		}
+		else {
+			finish = true;
 		}
 		//.8 * (0 < 0 ? Math.pow(0, 2) : -Math.pow(0, 2)));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return finish;
 	}
 
 	// Called once after isFinished returns true
