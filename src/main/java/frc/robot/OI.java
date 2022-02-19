@@ -7,6 +7,8 @@
 
 //poopy butt face
 package frc.robot;
+import java.time.Duration;
+
 import com.fasterxml.jackson.databind.deser.impl.SetterlessProperty;
 import frc.robot.commands.climber.*;
 
@@ -80,9 +82,11 @@ public class OI {
 
   public static final Button RunIntake = new JoystickButton(driverController, RobotMap.LeftBumper);
   public static final Button ReverseIntake = new JoystickButton(driverController, RobotMap.XButton);
+  public static final Button IntakeNoColor = new JoystickButton(driverController, RobotMap.BButton);
   // public static final Button RunFeeder = new JoystickButton(driverController, RobotMap.AButton);
   public static final Button ToggleIntake = new JoystickButton(driverController, RobotMap.RightBumper);
   // public static final Button ReverseFeeder = new JoystickButton(driverController, RobotMap.BackButton);
+  public static final Button ColorSensor = new JoystickButton(driverController, RobotMap.BackButton);
 
   //Operator controller
   public static final XboxController operatorController = new XboxController(1);
@@ -98,8 +102,10 @@ public class OI {
   public OI() {
     /* Driver Controller */
     RunIntake.whileHeld(new RunIntakeBasic(-1 * RobotMap.intakeSpeed, RobotMap.doIntakeColor));
+    IntakeNoColor.whileHeld(new RunIntakeBasic (-1 * RobotMap.intakeSpeed, RobotMap.doNotIntakeColor));
     ToggleIntake.whenPressed(new IntakeToggle());
-    ReverseIntake.whileHeld(new RunIntakeBasic(-1 * RobotMap.intakeSpeed, RobotMap.doNotIntakeColor));
+    ReverseIntake.whileHeld(new RunIntakeBasic(RobotMap.intakeSpeed, RobotMap.doNotIntakeColor));
+    ColorSensor.whileHeld(new GetColor());
 
     /* Operator Controller */
     MoveClimberUpwards.whileHeld(new MoveClimberUpwards());

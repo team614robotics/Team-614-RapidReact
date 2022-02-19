@@ -23,7 +23,7 @@ public class MoveClimberDownwards extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   public void execute() {
     // Robot.m_climber.motorBrake.set(DoubleSolenoid.Value.kReverse);
-    if(!Robot.m_climber.limitSwitch1.get() || !Robot.m_climber.limitSwitch2.get()) {
+    if(Robot.m_climber.limitSwitch1.get() || Robot.m_climber.limitSwitch2.get()) {
       // if(timer.get() > .2) {
       
       Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);

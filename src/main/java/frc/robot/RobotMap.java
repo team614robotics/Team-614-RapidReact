@@ -132,7 +132,7 @@ public class RobotMap {
   public static final int doubleSolenoidBPort1 = 2;//we will remove double solenoid B
   public static final int doubleSolenoidBPort2 = 3;
   public static final double turnOffIntakeMotor = 0;
-  public static final double intakeSpeed = 0.5;
+  public static final double intakeSpeed = 0.4;
   public static final int intakeCurrentLimit = 25;
   public static final boolean doIntakeColor = true;
   public static final boolean doNotIntakeColor = false;

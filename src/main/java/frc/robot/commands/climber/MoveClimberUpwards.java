@@ -32,7 +32,7 @@ public class MoveClimberUpwards extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   public void execute() {
     //SmartDashboard.putNumber("ClimberExecute", 1);
-    if(!Robot.m_climber.limitSwitch1.get() || !Robot.m_climber.limitSwitch2.get()) {
+    if(Robot.m_climber.limitSwitch1.get() || Robot.m_climber.limitSwitch2.get()) {
       // if(timer.get() > .2) {
       //SmartDashboard.putNumber("ClimberExecute", 2);
       Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);

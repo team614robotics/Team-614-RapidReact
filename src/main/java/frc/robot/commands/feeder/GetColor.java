@@ -191,12 +191,20 @@ public class GetColor extends Command{
 	// Called once after isFinished returns true
 	protected void end() {
         SmartDashboard.putNumber("ColorEnd", 1);
+        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
+        OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
+        Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
+
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
         SmartDashboard.putNumber("ColorEnd", 2);
+        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
+        OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
+        Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
+
 	}
 
 

@@ -28,7 +28,7 @@ public class JoystickClimb extends Command {
         if (OI.operatorController.getLeftY() < -1 * RobotMap.joystickClimbThreshold
                 || OI.operatorController.getLeftY() > RobotMap.joystickClimbThreshold) {
             SmartDashboard.putNumber("ClimberJoystick", 1);
-            if (!Robot.m_climber.limitSwitch1.get() || !Robot.m_climber.limitSwitch2.get()) {
+            if (Robot.m_climber.limitSwitch1.get() || Robot.m_climber.limitSwitch2.get()) {
                 // if(timer.get() > .2) {
 
                 Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);

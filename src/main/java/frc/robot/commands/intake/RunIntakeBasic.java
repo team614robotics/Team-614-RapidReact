@@ -2,6 +2,8 @@ package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.*;
+
 import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
@@ -48,7 +50,7 @@ public class RunIntakeBasic extends Command {
 		if (doColor){
 			intakeGetColor.start();
 		}
-			Robot.m_intake.intakeMotor.set(speed);
+		Robot.m_intake.intakeMotor.set(speed);
 		continueColor = true;
 
 			
@@ -82,6 +84,9 @@ public class RunIntakeBasic extends Command {
 					timer.stop();
 					continueColor = false;
 					timer.reset();
+					Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
+					OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
+            		OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
 				}
 			}
 		}
@@ -106,9 +111,11 @@ public class RunIntakeBasic extends Command {
 					timer.stop();
 					continueColor = false;
 					timer.reset();
+					Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
 				}
 			}
 		}
+		
 		//Robot.m_feeder.feederMotor.set(0);
 		// Robot.m_serializer.serializerMotorA.set(0);
 		// Robot.m_serializer.serializerMotorB.set(0);
