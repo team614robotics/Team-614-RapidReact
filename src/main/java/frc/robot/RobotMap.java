@@ -208,7 +208,7 @@ public class RobotMap {
   public static final int defaultRValue = 0;
   public static final int defaultGValue = 255;
   public static final int defaultBValue = 0;
-  public static final double feederSpeed = 0.5;
+  public static final double feederSpeed = -0.5;
   public static final int colorTime = 5;
 
 }

@@ -4,6 +4,7 @@ Driver Controller:
     Right Bumper: Actuate Intake
 
 Operator Controller:
+    A: Run Feeder
     B: Accelerate Shooter Flywheel
     X: Move Climber DOWN
     Y: Move Climber UP
