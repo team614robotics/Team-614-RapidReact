@@ -25,24 +25,27 @@ public class JoystickClimb extends Command {
     public void execute() {
         // Robot.m_climber.motorBrake.set(DoubleSolenoid.Value.kReverse);
         SmartDashboard.putNumber("ClimberJoystick", 0);
+        SmartDashboard.putBoolean("UpperLimitSwitch", Robot.m_climber.limitSwitch2.get());
+        SmartDashboard.putBoolean("LowerLimitSwitch", Robot.m_climber.limitSwitch1.get());
         if (OI.operatorController.getLeftY() < -1 * RobotMap.joystickClimbThreshold
                 || OI.operatorController.getLeftY() > RobotMap.joystickClimbThreshold) {
             SmartDashboard.putNumber("ClimberJoystick", 1);
-            if (Robot.m_climber.limitSwitch1.get() || Robot.m_climber.limitSwitch2.get()) {
+            if ((Robot.m_climber.limitSwitch2.get()&& OI.operatorController.getLeftY() <=0) || (Robot.m_climber.limitSwitch1.get()&& OI.operatorController.getLeftY()>=0)) {
                 // if(timer.get() > .2) {
-
+                    SmartDashboard.putNumber("ClimberJoystick", 2);
                 Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);
                 Robot.m_climber.climberMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
-                // }
+                 //}
             } else {
                 Robot.m_climber.climberPIDController.setReference(
-                        RobotMap.climberMaxVelocity * OI.operatorController.getLeftY(),
+                        RobotMap.climberMaxVelocity * OI.operatorController.getLeftY() * -1,
                         com.revrobotics.CANSparkMax.ControlType.kVelocity);
+                        SmartDashboard.putNumber("ClimberJoystick", 5);
             }
         } else {
             Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);
             Robot.m_climber.climberMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
-            SmartDashboard.putNumber("ClimberJoystick", 2);
+            //SmartDashboard.putNumber("ClimberJoystick", 2);
         }
     }
 

@@ -18,16 +18,19 @@ import edu.wpi.first.wpilibj.Timer;
 /**
  *
  */
-public class RunIntakeBasic extends Command {
+public class AutoRunIntake extends Command {
     double speed;
-	Command intakeGetColor;
+	Command intakeGetColor = new GetColor();
 	Timer timer;
+    Timer timer2;
 	boolean continueColor;
 	boolean doColor;
-	public RunIntakeBasic(double speed, boolean doColor) {
+    boolean finished;
+	public AutoRunIntake(double speed, boolean doColor) {
         requires(Robot.m_intake);
         this.speed = speed;
 		timer = new Timer();
+        timer2 = new Timer();
 		continueColor = false;
 		this.doColor = doColor;
 	}
@@ -36,8 +39,9 @@ public class RunIntakeBasic extends Command {
 	protected void initialize() {
         Robot.m_intake.intakeMotor.set(RobotMap.turnOffIntakeMotor);
 		timer.reset();
+        timer2.reset();
 		continueColor = false;
-		intakeGetColor = new GetColor();
+        finished = false;
 
 		//Robot.m_feeder.feederMotor.set(0);
 		// Robot.m_intake.setDoubleSolenoidA(Robot.m_intake.pistonIn);
@@ -51,8 +55,14 @@ public class RunIntakeBasic extends Command {
 		if (doColor){
 			intakeGetColor.start();
 		}
+        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
+        OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
 		Robot.m_intake.intakeMotor.set(speed);
 		continueColor = true;
+        timer2.start();
+        if (timer2.get()>RobotMap.autoDriveTime){
+            finished = true;
+        }
 
 			
 		// Robot.m_serializer.serializerMotorA.set(-0.35);
@@ -71,7 +81,7 @@ public class RunIntakeBasic extends Command {
 
 	// Make this return true when this Command no lo
 	protected boolean isFinished() {
-		return false;
+		return finished;
 	}
 
 	// Called once after isFinished returns true

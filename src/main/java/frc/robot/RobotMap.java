@@ -66,7 +66,7 @@ public class RobotMap {
   public static final double autoRotateValue = 0;
 
   public static final double staticArcadeDriveValue = 0.8;
-  public static final int autoDriveTime = 5;
+  public static final int autoDriveTime = 3;
   public static final boolean forward = true;
   public static final boolean backward = false;
   
@@ -105,7 +105,7 @@ public class RobotMap {
   // public static final double climberIZValue = 0;
   public static final double climberFFValue = 0.2;
   public static final int climberVelocitySetpoint = 1000;
-  public static final int climberMaxVelocity = 2000;
+  public static final int climberMaxVelocity = 1000;
   public static final double joystickClimbThreshold = 0.2;
   // public static final double climberMinOutput = -1;
   // public static final double climberMaxOutput = 1;
@@ -133,6 +133,7 @@ public class RobotMap {
   public static final int doubleSolenoidBPort2 = 3;
   public static final double turnOffIntakeMotor = 0;
   public static final double intakeSpeed = 0.4;
+  public static final double reverseIntakeSpeed = -.4;
   public static final int intakeCurrentLimit = 25;
   public static final boolean doIntakeColor = true;
   public static final boolean doNotIntakeColor = false;
@@ -190,7 +191,7 @@ public class RobotMap {
   // public static final double feederFFValue = 0;
   public static final double initalizeFeederMotor = 0;
   public static final double turnOffFeederMotor = 0; 
-  public static final int ballProximity = 100; 
+  public static final int ballProximity = 00; 
   public static final int colorMultiplier = 255;
   public static final double rumbleOff = 0;
   public static final double rumbleOurBall = 0.7;
@@ -209,6 +210,7 @@ public class RobotMap {
   public static final int defaultGValue = 255;
   public static final int defaultBValue = 0;
   public static final double feederSpeed = -0.5;
+  public static final double reverseFeederSpeed = .5;
   public static final int colorTime = 5;
 
 }

@@ -12,8 +12,9 @@ public class AutoMove extends CommandGroup {
         //addSequential(new AutoShoot());
         addSequential(new IntakeToggle());
         addSequential(new AutoArcadeDrive(RobotMap.autoDriveTime, RobotMap.forward));
-        addParallel(new RunIntakeBasic(RobotMap.intakeSpeed, RobotMap.doNotIntakeColor));
+        addParallel(new AutoRunIntake(RobotMap.intakeSpeed, RobotMap.doIntakeColor));
         addSequential(new AutoArcadeDrive(RobotMap.autoDriveTime, RobotMap.backward));
+        addSequential(new IntakeToggle());
         addSequential(new AutoShoot());
 
      
