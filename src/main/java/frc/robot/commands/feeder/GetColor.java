@@ -9,16 +9,20 @@ import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.subsystems.feeder.*;
 import edu.wpi.first.wpilibj.*;
 import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.Timer;
+
+
 
 //import com.revrobotics.ColorSensorV3;
 
 public class GetColor extends Command {
     boolean isBall = false; // j if there is a ball in system true
     boolean isRecorded = false;// j what is the point of knowing if the ball is recorded
+    Timer timer;
 
     public GetColor() {
         // Use requires() here to declare subsystem dependencies
-
+        timer = new Timer();
     }
 
     // Called just before this Command runs the first time
@@ -26,6 +30,7 @@ public class GetColor extends Command {
         isBall = false;
         isRecorded = false;
         Robot.m_feeder.feederMotor.set(RobotMap.initalizeFeederMotor);
+        timer.reset();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -74,8 +79,9 @@ public class GetColor extends Command {
                                                                                                                   // or
                                                                                                                   // 2?
                     }
-
-                    Robot.m_feeder.feederMotor.set(RobotMap.feederSpeed);
+                    timer.reset();
+                    timer.start();
+                    //Robot.m_feeder.feederMotor.set(RobotMap.feederSpeed);
                     for (var i = 0; i < Robot.m_ledBuffer.getLength() / 2; i++) {// j sets the first half of the LEDs to
                                                                                  // red
                         // Sets the specified LED to the RGB values for red
@@ -121,8 +127,9 @@ public class GetColor extends Command {
                     } else {
                         OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
                     }
-
-                    Robot.m_feeder.feederMotor.set(RobotMap.feederSpeed);
+                    timer.reset();
+                    timer.start();
+                    //Robot.m_feeder.feederMotor.set(RobotMap.feederSpeed);
                     for (var i = 0; i < Robot.m_ledBuffer.getLength() / 2; i++) {
                         // Sets the specified LED to the RGB values for red
                         Robot.m_ledBuffer.setRGB(i, RobotMap.blueRValue, RobotMap.blueGValue, RobotMap.blueBValue);
@@ -144,6 +151,14 @@ public class GetColor extends Command {
                 }
                 isRecorded = true;
             }
+        }
+        if (timer.get()<0.75 && !(Feeder.checkBall1() == RobotMap.noBall)){
+            Robot.m_feeder.feederMotor.set(RobotMap.feederSpeed);
+        }
+        else if (timer.get() > 0.75){
+            Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
+            timer.stop();
+            
         }
 
         // if (130>=(detectedColor.blue*255)&&(detectedColor.blue*255)>=100){

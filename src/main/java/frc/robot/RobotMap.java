@@ -30,6 +30,8 @@ public class RobotMap {
   // number and the module. For example you with a rangefinder:
   // public static int rangefinderPort = 1;
 
+  public static final String RobotName = "Fax Machine";
+
   //Alliance
   public static final int BlueAlliance = 1;
   public static final int RedAlliance = 2;
@@ -104,8 +106,9 @@ public class RobotMap {
   public static final double climberDValue = 0.001;
   // public static final double climberIZValue = 0;
   public static final double climberFFValue = 0.2;
-  public static final int climberVelocitySetpoint = 1000;
-  public static final int climberMaxVelocity = 1000;
+  public static final int climberVelocitySetpoint = 8000;
+  public static final int climberMaxVelocity = 8000;
+  ;
   public static final double joystickClimbThreshold = 0.2;
   // public static final double climberMinOutput = -1;
   // public static final double climberMaxOutput = 1;
@@ -127,10 +130,10 @@ public class RobotMap {
   public static final double intakeDValue = 0.001;
   public static final double intakeFFValue = 0.00023;
   public static final int intakeMotorPort = 11; //3 next? previously 8
-  public static final int doubleSolenoidAPort1 = 1;
-  public static final int doubleSolenoidAPort2 = 0;
-  public static final int doubleSolenoidBPort1 = 2;//we will remove double solenoid B
-  public static final int doubleSolenoidBPort2 = 3;
+  public static final int doubleSolenoidAPort1 = 4;
+  public static final int doubleSolenoidAPort2 = 5;
+  public static final int doubleSolenoidBPort1 = 6;//we will not remove double solenoid B
+  public static final int doubleSolenoidBPort2 = 7;
   public static final double turnOffIntakeMotor = 0;
   public static final double intakeSpeed = 0.4;
   public static final double reverseIntakeSpeed = -.4;

@@ -42,8 +42,8 @@ public class Intake extends Subsystem {
 
    public Intake() {
       intakeMotor = new CANSparkMax(RobotMap.intakeMotorPort, MotorType.kBrushless);
-      intakeSolenoidA = new DoubleSolenoid(PneumaticsModuleType.REVPH, RobotMap.doubleSolenoidAPort1, RobotMap.doubleSolenoidAPort2);
-      intakeSolenoidB = new DoubleSolenoid(PneumaticsModuleType.REVPH, RobotMap.doubleSolenoidBPort1, RobotMap.doubleSolenoidBPort2);
+      intakeSolenoidA = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, RobotMap.doubleSolenoidAPort1, RobotMap.doubleSolenoidAPort2);
+      intakeSolenoidB = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, RobotMap.doubleSolenoidBPort1, RobotMap.doubleSolenoidBPort2);
       intakeMotor.setSmartCurrentLimit(RobotMap.intakeCurrentLimit);
       //SmartDashboard.putNumber("Intake: Intake Speed", 0.0);
 
