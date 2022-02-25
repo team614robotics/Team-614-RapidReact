@@ -59,16 +59,11 @@ public class RunIntakeBasic extends Command {
 		// Robot.m_serializer.serializerMotorB.set(0.2);
 		//Robot.m_feeder.changeCounterBasic();
 	} 
-		
-			
-
 				
 		// Robot.m_serializer.serializerMotorA.set(0);
 		// Robot.m_serializer.serializerMotorB.set(0);
 		// Robot.m_feeder.feederMotor.set(0);
 		
-	
-
 	// Make this return true when this Command no lo
 	protected boolean isFinished() {
 		return false;
@@ -116,6 +111,8 @@ public class RunIntakeBasic extends Command {
 				}
 			}
 		}
+		OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
+        OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
 		
 		//Robot.m_feeder.feederMotor.set(0);
 		// Robot.m_serializer.serializerMotorA.set(0);

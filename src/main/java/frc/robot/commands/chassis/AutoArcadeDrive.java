@@ -9,11 +9,11 @@ import frc.robot.RobotMap;
 public class AutoArcadeDrive extends Command {
 	public static Timer timer;
 	Timer timer2;
-	int time;
+	double time;
 	boolean forward;
 	boolean finish;
     
-    public AutoArcadeDrive(int time, boolean forward) {
+    public AutoArcadeDrive(double time, boolean forward) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.m_drivetrain);

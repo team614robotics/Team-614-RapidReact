@@ -54,11 +54,12 @@ public class AutoRunIntake extends Command {
 
 		if (doColor){
 			intakeGetColor.start();
+			continueColor = true;
 		}
         OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
         OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
 		Robot.m_intake.intakeMotor.set(speed);
-		continueColor = true;
+		
         timer2.start();
         if (timer2.get()>RobotMap.autoDriveTime){
             finished = true;

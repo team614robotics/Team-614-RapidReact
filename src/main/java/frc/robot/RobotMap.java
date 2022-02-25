@@ -68,7 +68,7 @@ public class RobotMap {
   public static final double autoRotateValue = 0;
 
   public static final double staticArcadeDriveValue = 0.8;
-  public static final int autoDriveTime = 3;
+  public static final double autoDriveTime = .25;
   public static final boolean forward = true;
   public static final boolean backward = false;
   
@@ -87,7 +87,7 @@ public class RobotMap {
   public static final double turnOffShooterMotor = 0;
   public static final double autoShooterSpeed = 0.5;
   public static final int shooterVelocitySetpointOurs = 2350; //2350 worked well
-  public static final int shooterVelocityThreshold = 2350;//changed from 3500
+  public static final int shooterVelocityThreshold = 2600;//changed from 3500
   public static final int shooterVelocitySetpointOpposing = 2350;//changed from 3500
   // public static final int acceleratorMotorPort = 7; //5 previous
   // public static double lowGoalSpeed = 4000;
@@ -108,7 +108,6 @@ public class RobotMap {
   public static final double climberFFValue = 0.2;
   public static final int climberVelocitySetpoint = 8000;
   public static final int climberMaxVelocity = 8000;
-  ;
   public static final double joystickClimbThreshold = 0.2;
   // public static final double climberMinOutput = -1;
   // public static final double climberMaxOutput = 1;
@@ -162,7 +161,7 @@ public class RobotMap {
   // public static final int pipelineExtra = 2;
 
   // //pneumatics
-	public static final int compressor = 1;
+	public static final int compressor = 0;
 
   //Controller.
   public static final int AButton = 1;
@@ -194,7 +193,7 @@ public class RobotMap {
   // public static final double feederFFValue = 0;
   public static final double initalizeFeederMotor = 0;
   public static final double turnOffFeederMotor = 0; 
-  public static final int ballProximity = 00; 
+  public static final int ballProximity = 100; 
   public static final int colorMultiplier = 255;
   public static final double rumbleOff = 0;
   public static final double rumbleOurBall = 0.7;
