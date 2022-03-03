@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.feeder.*;
 
 
-public class RunShooterLowLogic extends Command {
+public class RunShooterHighWithLogic extends Command {
   private boolean ourBall;
   private double shooterVelocity;
   private boolean atSpeed;
 
-  public RunShooterLowLogic() {
+  public RunShooterHighWithLogic() {
   }
 
   // Called when the command is initially scheduled.
@@ -42,67 +42,23 @@ public class RunShooterLowLogic extends Command {
        //}
     
       //Robot.m_shooter.shooterMotor.set(0.5);
-    //if (ourBall == true){
-      //SmartDashboard.putNumber("Our Ball", 1);
-      Robot.m_shooter.setShooterReference(RobotMap.shooterVelocitySetpointOurs);
+    
+      Robot.m_shooter.setShooterReference(RobotMap.shooterVelocitySetpointHigh);
       SmartDashboard.putNumber("Shooter Velocity", Robot.m_shooter.shooterMotor.getEncoder().getVelocity());
-      if(Robot.m_shooter.shooterMotor.getEncoder().getVelocity() > RobotMap.shooterVelocityThreshold){
+      if(Robot.m_shooter.shooterMotor.getEncoder().getVelocity() > RobotMap.shooterVelocityThresholdHigh){
         Robot.m_feeder.feederMotor.set(RobotMap.feederShootSpeed);
-        SmartDashboard.putNumber("Shooter Run Feeder", 1);
         if (atSpeed == false){
           atSpeed = true;
         }
       }
       else {
         Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
-        SmartDashboard.putNumber("Shooter Run Feeder", 0);
         if (atSpeed == true){
           Robot.m_feeder.setBall1Type(Robot.m_feeder.checkBall2());
           Robot.m_feeder.setBall2Type(RobotMap.noBall);
-          atSpeed = false;
         }
       }
-    //}
-    // else if (ourBall == false){
-    //   SmartDashboard.putNumber("Our Ball", 0);
-    //   Robot.m_shooter.setShooterReference(RobotMap.shooterVelocitySetpointOpposing);
-    //   SmartDashboard.putNumber("Shooter Velocity", Robot.m_shooter.shooterMotor.getEncoder().getVelocity());
-    //   if(Robot.m_shooter.shooterMotor.getEncoder().getVelocity() > RobotMap.shooterVelocityThresholdOpposing){
-    //     Robot.m_feeder.feederMotor.set(RobotMap.feederSpeed);
-    //     SmartDashboard.putNumber("Shooter Run Feeder", 1);
-    //     if (atSpeed == false){
-    //       atSpeed = true;
-    //     }
-    //   }
-    //   else {
-    //     Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
-    //     SmartDashboard.putNumber("Shooter Run Feeder", 0);
-    //     if (atSpeed == true){
-    //       Robot.m_feeder.setBall1Type(Robot.m_feeder.checkBall2());
-    //       Robot.m_feeder.setBall2Type(RobotMap.noBall);
-    //     }
-    //   }
-    // }
-    // else{
-    //   SmartDashboard.putNumber("Our Ball", -1);
-    //   Robot.m_shooter.setShooterReference(RobotMap.shooterVelocitySetpointOurs);
-    //   SmartDashboard.putNumber("Shooter Velocity", Robot.m_shooter.shooterMotor.getEncoder().getVelocity());
-    //   if(Robot.m_shooter.shooterMotor.getEncoder().getVelocity() > RobotMap.shooterVelocityThreshold){
-    //     Robot.m_feeder.feederMotor.set(RobotMap.feederSpeed);
-    //     SmartDashboard.putNumber("Shooter Run Feeder", 1);
-    //     if (atSpeed == false){
-    //       atSpeed = true;
-    //     }
-    //   }
-    //   else {
-    //     Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
-    //     SmartDashboard.putNumber("Shooter Run Feeder", 0);
-    //     if (atSpeed == true){
-    //       Robot.m_feeder.setBall1Type(Robot.m_feeder.checkBall2());
-    //       Robot.m_feeder.setBall2Type(RobotMap.noBall);
-    //     }
-    //   }
-    // } 
+     
     
   }
 

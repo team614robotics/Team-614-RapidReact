@@ -83,6 +83,8 @@ public class OI {
   public static final Button RunIntake = new JoystickButton(driverController, RobotMap.LeftBumper);
   public static final Button ReverseIntake = new JoystickButton(driverController, RobotMap.XButton);
   public static final Button IntakeNoColor = new JoystickButton(driverController, RobotMap.BButton);
+  
+
   // public static final Button RunFeeder = new JoystickButton(driverController, RobotMap.AButton);
   public static final Button ToggleIntake = new JoystickButton(driverController, RobotMap.RightBumper);
   // public static final Button ReverseFeeder = new JoystickButton(driverController, RobotMap.BackButton);
@@ -93,8 +95,10 @@ public class OI {
   
   public static final Button MoveClimberUpwards = new JoystickButton(operatorController, RobotMap.YButton);
   public static final Button MoveClimberDownwards = new JoystickButton(operatorController, RobotMap.XButton);
-  public static final Button ShootLowWithLogic = new JoystickButton(operatorController, RobotMap.LeftBumper); 
   public static final Button AccelerateFlywheel = new JoystickButton(operatorController, RobotMap.BButton);
+  public static final Button ShootLowWithLogic = new JoystickButton(operatorController, RobotMap.LeftBumper);
+  public static final Button ShootHighWithLogic = new JoystickButton(operatorController, RobotMap.RightBumper);
+  // public static final Button AccelerateFlywheel = new JoystickButton(operatorController, RobotMap.BButton);
   public static final Button RunFeeder = new JoystickButton(operatorController, RobotMap.AButton);
   public static final Button ReverseFeeder = new JoystickButton(operatorController, RobotMap.BackButton);
   public static final Button ReverseShooter = new JoystickButton(operatorController, RobotMap.StartButton);
@@ -111,10 +115,10 @@ public class OI {
     MoveClimberUpwards.whileHeld(new MoveClimberUpwards());
     MoveClimberDownwards.whileHeld(new MoveClimberDownwards());
     ShootLowWithLogic.whileHeld(new RunShooterLowLogic());
+    ShootHighWithLogic.whileHeld(new RunShooterHighWithLogic());
     AccelerateFlywheel.whileHeld(new AccelerateFlywheel());
     RunFeeder.whileHeld(new RunFeeder(RobotMap.feederSpeed));
     ReverseFeeder.whileHeld(new RunFeeder(RobotMap.reverseFeederSpeed));
     ReverseShooter.whileHeld(new ReverseShooter(RobotMap.reverseShooterSpeed));
   }
 }
-

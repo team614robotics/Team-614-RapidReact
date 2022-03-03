@@ -6,7 +6,11 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.feeder.FeedWithToF;
 import frc.robot.commands.feeder.RunFeeder;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Timer;
+import com.playingwithfusion.TimeOfFlight;
 
 
 public class Feeder extends Subsystem
@@ -15,6 +19,10 @@ public class Feeder extends Subsystem
     public static int ball1Type;
     public static int ball2Type;
     public static boolean ball;
+    public static boolean doColor;
+    public TimeOfFlight timeOfFlightSensor;
+    Timer timer;
+    
     //1 = BLUE, 2 = RED
 
     public Feeder(){
@@ -22,12 +30,15 @@ public class Feeder extends Subsystem
         ball1Type = RobotMap.noBall;
         ball2Type = RobotMap.noBall;
         ball = false;
+        doColor = false;
+        timer = new Timer();
+        timeOfFlightSensor = new TimeOfFlight(RobotMap.timeOfFlightPort);
     } 
     
     @Override
     public void initDefaultCommand() {
         // TODO Auto-generated method stub
-        // setDefaultCommand(new RunFeeder(0.5));
+        setDefaultCommand(new FeedWithToF());
     } {
 		// Use requires() here to declare subsystem dependencies
 	}
@@ -49,6 +60,20 @@ public class Feeder extends Subsystem
     }
     public static boolean checkIfBall() {
         return ball;
+    }
+    public void continueFeeder(){
+        if(ball2Type == RobotMap.noBall){
+            timer.reset();
+            timer.start();
+            while (timer.get()<RobotMap.continueFeederTime){
+                feederMotor.set(RobotMap.feederSpeed);
+            } 
+            feederMotor.set(RobotMap.turnOffFeederMotor);
+            timer.stop();
+            timer.reset();
+        }
+
+        
     }
 
 	

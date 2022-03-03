@@ -10,7 +10,7 @@ import frc.robot.OI;
 
 public class JoystickClimb extends Command {
     public JoystickClimb() {
-       requires(Robot.m_climber);
+        requires(Robot.m_climber);
         SmartDashboard.putNumber("ClimberJoystick", -2);
     }
 
@@ -27,10 +27,10 @@ public class JoystickClimb extends Command {
         SmartDashboard.putNumber("ClimberJoystick", 0);
         SmartDashboard.putBoolean("UpperLimitSwitch", Robot.m_climber.limitSwitch2.get());
         SmartDashboard.putBoolean("LowerLimitSwitch", Robot.m_climber.limitSwitch1.get());
-        if (OI.operatorController.getLeftY() < -1 * RobotMap.joystickClimbThreshold
-                || OI.operatorController.getLeftY() > RobotMap.joystickClimbThreshold) {
+        if (OI.operatorController.getRightY() < -1 * RobotMap.joystickClimbThreshold
+                || OI.operatorController.getRightY() > RobotMap.joystickClimbThreshold) {
             SmartDashboard.putNumber("ClimberJoystick", 1);
-            if ((Robot.m_climber.limitSwitch2.get()&& OI.operatorController.getLeftY() <=0) || (Robot.m_climber.limitSwitch1.get()&& OI.operatorController.getLeftY()>=0)) {
+            if ((Robot.m_climber.limitSwitch2.get()&& OI.operatorController.getRightY() <=0) || (Robot.m_climber.limitSwitch1.get()&& OI.operatorController.getRightY()>=0)) {
                 // if(timer.get() > .2) {
                     SmartDashboard.putNumber("ClimberJoystick", 2);
                 Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);
@@ -38,7 +38,7 @@ public class JoystickClimb extends Command {
                  //}
             } else {
                 Robot.m_climber.climberPIDController.setReference(
-                        RobotMap.climberMaxVelocity * OI.operatorController.getLeftY() * -1,
+                        RobotMap.climberMaxVelocity * OI.operatorController.getRightY() * -1,
                         com.revrobotics.CANSparkMax.ControlType.kVelocity);
                         SmartDashboard.putNumber("ClimberJoystick", 5);
             }

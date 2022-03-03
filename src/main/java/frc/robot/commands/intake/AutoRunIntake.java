@@ -58,7 +58,7 @@ public class AutoRunIntake extends Command {
 		}
         OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
         OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
-		Robot.m_intake.intakeMotor.set(speed);
+		Robot.m_intake.intakeMotor.set(-1 * speed);
 		
         timer2.start();
         if (timer2.get()>RobotMap.autoDriveTime){

@@ -41,11 +41,17 @@ public class IntakeToggle extends Command {
     
 	// Called once after isFinished returns true
 	protected void end() {
+		// if (!RobotMap.isDumb){
+		// 	Robot.m_feeder.continueFeeder();
+		// }
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		// if (!RobotMap.isDumb){
+		// 	Robot.m_feeder.continueFeeder();
+		// }
     }
     
     // protected void pistonToggle() {

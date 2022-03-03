@@ -49,7 +49,7 @@ public class RobotMap {
   public static final MotorType brushed = MotorType.kBrushed;
   public static final double ticksInARevolution = 10.659;
   public static final double wheelDiameter = 6;
-  public static final double pValue = 0.028;
+  public static final double pValue = 0.3855;
   public static final double sumPValue = 0.03;
   public static final double iValue = 0.0;
   public static final double sumDValue = 0.000090;
@@ -64,11 +64,13 @@ public class RobotMap {
   public static final double chassisVelocityIZValue = 0;
   public static final double chassisVelocityMinOutput = -1;
   public static final double chassisVelocityMaxOutput = 1;
-  public static final double autoArcadeSpeed = .8 * Math.pow(0.5,2);
+  public static final double autoArcadeSpeed = -0.5;
   public static final double autoRotateValue = 0;
+  public static final double rampD = .5;//deciedes the ramping of the driveVal ramp = 1 == x^3, ramp = 0 == x,
+  public static final double rampR = .5;//deciedes the ramping of the rotateVal ramp = 1 == x^3, ramp = 0 == x,
 
   public static final double staticArcadeDriveValue = 0.8;
-  public static final double autoDriveTime = .25;
+  public static final double autoDriveTime = 3;
   public static final boolean forward = true;
   public static final boolean backward = false;
   
@@ -86,9 +88,13 @@ public class RobotMap {
   public static final int shooterMotorPort = 21;
   public static final double turnOffShooterMotor = 0;
   public static final double autoShooterSpeed = 0.5;
-  public static final int shooterVelocitySetpointOurs = 2350; //2350 worked well
-  public static final int shooterVelocityThreshold = 2600;//changed from 3500
-  public static final int shooterVelocitySetpointOpposing = 2350;//changed from 3500
+  public static final int shooterVelocitySetpointOurs = 2100; //2350 worked well
+  public static final int shooterVelocityThreshold = 2200;//changed from 3500
+  public static final int shooterVelocitySetpointHigh = 3500;
+  public static final int shooterVelocityThresholdHigh = 3200;
+  public static final int shooterVelocitySetpointOpposing = 2100;//changed from 1800
+  public static final int shooterVelocityThresholdOpposing = 2200;// 2100
+  public static final double collisionThreshold = 1;
   // public static final int acceleratorMotorPort = 7; //5 previous
   // public static double lowGoalSpeed = 4000;
   // public static double highGoalSpeed = 5000;
@@ -134,8 +140,8 @@ public class RobotMap {
   public static final int doubleSolenoidBPort1 = 6;//we will not remove double solenoid B
   public static final int doubleSolenoidBPort2 = 7;
   public static final double turnOffIntakeMotor = 0;
-  public static final double intakeSpeed = 0.4;
-  public static final double reverseIntakeSpeed = -.4;
+  public static final double intakeSpeed = 0.6;
+  public static final double reverseIntakeSpeed = -.6;
   public static final int intakeCurrentLimit = 25;
   public static final boolean doIntakeColor = true;
   public static final boolean doNotIntakeColor = false;
@@ -196,8 +202,8 @@ public class RobotMap {
   public static final int ballProximity = 100; 
   public static final int colorMultiplier = 255;
   public static final double rumbleOff = 0;
-  public static final double rumbleOurBall = 0.7;
-  public static final double rumbleOpposingBall = 0.2;
+  public static final double rumbleOurBall = 0;//0.7;
+  public static final double rumbleOpposingBall = 0;//0.2;
   public static final double neutralRumble = 0.4;
   public static final int noBall = 0;
   public static final int blueBall = 1;
@@ -212,7 +218,11 @@ public class RobotMap {
   public static final int defaultGValue = 255;
   public static final int defaultBValue = 0;
   public static final double feederSpeed = -0.5;
+  public static final double feederShootSpeed = -0.8;
   public static final double reverseFeederSpeed = .5;
   public static final int colorTime = 5;
+  public static final double continueFeederTime = 0.8;
+  public static final int timeOfFlightPort = 0;
+  public static final int ToFRange = 300;
 
 }

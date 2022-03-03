@@ -19,6 +19,7 @@ public class GetColor extends Command {
     boolean isBall = false; // j if there is a ball in system true
     boolean isRecorded = false;// j what is the point of knowing if the ball is recorded
     Timer timer;
+    boolean isFinished;
 
     public GetColor() {
         // Use requires() here to declare subsystem dependencies
@@ -31,14 +32,18 @@ public class GetColor extends Command {
         isRecorded = false;
         Robot.m_feeder.feederMotor.set(RobotMap.initalizeFeederMotor);
         timer.reset();
+        SmartDashboard.putNumber("Color", 0);
+        isFinished = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        if (Robot.m_feeder.doColor){
         Color detectedColor = Robot.m_colorSensor.getColor();
         int proximity = Robot.m_colorSensor.getProximity();
         SmartDashboard.putNumber("Proximity", proximity);
         double IR = Robot.m_colorSensor.getIR();
+        SmartDashboard.putNumber("Color", 1);
 
         SmartDashboard.putNumber("Red", detectedColor.red * RobotMap.colorMultiplier);
         SmartDashboard.putNumber("Green", detectedColor.green * RobotMap.colorMultiplier);
@@ -68,15 +73,15 @@ public class GetColor extends Command {
                     Feeder.setBall1Type(RobotMap.RedAlliance);
                     // Rumbles more if the ball is ours
                     if (Robot.allianceColor == RobotMap.RedAlliance) { // j allianceColor = 1 if blue = 2 if red
-                        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOurBall);
+                        //OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOurBall);
                     } else if (Robot.allianceColor == RobotMap.BlueAlliance) {
-                        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOpposingBall);
+                        //OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOpposingBall);
                     } else {
-                        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
+                        //OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
                     }
                     //timer.reset();
                     //timer.start();
-                    Robot.m_feeder.feederMotor.set(RobotMap.feederSpeed);
+                    //Robot.m_feeder.feederMotor.set(RobotMap.feederSpeed);
                     for (var i = 0; i < Robot.m_ledBuffer.getLength() / 2; i++) {// j sets the first half of the LEDs to
                                                                                  // red
                         // Sets the specified LED to the RGB values for red
@@ -87,11 +92,11 @@ public class GetColor extends Command {
                                                                     // into ball2
                     Feeder.setBall2Type(RobotMap.RedAlliance);
                     if (Robot.allianceColor == RobotMap.RedAlliance) {
-                        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOurBall);
+                        //OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOurBall);
                     } else if (Robot.allianceColor == RobotMap.BlueAlliance) {
-                        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOpposingBall);
+                        //OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOpposingBall);
                     } else {
-                        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
+                        //OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
                     }
                     // Robot.m_feeder.feederMotor.set(RobotMap.feederSpeed);
                     for (var i = Robot.m_ledBuffer.getLength() / 2; i < Robot.m_ledBuffer.getLength(); i++) {
@@ -112,11 +117,11 @@ public class GetColor extends Command {
                     Feeder.setBall1Type(RobotMap.BlueAlliance);
                     // Rumbles more if the ball is ours
                     if (Robot.allianceColor == RobotMap.BlueAlliance) {
-                        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOurBall);
+                        //OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOurBall);
                     } else if (Robot.allianceColor == RobotMap.RedAlliance) {
-                        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOurBall);
+                        //OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOurBall);
                     } else {
-                        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
+                        //OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
                     }
                     // timer.reset();
                     // timer.start();
@@ -128,11 +133,11 @@ public class GetColor extends Command {
                 } else if (Feeder.checkBall2() == RobotMap.noBall) {
                     Feeder.setBall2Type(RobotMap.BlueAlliance);
                     if (Robot.allianceColor == RobotMap.BlueAlliance) {
-                        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOurBall);
+                        //OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOurBall);
                     } else if (Robot.allianceColor == RobotMap.RedAlliance) {
-                        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOurBall);
+                       // OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOurBall);
                     } else {
-                        OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
+                        //OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
                     }
                     // Robot.m_feeder.feederMotor.set(RobotMap.feederSpeed);
                     for (var i = Robot.m_ledBuffer.getLength() / 2; i < Robot.m_ledBuffer.getLength(); i++) {
@@ -142,6 +147,9 @@ public class GetColor extends Command {
                 }
                 isRecorded = true;
             }
+        }
+        } else{
+            isFinished = true;
         }
         // if (timer.get()<0.1 && !(Feeder.checkBall1() == RobotMap.noBall)){
         //     Robot.m_feeder.feederMotor.set(RobotMap.feederSpeed);
@@ -187,7 +195,8 @@ public class GetColor extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return isFinished;
+        
     }
 
     // Called once after isFinished returns true
@@ -196,7 +205,7 @@ public class GetColor extends Command {
         OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
         OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
         Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
-
+        SmartDashboard.putNumber("Color", 3);
     }
 
     // Called when another command which requires one or more of the same
@@ -206,6 +215,7 @@ public class GetColor extends Command {
         OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
         OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
         Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
+        SmartDashboard.putNumber("Color", 4);
 
     }
 

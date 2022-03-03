@@ -1,5 +1,6 @@
 Driver Controller:
     X: Reverse Intake
+    B: Run Intake Without Color Sensor
     Left Bumper: Run Intake
     Right Bumper: Actuate Intake
 
@@ -9,6 +10,7 @@ Operator Controller:
     X: Move Climber DOWN
     Y: Move Climber UP
     Left Joystick: Climber UP/DOWN
-    Left Bumper: Shoot Low (Color Logic)
+    Left Bumper: Shoot Low 
+    (Color Logic)
     Back: Reverse Feeder
     Start: Reverse Shooter

@@ -208,6 +208,7 @@ public class Robot extends TimedRobot {
     
     SmartDashboard.putNumber("Ball 2 Type", Feeder.checkBall2());
     m_led.setData(m_ledBuffer);
+    SmartDashboard.putNumber("ToF Range", m_feeder.timeOfFlightSensor.getRange());
     // Get the rate of angular rotation. We are inverting this because we want a
     // positive value when we pull to the left (remember, CCW is positive in
     // mathematics). Xbox controllers return positive values when you pull to

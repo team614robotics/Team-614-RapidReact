@@ -21,6 +21,8 @@ public class Shooter extends Subsystem {
     public CANSparkMax shooterMotor;
     private SparkMaxPIDController shooterPIDController;
     private RelativeEncoder encoder;
+    public static double last_accel_x; 
+    public static double last_accel_y;
 
 
     public Shooter() {
@@ -117,6 +119,21 @@ public class Shooter extends Subsystem {
     //     climberPIDController.setReference(setpoint, ControlType.kSmartMotion);
     // }
 
+
+    public static void setAccel_x(Double acx) {
+        last_accel_x = acx;
+    }
+    public static double getAccel_x() {
+        return last_accel_x;
+    }
+    public static void setAccel_y(Double acy) {
+        last_accel_x = acy;
+    }
+    public static double getAccel_y() {
+        return last_accel_y;
+    }
+
+
     public void setShooterReference(double setPoint) {
         shooterPIDController.setReference(setPoint, com.revrobotics.CANSparkMax.ControlType.kVelocity);
         SmartDashboard.putNumber("Shooter: Process Variable", encoder.getVelocity());
@@ -126,12 +143,5 @@ public class Shooter extends Subsystem {
     public void setPowerOutput(double power) {
         shooterMotor.set(power);
     }
-
-    
-
-   
-    
-    
-
-    
+  
 }

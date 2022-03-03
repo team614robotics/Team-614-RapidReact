@@ -26,6 +26,7 @@ public class RunIntakeBasic extends Command {
 	boolean doColor;
 	public RunIntakeBasic(double speed, boolean doColor) {
         requires(Robot.m_intake);
+		intakeGetColor = new GetColor();
         this.speed = speed;
 		timer = new Timer();
 		continueColor = false;
@@ -37,7 +38,7 @@ public class RunIntakeBasic extends Command {
         Robot.m_intake.intakeMotor.set(RobotMap.turnOffIntakeMotor);
 		timer.reset();
 		continueColor = false;
-		intakeGetColor = new GetColor();
+		
 
 		//Robot.m_feeder.feederMotor.set(0);
 		// Robot.m_intake.setDoubleSolenoidA(Robot.m_intake.pistonIn);
@@ -50,6 +51,7 @@ public class RunIntakeBasic extends Command {
 
 		if (doColor){
 			intakeGetColor.start();
+			Robot.m_feeder.doColor = true;
 		}
 		Robot.m_intake.intakeMotor.set(speed);
 		continueColor = true;
@@ -72,20 +74,22 @@ public class RunIntakeBasic extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
 		Robot.m_intake.intakeMotor.set(RobotMap.turnOffIntakeMotor);
-		if (doColor){
-			if (continueColor == true){
-				timer.start();
-				if (timer.get() > RobotMap.colorTime){
+		// if (doColor){
+		// 	if (continueColor == true){
+		// 		timer.start();
+		// 		if (timer.get() > RobotMap.colorTime){
 					intakeGetColor.cancel();
+					Robot.m_feeder.doColor = false;
 					timer.stop();
 					continueColor = false;
 					timer.reset();
-					Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
+					//Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
+					//Robot.m_feeder.continueFeeder();
 					OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
             		OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
-				}
-			}
-		}
+		// 		}
+		// 	}
+		// }
 		//Robot.m_feeder.feederMotor.set(0);
 		// Robot.m_serializer.serializerMotorA.set(0);
 		// Robot.m_serializer.serializerMotorB.set(0);
@@ -99,18 +103,19 @@ public class RunIntakeBasic extends Command {
 	// subsystems is scheduled to run
 	protected void interrupted() {
 		Robot.m_intake.intakeMotor.set(RobotMap.turnOffIntakeMotor);
-		if (doColor){
-			if (continueColor == true){
-				timer.start();
-				if (timer.get() > RobotMap.colorTime){
+		// if (doColor){
+		// 	if (continueColor == true){
+		// 		timer.start();
+		// 		if (timer.get() > RobotMap.colorTime){
 					intakeGetColor.cancel();
 					timer.stop();
 					continueColor = false;
 					timer.reset();
-					Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
-				}
-			}
-		}
+					//Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
+					//Robot.m_feeder.continueFeeder();
+		// 		}
+		// 	}
+		// }
 		OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
         OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
 		
