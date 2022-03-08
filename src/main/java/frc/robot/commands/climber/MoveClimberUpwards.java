@@ -32,13 +32,14 @@ public class MoveClimberUpwards extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   public void execute() {
     //SmartDashboard.putNumber("ClimberExecute", 1);
-    if(!Robot.m_climber.limitSwitch2.get()) {
+    if(Robot.m_climber.limitSwitch2.get()) {
       // if(timer.get() > .2) {
       //SmartDashboard.putNumber("ClimberExecute", 2);
       Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);
        //}
     } else {
-      Robot.m_climber.climberPIDController.setReference(RobotMap.climberVelocitySetpoint, com.revrobotics.CANSparkMax.ControlType.kVelocity);      //SmartDashboard.putNumber("ClimberExecute", 3);
+      //Robot.m_climber.climberPIDController.setReference(RobotMap.climberVelocitySetpoint, com.revrobotics.CANSparkMax.ControlType.kVelocity);      //SmartDashboard.putNumber("ClimberExecute", 3);
+      Robot.m_climber.climberMotor.set(RobotMap.moveClimberUp);
       SmartDashboard.putNumber("ClimberUP", 1);
     }
     

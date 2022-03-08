@@ -4,6 +4,13 @@ Driver Controller:
     Left Bumper: Run Intake
     Right Bumper: Actuate Intake
 
+Climber Limit Switch Lower limit switch 
+is enabled automatically.
+
+Press X and Y to run the climber and don't 
+press the right 
+joystick FOR TESTING. 
+
 Operator Controller:
     A: Run Feeder
     B: Accelerate Shooter Flywheel

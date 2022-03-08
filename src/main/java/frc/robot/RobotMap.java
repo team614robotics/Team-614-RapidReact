@@ -11,6 +11,7 @@ import java.util.function.BooleanSupplier;
 
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
@@ -66,15 +67,30 @@ public class RobotMap {
   public static final double chassisVelocityMaxOutput = 1;
   public static final double autoArcadeSpeed = -0.5;
   public static final double autoRotateValue = 0;
+  public static final double kWheelDiameterMeters = 0.1524;
   public static final double rampD = .5;//deciedes the ramping of the driveVal ramp = 1 == x^3, ramp = 0 == x,
   public static final double rampR = .5;//deciedes the ramping of the rotateVal ramp = 1 == x^3, ramp = 0 == x,
+
+  public static final double ks = 0.11314;//0.18137
+  public static final double kv = 0.25777;//0.26569
+  public static final double ka = 0.15984;//0.041764
+  public static final double kpVelocity = 0.3855;//0.35292
+
+  
 
   public static final double staticArcadeDriveValue = 0.8;
   public static final double autoDriveTime = 3;
   public static final boolean forward = true;
   public static final boolean backward = false;
   
+  public static final double kTrackwidthMeters = 0.4572;
+  public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
+  public static final double kMaxSpeedMetersPerSecond = 3;
+  public static final double kMaxAngularSpeed = 2 * Math.PI;
+  public static final double kMaxAccelerationMetersPerSecondSquared = 3;
 
+  public static final double kRamseteB = 2;
+  public static final double kRamseteZeta = 0.7;
 
   //Shooter
   public static final double shooterPValue = 0.00008;
@@ -126,8 +142,8 @@ public class RobotMap {
   // public static final int climberPistonPortB = 1;
   public static final double initalClimberMotor = 0;
   public static final double turnOffClimberMotor = 0;
-  public static final double moveClimberDown = -0.5;
-  public static final double moveClimberUp = 0.5;
+  public static final double moveClimberDown = -0.9;
+  public static final double moveClimberUp = 0.9;
   
   //Intake
   public static final double intakePValue = 0.0008;

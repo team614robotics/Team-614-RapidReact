@@ -16,11 +16,27 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.command.*;
+import edu.wpi.first.wpilibj2.command.*;
+import edu.wpi.first.wpilibj.drive.*;
+import edu.wpi.first.wpilibj.*;
 import frc.robot.commands.intake.*;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.commands.shooter.*;
 import frc.robot.commands.feeder.*;
 import frc.robot.commands.intake.*;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import java.util.List;
 
 //import frc.robot.commands.intake.runOuttake;
 /**
@@ -121,4 +137,68 @@ public class OI {
     ReverseFeeder.whileHeld(new RunFeeder(RobotMap.reverseFeederSpeed));
     ReverseShooter.whileHeld(new ReverseShooter(RobotMap.reverseShooterSpeed));
   }
+
+  /**
+   * Use this to pass the autonomous command to the main {@link Robot} class.
+   *
+   * @return the command to run in autonomous
+   */
+  public SequentialCommandGroup getAutonomousCommand() {
+
+    // Create a voltage constraint to ensure we don't accelerate too fast
+    var autoVoltageConstraint =
+        new DifferentialDriveVoltageConstraint(
+            new SimpleMotorFeedforward(
+                RobotMap.ks,
+                RobotMap.kv,
+                RobotMap.ka),
+            RobotMap.kDriveKinematics,
+            10);
+
+    // Create config for trajectory
+    TrajectoryConfig config =
+        new TrajectoryConfig(
+                RobotMap.kMaxSpeedMetersPerSecond,
+                RobotMap.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(RobotMap.kDriveKinematics)
+            // Apply the voltage constraint
+            .addConstraint(autoVoltageConstraint);
+
+    // An example trajectory to follow.  All units in meters.
+    Trajectory exampleTrajectory =
+        TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(0, 0, new Rotation2d(0)),
+            // Pass through these two interior waypoints, making an 's' curve path
+            List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+            // End 3 meters straight ahead of where we started, facing forward
+            new Pose2d(3, 0, new Rotation2d(0)),
+            // Pass config
+            config);
+
+    RamseteCommand ramseteCommand =
+        new RamseteCommand(
+            exampleTrajectory,
+            Robot.m_ramsete::getPose,
+            new RamseteController(RobotMap.kRamseteB, RobotMap.kRamseteZeta),
+            new SimpleMotorFeedforward(
+                RobotMap.ks,
+                RobotMap.kv,
+                RobotMap.ka),
+            RobotMap.kDriveKinematics,
+            Robot.m_ramsete::getWheelSpeeds,
+            new PIDController(RobotMap.kpVelocity, 0, 0),
+            new PIDController(RobotMap.kpVelocity, 0, 0),
+            // RamseteCommand passes volts to the callback
+            Robot.m_ramsete::tankDriveVolts,
+            Robot.m_ramsete);
+
+    // Reset odometry to the starting pose of the trajectory.
+    Robot.m_ramsete.resetOdometry(exampleTrajectory.getInitialPose());
+
+    // Run path following command, then stop at the end.
+    return ramseteCommand.andThen(() -> Robot.m_ramsete.tankDriveVolts(0, 0));
+  }
+
 }

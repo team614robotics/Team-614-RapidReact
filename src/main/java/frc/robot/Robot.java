@@ -8,22 +8,33 @@ import java.util.function.*;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.commands.chassis.AutoMove;
-import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.chassis.AutoMove;
+import frc.robot.subsystems.chassis.Drivetrain;
 import frc.robot.subsystems.climber.*;
 import frc.robot.subsystems.pneumatics.*;
 import frc.robot.subsystems.intake.*;
 import frc.robot.subsystems.shooter.*;
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.subsystems.feeder.*;
 import frc.robot.commands.feeder.*;
 import edu.wpi.first.wpilibj.shuffleboard.*;
 import edu.wpi.first.wpilibj.*;
 
-
-
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import java.util.List;
+import frc.robot.subsystems.chassis.*;
 import com.revrobotics.ColorSensorV3;
 
 
@@ -48,11 +59,30 @@ public class Robot extends TimedRobot {
   Alliance bAlliance;
   Alliance rAlliance;
 
+  public static AHRS m_navX;
+
+  // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
+  private SlewRateLimiter m_speedLimiter;
+  private SlewRateLimiter m_rotLimiter;
+
+  // An example trajectory to follow during the autonomous period.
+  private Trajectory m_trajectory;
+
+  // The Ramsete Controller to follow the trajectory.
+  private RamseteController m_ramseteController;
+
+  // The timer to use during the autonomous period.
+  private Timer m_timer;
+
+  // Create Field2d for robot and trajectory visualizations.
+  private Field2d m_field;
+
   private static I2C.Port i2cPort = I2C.Port.kMXP;
   
 
-  public static AHRS m_navX;
+  
   public static Pneumatics pneumatics;
+  public static Ramsete m_ramsete;
   
 
   public static ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
@@ -64,17 +94,22 @@ public class Robot extends TimedRobot {
   public static OI m_oi;
 
   // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
-  public final SlewRateLimiter m_speedLimiter = new SlewRateLimiter(3);
-  public final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(3);
+  // public final SlewRateLimiter m_speedLimiter = new SlewRateLimiter(3);
+  // public final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(3);
 
   @Override
   public void robotInit() {
-
+    
     try {
       m_navX = new AHRS(SPI.Port.kMXP, (byte) 200);
     } catch (RuntimeException e) {
       DriverStation.reportError("NAVX ERROR: " + e.getMessage(), true);
     }
+    m_speedLimiter = new SlewRateLimiter(3);
+    m_rotLimiter = new SlewRateLimiter(3);
+    m_ramseteController = new RamseteController();
+
+
     pneumatics = new Pneumatics();
 
     // allianceChooser = new SendableChooser<>();
@@ -98,6 +133,21 @@ public class Robot extends TimedRobot {
     }
     m_led.start();
     
+
+    m_trajectory =
+        TrajectoryGenerator.generateTrajectory(
+            new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
+            List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+            new Pose2d(3, 0, Rotation2d.fromDegrees(0)),
+            new TrajectoryConfig(Units.feetToMeters(3.0), Units.feetToMeters(3.0)));
+
+    // Create and push Field2d to SmartDashboard.
+    m_field = new Field2d();
+    SmartDashboard.putData(m_field);
+
+    // Push the trajectory to Field2d.
+    m_field.getObject("traj").setTrajectory(m_trajectory);
+    m_ramsete = new Ramsete();
   }
 
   @Override
@@ -118,6 +168,11 @@ public class Robot extends TimedRobot {
       SmartDashboard.putString("Alliance: ", "Red");
       allianceColor = 2;
     }
+    // Initialize the timer.
+    m_timer = new Timer();
+    m_timer.start();
+    m_oi.getAutonomousCommand().schedule();
+    // Reset the drivetrain's odometry to the starting pose of the trajectory.
     // SmartDashboard.putNumber("Distance Covered (Right Wheels) (In Feet)", Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.rightMotorA.getEncoder().getPosition()));
     // SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)", Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.leftMotorA.getEncoder().getPosition()));
     
@@ -126,16 +181,21 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("Heading ", 0);
     // SmartDashboard.putNumber("Angle ", Robot.m_navX.getAngle());
     
-    m_autonomousCommand = new AutoMove();
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.start();
-    }
+    // m_autonomousCommand = new AutoMove();
+    // if (m_autonomousCommand != null) {
+    //   m_autonomousCommand.start();
+    // }
   }
   
   @Override
   public void autonomousPeriodic() {
     
+    // Update odometry.
+
+    // Update robot position on Field2d.
     
+    SmartDashboard.putNumber("Right Encoder Values", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
+    SmartDashboard.putNumber("Left Encoder Values", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
     Scheduler.getInstance().run();
 
     
@@ -153,10 +213,10 @@ public class Robot extends TimedRobot {
       // Sets the specified LED to the RGB values for green
       m_ledBuffer.setRGB(i, 0, 255, 0);
     }
-    // SmartDashboard.putNumber("Left Encoder Values", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
+    SmartDashboard.putNumber("Left Encoder Values", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
     Robot.m_drivetrain.leftMotorA.getEncoder().setPosition(0);
     Robot.m_drivetrain.leftMotorB.getEncoder().setPosition(0);
-    // SmartDashboard.putNumber("Right Encoder Values", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
+    SmartDashboard.putNumber("Right Encoder Values", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
     Robot.m_drivetrain.rightMotorA.getEncoder().setPosition(0);
     Robot.m_drivetrain.rightMotorB.getEncoder().setPosition(0);
     
@@ -168,7 +228,7 @@ public class Robot extends TimedRobot {
       SmartDashboard.putString("Alliance: ", "Red");
       allianceColor = 2;
     }
-
+    
     // SmartDashboard.putNumber("Distance Covered (Right Wheels) (In Feet)",
     //     Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.rightMotorA.getEncoder().getPosition()));
     // SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)",
@@ -200,6 +260,9 @@ public class Robot extends TimedRobot {
 
     Scheduler.getInstance().run();
     
+    SmartDashboard.putNumber("Right Encoder Values", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
+    SmartDashboard.putNumber("Left Encoder Values", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
+
     // SmartDashboard.putData("Alliance Color", allianceChooser);
     SmartDashboard.putNumber("Ball 1 Type", Feeder.checkBall1());
     if (Feeder.checkBall1()==1){
