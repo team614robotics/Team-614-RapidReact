@@ -28,14 +28,14 @@ public class Climber extends Subsystem {
 
     public Climber() {
         climberMotor = new CANSparkMax(RobotMap.climberMotorPort, MotorType.kBrushless);
-        SmartDashboard.putNumber("ClimberMotor", 3);
-        climberPIDController = climberMotor.getPIDController();
+        //SmartDashboard.putNumber("ClimberMotor", 3);
+        // climberPIDController = climberMotor.getPIDController();
 
 
-        climberPIDController.setP(RobotMap.climberPValue);
-        climberPIDController.setI(RobotMap.climberIValue);
-        climberPIDController.setD(RobotMap.climberDValue);
-        climberPIDController.setFF(RobotMap.climberFFValue);
+        // climberPIDController.setP(RobotMap.climberPValue);
+        // climberPIDController.setI(RobotMap.climberIValue);
+        // climberPIDController.setD(RobotMap.climberDValue);
+        // climberPIDController.setFF(RobotMap.climberFFValue);
         climberMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
         // climberPIDController.setIZone(RobotMap.climberIZValue);
@@ -63,7 +63,7 @@ public class Climber extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        SmartDashboard.putNumber("ClimberJoystick", -3);
+        //SmartDashboard.putNumber("ClimberJoystick", -3);
         setDefaultCommand(new JoystickClimb());
         
     }

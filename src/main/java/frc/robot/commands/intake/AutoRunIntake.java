@@ -31,7 +31,7 @@ public class AutoRunIntake extends Command {
         this.speed = speed;
 		timer = new Timer();
         timer2 = new Timer();
-		continueColor = false;
+		// continueColor = false;
 		this.doColor = doColor;
 	}
 
@@ -40,7 +40,7 @@ public class AutoRunIntake extends Command {
         Robot.m_intake.intakeMotor.set(RobotMap.turnOffIntakeMotor);
 		timer.reset();
         timer2.reset();
-		continueColor = false;
+		// continueColor = false;
         finished = false;
 
 		//Robot.m_feeder.feederMotor.set(0);
@@ -52,13 +52,13 @@ public class AutoRunIntake extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
-		if (doColor){
-			intakeGetColor.start();
-			continueColor = true;
-		}
+		// if (doColor){
+		// 	intakeGetColor.start();
+		// 	continueColor = true;
+		// }
         OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
         OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
-		Robot.m_intake.intakeMotor.set(-1 * speed);
+		Robot.m_intake.intakeMotor.set(speed);
 		
         timer2.start();
         if (timer2.get()>RobotMap.autoDriveTime){
@@ -88,20 +88,20 @@ public class AutoRunIntake extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
 		Robot.m_intake.intakeMotor.set(RobotMap.turnOffIntakeMotor);
-		if (doColor){
-			if (continueColor == true){
-				timer.start();
-				if (timer.get() > RobotMap.colorTime){
-					intakeGetColor.cancel();
-					timer.stop();
-					continueColor = false;
-					timer.reset();
-					Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
-					OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
-            		OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
-				}
-			}
-		}
+		// if (doColor){
+		// 	if (continueColor == true){
+		// 		timer.start();
+		// 		if (timer.get() > RobotMap.colorTime){
+		// 			intakeGetColor.cancel();
+		// 			timer.stop();
+		// 			continueColor = false;
+		// 			timer.reset();
+		// 			Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
+		// 			OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
+        //     		OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
+		// 		}
+		// 	}
+		// }
 		//Robot.m_feeder.feederMotor.set(0);
 		// Robot.m_serializer.serializerMotorA.set(0);
 		// Robot.m_serializer.serializerMotorB.set(0);
@@ -115,18 +115,18 @@ public class AutoRunIntake extends Command {
 	// subsystems is scheduled to run
 	protected void interrupted() {
 		Robot.m_intake.intakeMotor.set(RobotMap.turnOffIntakeMotor);
-		if (doColor){
-			if (continueColor == true){
-				timer.start();
-				if (timer.get() > RobotMap.colorTime){
-					intakeGetColor.cancel();
-					timer.stop();
-					continueColor = false;
-					timer.reset();
-					Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
-				}
-			}
-		}
+		// if (doColor){
+		// 	if (continueColor == true){
+		// 		timer.start();
+		// 		if (timer.get() > RobotMap.colorTime){
+		// 			intakeGetColor.cancel();
+		// 			timer.stop();
+		// 			continueColor = false;
+		// 			timer.reset();
+		// 			Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
+		// 		}
+		// 	}
+		// }
 		
 		//Robot.m_feeder.feederMotor.set(0);
 		// Robot.m_serializer.serializerMotorA.set(0);

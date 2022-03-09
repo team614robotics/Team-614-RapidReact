@@ -12,8 +12,10 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.*;
+import frc.robot.OI;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 //import frc.robot.subsystems.serializer.Serializer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -108,6 +110,12 @@ public class Intake extends Subsystem {
    public boolean checkCurrent(double current) {
       return intakeMotor.getOutputCurrent() > current ? true : false;
    }
+   public void rumble(double value) {
+		OI.operatorController.setRumble(GenericHID.RumbleType.kRightRumble, value);
+		OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, value);
+		OI.operatorController.setRumble(GenericHID.RumbleType.kLeftRumble, value);
+		OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, value);
+		}
 
    // public void runSerializer(Serializer serializer, double current, double speed) {
    //    if (checkCurrent(current)) {

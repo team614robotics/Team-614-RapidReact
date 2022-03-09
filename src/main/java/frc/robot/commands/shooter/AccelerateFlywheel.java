@@ -19,7 +19,9 @@ import edu.wpi.first.wpilibj.Timer;
  *
  */
 public class AccelerateFlywheel extends Command {
-	public AccelerateFlywheel() {
+	private int speed;
+	public AccelerateFlywheel(int speed) {
+		this.speed = speed;
 	}
 
 	// Called just before this Command runs the first time
@@ -32,7 +34,7 @@ public class AccelerateFlywheel extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
-	    Robot.m_shooter.setShooterReference(RobotMap.shooterVelocitySetpointOurs);
+	    Robot.m_shooter.setShooterReference(speed);
 		
 		boolean collisionDetected = false;
 		// SmartDashboard.putNumber("check", 0);

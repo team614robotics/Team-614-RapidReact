@@ -23,12 +23,18 @@ public class FeedWithToF extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (Robot.m_feeder.timeOfFlightSensor.getRange()>RobotMap.ToFRange){
-            Robot.m_feeder.feederMotor.set(RobotMap.feederSpeed);
-        }
-        else {
-            Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
-		}		
+		if(!Robot.m_shooter.shooting){
+			if (Robot.m_feeder.timeOfFlightSensor.getRange()>RobotMap.ToFRange){
+        	    Robot.m_feeder.feederMotor.set(RobotMap.feederSpeed);
+				// OI.operatorController.setRumble(RumbleType.kRightRumble, RobotMap.rumbleOff);
+				// OI.driverController.setRumble(RumbleType.kRightRumble, RobotMap.rumbleOff);
+				// OI.operatorController.setRumble(RumbleType.kLeftRumble, RobotMap.rumbleOff);
+				// OI.driverController.setRumble(RumbleType.kLeftRumble, RobotMap.rumbleOff);
+        	}
+        	else {
+				Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
+			}
+		}			
 	}
 
 	protected boolean isFinished() {

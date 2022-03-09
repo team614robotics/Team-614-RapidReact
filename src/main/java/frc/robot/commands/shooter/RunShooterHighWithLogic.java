@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.feeder.*;
+import frc.robot.subsystems.intake.Intake;
 
 
 public class RunShooterHighWithLogic extends Command {
@@ -72,8 +73,11 @@ public class RunShooterHighWithLogic extends Command {
     //SmartDashboard.putNumber("ShooterEnd",-10);
     Robot.m_shooter.shooterMotor.set(RobotMap.turnOffShooterMotor);
     Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
+    RobotMap.oneBall = false;
+    RobotMap.twoBall = false;
     Feeder.setBall1Type(RobotMap.noBall);
     Feeder.setBall2Type(RobotMap.noBall);
+
     atSpeed = false;
     for (var i = 0; i < Robot.m_ledBuffer.getLength(); i++) {
       // Sets the specified LED to the RGB values for red
@@ -87,6 +91,8 @@ public class RunShooterHighWithLogic extends Command {
     //SmartDashboard.putNumber("ShooterInt",-10);
     Feeder.setBall1Type(RobotMap.noBall);
     Feeder.setBall2Type(RobotMap.noBall);
+    RobotMap.oneBall = false;
+    RobotMap.twoBall = false;
     atSpeed = false;
     for (var i = 0; i < Robot.m_ledBuffer.getLength(); i++) {
       // Sets the specified LED to the RGB values for red

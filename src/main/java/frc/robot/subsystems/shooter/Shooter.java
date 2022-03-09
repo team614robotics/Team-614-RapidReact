@@ -23,7 +23,8 @@ public class Shooter extends Subsystem {
     private RelativeEncoder encoder;
     public static double last_accel_x; 
     public static double last_accel_y;
-
+    public boolean shooting;
+    public boolean highShot;
 
     public Shooter() {
         shooterMotor = new CANSparkMax(RobotMap.shooterMotorPort, MotorType.kBrushless);
@@ -36,7 +37,8 @@ public class Shooter extends Subsystem {
         shooterPIDController.setFF(RobotMap.shooterFFValue);
         shooterPIDController.setOutputRange(RobotMap.minOutput, RobotMap.maxOutput);
         encoder = shooterMotor.getEncoder();
-
+        shooting = false;
+        highShot = false;
         // climberPIDController.setP(RobotMap.climberPValue);
         // climberPIDController.setI(RobotMap.climberIValue);
         // climberPIDController.setD(RobotMap.climberDValue);
@@ -136,8 +138,8 @@ public class Shooter extends Subsystem {
 
     public void setShooterReference(double setPoint) {
         shooterPIDController.setReference(setPoint, com.revrobotics.CANSparkMax.ControlType.kVelocity);
-        SmartDashboard.putNumber("Shooter: Process Variable", encoder.getVelocity());
-        SmartDashboard.putNumber("Shooter: Setpoint of Current Shot", setPoint);
+        //SmartDashboard.putNumber("Shooter: Process Variable", encoder.getVelocity());
+        //SmartDashboard.putNumber("Shooter: Setpoint of Current Shot", setPoint);
       }
 
     public void setPowerOutput(double power) {

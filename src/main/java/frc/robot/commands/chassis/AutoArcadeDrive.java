@@ -18,11 +18,13 @@ public class AutoArcadeDrive extends Command {
 		// eg. requires(chassis);
 		requires(Robot.m_drivetrain);
 
+
+		double feet = 0;
 		timer = new Timer();
 		timer2 = new Timer();
 		this.time = time;
 		this.forward = forward;
-		
+		time = feet;
 	
 	}
 
@@ -50,6 +52,21 @@ public class AutoArcadeDrive extends Command {
 			finish = true;
 		}
 		//.8 * (0 < 0 ? Math.pow(0, 2) : -Math.pow(0, 2)));
+
+		if (timer2.get() < time) {
+			if (forward){
+				Robot.m_drivetrain.arcadeDrive(RobotMap.autoArcadeSpeed, RobotMap.autoRotateValue);
+			}
+			else {
+				Robot.m_drivetrain.arcadeDrive(-1 * RobotMap.autoArcadeSpeed, RobotMap.autoRotateValue);
+			}
+			 
+		}
+		else {
+			finish = true;
+		}
+
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

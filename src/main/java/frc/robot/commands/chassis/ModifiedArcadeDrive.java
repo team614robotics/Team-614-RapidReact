@@ -39,8 +39,8 @@ public class ModifiedArcadeDrive extends Command {
 		// driveVal = (0.5*yVal) + 0.5*Math.pow(yVal, 3);
 		// rotateVal = -1*((0.5*xVal) + 0.5*Math.pow(xVal, 3));
 		
-		SmartDashboard.putNumber("Drive Value", driveVal);
-		SmartDashboard.putNumber("Rotate Value", rotateVal);
+		//SmartDashboard.putNumber("Drive Value", driveVal);
+		//SmartDashboard.putNumber("Rotate Value", rotateVal);
 
 		Robot.m_drivetrain.arcadeDrive(driveVal, rotateVal);
 	}

@@ -11,12 +11,12 @@ import frc.robot.OI;
 public class JoystickClimb extends Command {
     public JoystickClimb() {
         requires(Robot.m_climber);
-        SmartDashboard.putNumber("ClimberJoystick", -2);
+        //SmartDashboard.putNumber("ClimberJoystick", -2);
     }
 
     // Called when the command is initially scheduled.
     public void initialize() {
-        SmartDashboard.putNumber("ClimberJoystick", -1);
+        //SmartDashboard.putNumber("ClimberJoystick", -1);
         Robot.m_climber.climberMotor.set(RobotMap.initalClimberMotor);
 
     }
@@ -24,16 +24,16 @@ public class JoystickClimb extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     public void execute() {
         // Robot.m_climber.motorBrake.set(DoubleSolenoid.Value.kReverse);
-        SmartDashboard.putNumber("ClimberJoystick", 0);
-        SmartDashboard.putNumber("Climber Encoder", Robot.m_climber.climberMotor.getEncoder().getPosition());
+        //SmartDashboard.putNumber("ClimberJoystick", 0);
+        //SmartDashboard.putNumber("Climber Encoder", Robot.m_climber.climberMotor.getEncoder().getPosition());
         SmartDashboard.putBoolean("UpperLimitSwitch", Robot.m_climber.limitSwitch2.get());
         SmartDashboard.putBoolean("LowerLimitSwitch", Robot.m_climber.limitSwitch1.get());
         if (OI.operatorController.getRightY() < -1 * RobotMap.joystickClimbThreshold
                 || OI.operatorController.getRightY() > RobotMap.joystickClimbThreshold) {
-            SmartDashboard.putNumber("ClimberJoystick", 1);
+            //SmartDashboard.putNumber("ClimberJoystick", 1);
             if ((Robot.m_climber.limitSwitch2.get()&& OI.operatorController.getRightY() <=0) || (!Robot.m_climber.limitSwitch1.get()&& OI.operatorController.getRightY()>=0)) {
                 // if(timer.get() > .2) {
-                    SmartDashboard.putNumber("ClimberJoystick", 2);
+                    //SmartDashboard.putNumber("ClimberJoystick", 2);
                 Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);
                 Robot.m_climber.climberMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
                  //}

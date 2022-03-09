@@ -32,7 +32,7 @@ public class MoveClimberDownwards extends Command {
     } else {
       //Robot.m_climber.climberPIDController.setReference(-1 * RobotMap.climberVelocitySetpoint, com.revrobotics.CANSparkMax.ControlType.kVelocity);    
       Robot.m_climber.climberMotor.set(RobotMap.moveClimberDown); 
-      SmartDashboard.putNumber("ClimberDOWN", 1);
+      //SmartDashboard.putNumber("ClimberDOWN", 1);
     }
   }
 

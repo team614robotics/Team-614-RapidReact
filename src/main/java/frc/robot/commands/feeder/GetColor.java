@@ -32,7 +32,7 @@ public class GetColor extends Command {
         isRecorded = false;
         Robot.m_feeder.feederMotor.set(RobotMap.initalizeFeederMotor);
         timer.reset();
-        SmartDashboard.putNumber("Color", 0);
+        //SmartDashboard.putNumber("Color", 0);
         isFinished = false;
     }
 
@@ -43,7 +43,7 @@ public class GetColor extends Command {
         int proximity = Robot.m_colorSensor.getProximity();
         SmartDashboard.putNumber("Proximity", proximity);
         double IR = Robot.m_colorSensor.getIR();
-        SmartDashboard.putNumber("Color", 1);
+        //SmartDashboard.putNumber("Color", 1);
 
         SmartDashboard.putNumber("Red", detectedColor.red * RobotMap.colorMultiplier);
         SmartDashboard.putNumber("Green", detectedColor.green * RobotMap.colorMultiplier);
@@ -201,21 +201,21 @@ public class GetColor extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-        SmartDashboard.putNumber("ColorEnd", 1);
+        //SmartDashboard.putNumber("ColorEnd", 1);
         OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
         OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
         Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
-        SmartDashboard.putNumber("Color", 3);
+        //SmartDashboard.putNumber("Color", 3);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        SmartDashboard.putNumber("ColorEnd", 2);
+        //SmartDashboard.putNumber("ColorEnd", 2);
         OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
         OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
         Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
-        SmartDashboard.putNumber("Color", 4);
+        //SmartDashboard.putNumber("Color", 4);
 
     }
 

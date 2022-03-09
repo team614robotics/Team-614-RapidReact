@@ -41,6 +41,11 @@ public class RobotMap {
   //public static final XboxController intakeController;
 
   public static boolean isDumb = true;//intake piston activation 
+  public static boolean intakeStart = false;
+  public static boolean oneBall = false;
+  public static boolean twoBall = false;
+
+
   //Chassis
   public static final int leftMotorAPort = 1; //previously 1
   public static final int leftMotorBPort = 2; //previously 2
@@ -66,10 +71,12 @@ public class RobotMap {
   public static final double chassisVelocityMinOutput = -1;
   public static final double chassisVelocityMaxOutput = 1;
   public static final double autoArcadeSpeed = -0.5;
-  public static final double autoRotateValue = 0;
+  public static final double autoRotateValue = -0.11;
   public static final double kWheelDiameterMeters = 0.1524;
-  public static final double rampD = .5;//deciedes the ramping of the driveVal ramp = 1 == x^3, ramp = 0 == x,
-  public static final double rampR = .5;//deciedes the ramping of the rotateVal ramp = 1 == x^3, ramp = 0 == x,
+  public static final double encoderPerFeet = -6.766666666;
+  public static final double rampD = .8;//was .5 deciedes the ramping of the driveVal ramp = 1 == x^3, ramp = 0 == x,
+  public static final double rampR = 1;//was .5 deciedes the ramping of the rotateVal ramp = 1 == x^3, ramp = 0 == x,
+
 
   public static final double ks = 0.11314;//0.18137
   public static final double kv = 0.25777;//0.26569
@@ -79,7 +86,8 @@ public class RobotMap {
   
 
   public static final double staticArcadeDriveValue = 0.8;
-  public static final double autoDriveTime = 3;
+  public static final double autoDriveTime = 1.5;
+  public static final double autoDriveTime2 = 3.5;
   public static final boolean forward = true;
   public static final boolean backward = false;
   
@@ -91,6 +99,8 @@ public class RobotMap {
 
   public static final double kRamseteB = 2;
   public static final double kRamseteZeta = 0.7;
+
+
 
   //Shooter
   public static final double shooterPValue = 0.00008;
@@ -104,17 +114,17 @@ public class RobotMap {
   public static final int shooterMotorPort = 21;
   public static final double turnOffShooterMotor = 0;
   public static final double autoShooterSpeed = 0.5;
-  public static final int shooterVelocitySetpointOurs = 2100; //2350 worked well
-  public static final int shooterVelocityThreshold = 2200;//changed from 3500
+  public static final int shooterVelocitySetpointOurs = 1900; //actually reaches ~2130
+  public static final int shooterVelocityThreshold = 2000;
   public static final int shooterVelocitySetpointHigh = 3500;
-  public static final int shooterVelocityThresholdHigh = 3200;
+  public static final int shooterVelocityThresholdHigh = 3000;
   public static final int shooterVelocitySetpointOpposing = 2100;//changed from 1800
   public static final int shooterVelocityThresholdOpposing = 2200;// 2100
   public static final double collisionThreshold = 1;
   // public static final int acceleratorMotorPort = 7; //5 previous
   // public static double lowGoalSpeed = 4000;
   // public static double highGoalSpeed = 5000;
-  public static final int autoShootTime = 5;
+  public static final int autoShootTime = 4;
   public static final double reverseShooterSpeed = -0.5;
 
   //Climber
@@ -156,8 +166,8 @@ public class RobotMap {
   public static final int doubleSolenoidBPort1 = 6;//we will not remove double solenoid B
   public static final int doubleSolenoidBPort2 = 7;
   public static final double turnOffIntakeMotor = 0;
-  public static final double intakeSpeed = 0.6;
-  public static final double reverseIntakeSpeed = -.6;
+  public static final double intakeSpeed = -0.5;//was .6
+  public static final double reverseIntakeSpeed = .5;//was .6
   public static final int intakeCurrentLimit = 25;
   public static final boolean doIntakeColor = true;
   public static final boolean doNotIntakeColor = false;
@@ -220,7 +230,9 @@ public class RobotMap {
   public static final double rumbleOff = 0;
   public static final double rumbleOurBall = 0;//0.7;
   public static final double rumbleOpposingBall = 0;//0.2;
-  public static final double neutralRumble = 0.4;
+  public static final double neutralRumble = 0.1;
+  public static final double oneBallRumble = 0.2;
+  public static final double twoBallRumble = 0.4;
   public static final int noBall = 0;
   public static final int blueBall = 1;
   public static final int redBall = 2;
@@ -233,7 +245,7 @@ public class RobotMap {
   public static final int defaultRValue = 0;
   public static final int defaultGValue = 255;
   public static final int defaultBValue = 0;
-  public static final double feederSpeed = -0.5;
+  public static final double feederSpeed = -0.3;
   public static final double feederShootSpeed = -0.8;
   public static final double reverseFeederSpeed = .5;
   public static final int colorTime = 5;

@@ -2,6 +2,9 @@ package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import javax.lang.model.util.ElementScanner6;
+
 import edu.wpi.first.wpilibj.*;
 
 import frc.robot.OI;
@@ -49,30 +52,67 @@ public class RunIntakeBasic extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
-		if (doColor){
-			intakeGetColor.start();
-			Robot.m_feeder.doColor = true;
-		}
+		if(!RobotMap.isDumb)
+		{
 		Robot.m_intake.intakeMotor.set(speed);
-		continueColor = true;
+	    }
 
-			
-		// Robot.m_serializer.serializerMotorA.set(-0.35);
-		// Robot.m_serializer.serializerMotorB.set(0.2);
-		//Robot.m_feeder.changeCounterBasic();
+        timer.start();
+        SmartDashboard.putNumber("Bus Volts", timer.get());
+        SmartDashboard.putNumber("Out Current", Robot.m_intake.intakeMotor.getOutputCurrent()  );
+        SmartDashboard.putBoolean("start", RobotMap.intakeStart);
+		SmartDashboard.putBoolean("1 Ball", RobotMap.oneBall);
+		SmartDashboard.putBoolean("2 Ball", RobotMap.twoBall);
+
+        if(Robot.m_intake.intakeMotor.getOutputCurrent()>25 && timer.get() > .5 )
+		{      
+			SmartDashboard.putNumber("Out Current", Robot.m_intake.intakeMotor.getOutputCurrent());
+            if(!RobotMap.oneBall)
+			{
+				//SmartDashboard.putNumber("Hi", 1);
+		        RobotMap.oneBall = true;
+				timer.reset();
+				Robot.m_intake.rumble(RobotMap.oneBallRumble);
+				OI.operatorController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
+				OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
+				OI.operatorController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.neutralRumble);
+				OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.neutralRumble);
+			}
+			else if(!RobotMap.twoBall)
+			{
+			RobotMap.twoBall = true;
+			timer.reset();
+			Robot.m_intake.rumble(RobotMap.twoBallRumble);
+			}
+		}
+		
+
+
 	} 
 				
 		// Robot.m_serializer.serializerMotorA.set(0);
 		// Robot.m_serializer.serializerMotorB.set(0);
 		// Robot.m_feeder.feederMotor.set(0);
 		
+		// public void rumbleOff() {
+		// OI.operatorController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
+		// OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
+		// OI.operatorController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
+		// OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
+		// }
+
+		
+
+		
 	// Make this return true when this Command no lo
 	protected boolean isFinished() {
 		return false;
 	}
 
+
 	// Called once after isFinished returns true
 	protected void end() {
+		RobotMap.intakeStart = false;
 		Robot.m_intake.intakeMotor.set(RobotMap.turnOffIntakeMotor);
 		// if (doColor){
 		// 	if (continueColor == true){
@@ -85,8 +125,8 @@ public class RunIntakeBasic extends Command {
 					timer.reset();
 					//Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
 					//Robot.m_feeder.continueFeeder();
-					OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
-            		OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
+					// OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
+            		// OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
 		// 		}
 		// 	}
 		// }
@@ -102,6 +142,7 @@ public class RunIntakeBasic extends Command {
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		RobotMap.intakeStart = false;
 		Robot.m_intake.intakeMotor.set(RobotMap.turnOffIntakeMotor);
 		// if (doColor){
 		// 	if (continueColor == true){
@@ -116,8 +157,8 @@ public class RunIntakeBasic extends Command {
 		// 		}
 		// 	}
 		// }
-		OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
-        OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
+		// OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
+        // OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
 		
 		//Robot.m_feeder.feederMotor.set(0);
 		// Robot.m_serializer.serializerMotorA.set(0);

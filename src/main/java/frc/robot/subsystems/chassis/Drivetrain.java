@@ -55,7 +55,7 @@ public class Drivetrain extends Subsystem {
         rightMotorA.setInverted(false);
         leftMotorB.follow(leftMotorA);
         rightMotorB.follow(rightMotorA);
-
+        
         // leftMotorA.getPIDController().setP(5e-5);
         // leftMotorA.getPIDController().setI(1e-6);
         // leftMotorA.getPIDController().setD(0);
@@ -119,9 +119,9 @@ public class Drivetrain extends Subsystem {
     }
 
 
-    // public double distanceInFeet(double encoderValue) {
-    //     return encoderValue * (((RobotMap.wheelDiameter / 12) * Math.PI) / RobotMap.ticksInARevolution);
-    // }
+    public double distanceInFeet(double encoderValue) {
+        return encoderValue * (((RobotMap.wheelDiameter / 12) * Math.PI) / RobotMap.ticksInARevolution);
+    }
 
     public void resetDrivetrain() {
         Robot.m_navX.reset();
@@ -134,4 +134,7 @@ public class Drivetrain extends Subsystem {
     public double getAngle() {
         return Robot.m_navX.getAngle();
     }
+
+
+    
 }

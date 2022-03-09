@@ -121,10 +121,10 @@ public class OI {
 
   public OI() {
     /* Driver Controller */
-    RunIntake.whileHeld(new RunIntakeBasic(RobotMap.reverseIntakeSpeed, RobotMap.doIntakeColor));
+    RunIntake.whileHeld(new RunIntakeBasic(RobotMap.intakeSpeed, RobotMap.doIntakeColor));
     IntakeNoColor.whileHeld(new RunIntakeBasic (RobotMap.reverseIntakeSpeed, RobotMap.doNotIntakeColor));
     ToggleIntake.whenPressed(new IntakeToggle());
-    ReverseIntake.whileHeld(new RunIntakeBasic(RobotMap.intakeSpeed, RobotMap.doNotIntakeColor));
+    ReverseIntake.whileHeld(new RunIntakeBasic(RobotMap.reverseIntakeSpeed, RobotMap.doNotIntakeColor));
     ColorSensor.whileHeld(new GetColor());
 
     /* Operator Controller */
@@ -132,7 +132,7 @@ public class OI {
     MoveClimberDownwards.whileHeld(new MoveClimberDownwards());
     ShootLowWithLogic.whileHeld(new RunShooterLowLogic());
     ShootHighWithLogic.whileHeld(new RunShooterHighWithLogic());
-    AccelerateFlywheel.whileHeld(new AccelerateFlywheel());
+    AccelerateFlywheel.whileHeld(new AccelerateFlywheel(RobotMap.shooterVelocitySetpointOurs));
     RunFeeder.whileHeld(new RunFeeder(RobotMap.feederSpeed));
     ReverseFeeder.whileHeld(new RunFeeder(RobotMap.reverseFeederSpeed));
     ReverseShooter.whileHeld(new ReverseShooter(RobotMap.reverseShooterSpeed));
