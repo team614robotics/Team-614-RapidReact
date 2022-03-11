@@ -20,41 +20,54 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class AccelerateFlywheel extends Command {
 	private int speed;
+	Timer timer;
+
 	public AccelerateFlywheel(int speed) {
 		this.speed = speed;
+		timer = new Timer();
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
         Robot.m_shooter.shooterMotor.set(RobotMap.turnOffShooterMotor);
-
+		timer.reset();
 
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
+        timer.start();
+		if(timer.get() < RobotMap.feederTime)
+		{
+          Robot.m_feeder.feederMotor.set(RobotMap.reverseFeederSpeed);
+          //SmartDashboard.putNumber("check", 1);
+		}
+
+	    //SmartDashboard.putNumber("check", 0);
 	    Robot.m_shooter.setShooterReference(speed);
+		SmartDashboard.putNumber("Accelerate Timer", timer.get());
+
 		
-		boolean collisionDetected = false;
-		// SmartDashboard.putNumber("check", 0);
-          double curr_world_linear_accel_x = Robot.m_navX.getWorldLinearAccelX();
-          double currentJerkX = curr_world_linear_accel_x - Robot.m_shooter.getAccel_x();
-          Robot.m_shooter.setAccel_x(curr_world_linear_accel_x);
-          double curr_world_linear_accel_y = Robot.m_navX.getWorldLinearAccelY();
-          double currentJerkY = curr_world_linear_accel_y - Robot.m_shooter.getAccel_x();
-          Robot.m_shooter.setAccel_y(curr_world_linear_accel_y);
+		// boolean collisionDetected = false;
+		// // SmartDashboard.putNumber("check", 0);
+        //   double curr_world_linear_accel_x = Robot.m_navX.getWorldLinearAccelX();
+        //   double currentJerkX = curr_world_linear_accel_x - Robot.m_shooter.getAccel_x();
+        //   Robot.m_shooter.setAccel_x(curr_world_linear_accel_x);
+        //   double curr_world_linear_accel_y = Robot.m_navX.getWorldLinearAccelY();
+        //   double currentJerkY = curr_world_linear_accel_y - Robot.m_shooter.getAccel_x();
+        //   Robot.m_shooter.setAccel_y(curr_world_linear_accel_y);
           
-          if ( ( Math.abs(currentJerkX) > RobotMap.collisionThreshold ) ||
-               ( Math.abs(currentJerkY) > RobotMap.collisionThreshold) ) {
-              collisionDetected = true;
-          }
-          SmartDashboard.putBoolean("CollisionDetected", collisionDetected);
-		  if(collisionDetected == true)
-		  {
-			// SmartDashboard.putNumber("check", 1);
-		  //OI.operatorController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
-		  }
+        //   if ( ( Math.abs(currentJerkX) > RobotMap.collisionThreshold ) ||
+        //        ( Math.abs(currentJerkY) > RobotMap.collisionThreshold) ) {
+        //       collisionDetected = true;
+        //   }
+        //   SmartDashboard.putBoolean("CollisionDetected", collisionDetected);
+		//   if(collisionDetected == true)
+		//   {
+		// 	// SmartDashboard.putNumber("check", 1);
+		//   //OI.operatorController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
+		//   }
 		  
 		SmartDashboard.putNumber("Shooter Velocity", Robot.m_shooter.shooterMotor.getEncoder().getVelocity());
 	
@@ -69,15 +82,16 @@ public class AccelerateFlywheel extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
         Robot.m_shooter.shooterMotor.set(RobotMap.turnOffShooterMotor);
-
-		
+		timer.stop();
+        timer.reset();		
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
         Robot.m_shooter.shooterMotor.set(RobotMap.turnOffShooterMotor);
-
+        timer.stop();
+		timer.reset();  
     }
     
     

@@ -10,14 +10,6 @@ import frc.robot.commands.intake.*;
 
 public class OneBallAuto extends CommandGroup {
     public OneBallAuto() {
-        //addSequential(new AutoShoot());
-        
-        // addSequential(new IntakeToggle());
-        // addParallel(new AutoRunIntake(RobotMap.intakeSpeed, RobotMap.doNotIntakeColor));
-        // addSequential(new AutoArcadeDrive(RobotMap.autoDriveTime, RobotMap.forward));
-        // addSequential(new IntakeToggle());
-        // addParallel(new AccelerateFlywheel(RobotMap.shooterVelocitySetpointOurs));
-        // addSequential(new AutoArcadeDrive(RobotMap.autoDriveTime2, RobotMap.backward));
         
         addSequential(new AutoShootLow());
         addSequential(new AutoArcadeDrive(RobotMap.autoDriveTime2, RobotMap.forward));

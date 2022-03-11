@@ -75,7 +75,7 @@ public class RobotMap {
   public static final double kWheelDiameterMeters = 0.1524;
   public static final double encoderPerFeet = -6.766666666;
   public static final double rampD = .8;//was .5 deciedes the ramping of the driveVal ramp = 1 == x^3, ramp = 0 == x,
-  public static final double rampR = 1;//was .5 deciedes the ramping of the rotateVal ramp = 1 == x^3, ramp = 0 == x,
+  public static final double rampR = .8;//was .5 deciedes the ramping of the rotateVal ramp = 1 == x^3, ramp = 0 == x,
 
 
   public static final double ks = 0.11314;//0.18137
@@ -247,6 +247,7 @@ public class RobotMap {
   public static final int defaultBValue = 0;
   public static final double feederSpeed = -0.3;
   public static final double feederShootSpeed = -0.8;
+  public static final double feederTime = 0.1;
   public static final double reverseFeederSpeed = .5;
   public static final int colorTime = 5;
   public static final double continueFeederTime = 0.8;

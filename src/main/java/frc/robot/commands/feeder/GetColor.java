@@ -48,13 +48,13 @@ public class GetColor extends Command {
         SmartDashboard.putNumber("Red", detectedColor.red * RobotMap.colorMultiplier);
         SmartDashboard.putNumber("Green", detectedColor.green * RobotMap.colorMultiplier);
         SmartDashboard.putNumber("Blue", detectedColor.blue * RobotMap.colorMultiplier);
-        SmartDashboard.putNumber("IR", IR);
+        //SmartDashboard.putNumber("IR", IR);
         if (proximity > RobotMap.ballProximity) {
             isBall = true;
             Feeder.setBall(true);
         } else {
             Feeder.setBall(false);
-            SmartDashboard.putString("Ball Type", "NONE");
+            //SmartDashboard.putString("Ball Type", "NONE");
             OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
             OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
             Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
@@ -64,7 +64,7 @@ public class GetColor extends Command {
         }
         if (detectedColor.red > detectedColor.blue) {
             if (isBall) {
-                SmartDashboard.putString("Ball Type", "RED");
+                //SmartDashboard.putString("Ball Type", "RED");
 
             }
             if (!isRecorded && isBall) {
@@ -108,7 +108,7 @@ public class GetColor extends Command {
             }
         } else if (detectedColor.blue > detectedColor.red) {// j why is this here if is not red it has to be blue
             if (isBall) { // j does the same thing but for if the ball is blue
-                SmartDashboard.putString("Ball Type", "BLUE");
+                //SmartDashboard.putString("Ball Type", "BLUE");
 
             }
             if (!isRecorded && isBall) {

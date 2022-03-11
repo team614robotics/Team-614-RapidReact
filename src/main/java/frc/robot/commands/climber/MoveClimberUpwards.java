@@ -27,6 +27,7 @@ public class MoveClimberUpwards extends Command {
     //SmartDashboard.putNumber("ClimberInit", 1);
     timer.reset();
     timer.start();
+    SmartDashboard.putNumber("Climbup", 1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -36,10 +37,12 @@ public class MoveClimberUpwards extends Command {
       // if(timer.get() > .2) {
       //SmartDashboard.putNumber("ClimberExecute", 2);
       Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);
+      SmartDashboard.putNumber("Climbup", 2);
        //}
     } else {
       //Robot.m_climber.climberPIDController.setReference(RobotMap.climberVelocitySetpoint, com.revrobotics.CANSparkMax.ControlType.kVelocity);      //SmartDashboard.putNumber("ClimberExecute", 3);
       Robot.m_climber.climberMotor.set(RobotMap.moveClimberUp);
+      SmartDashboard.putNumber("Climbup", 3);
       //SmartDashboard.putNumber("ClimberUP", 1);
     }
     
@@ -54,13 +57,14 @@ public class MoveClimberUpwards extends Command {
   public void end() {  
     Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);
     Robot.m_climber.climberMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
-
+    SmartDashboard.putNumber("Climbup", 4);
     // Robot.m_climber.motorBrake.set(DoubleSoleno]d.Value.kReverse);
   }
 
   public void interrupted() {
     Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);
     Robot.m_climber.climberMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    SmartDashboard.putNumber("Climbup", 5);
     // Robot.m_climber.motorBrake.set(DoubleSolenoid.Value.kReverse);
   } 
 

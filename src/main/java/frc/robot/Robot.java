@@ -15,6 +15,7 @@ import frc.robot.subsystems.climber.*;
 import frc.robot.subsystems.pneumatics.*;
 import frc.robot.subsystems.intake.*;
 import frc.robot.subsystems.shooter.*;
+import frc.robot.subsystems.vision.Vision;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.subsystems.feeder.*;
@@ -57,6 +58,7 @@ public class Robot extends TimedRobot {
   public static DriverStation ds;
   public static AddressableLED m_led;
   public static AddressableLEDBuffer m_ledBuffer;
+  public static Vision m_limelight;
   //public static final DriverStation.Alliance R_ALLIANCE;
   Alliance bAlliance;
   Alliance rAlliance;
@@ -119,7 +121,7 @@ public class Robot extends TimedRobot {
 
     pneumatics = new Pneumatics();
 
-
+    m_limelight = new Vision();
     
 
     m_intake = new Intake();
@@ -167,16 +169,23 @@ public class Robot extends TimedRobot {
     autoChooser.addOption("2 Ball High", m_twoBallAutoHigh);
     autoHeightChooser.setDefaultOption("Low", false);
     autoHeightChooser.addOption("High", true);
-    SmartDashboard.putData("Auto Number Chooser", autoChooser);
+    SmartDashboard.putData("Auto Chooser", autoChooser);
     //SmartDashboard.putData("Auto Height Chooser", autoHeightChooser);
+    Robot.m_limelight.setPipeline(1);
+		Robot.m_limelight.setCamMode(1);
+    Robot.m_limelight.setLED(1);
   }
 
   @Override
   public void robotPeriodic(){
-
+    SmartDashboard.putData("Auto Chooser", autoChooser);
   }
   @Override
   public void autonomousInit(){
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+    Robot.m_limelight.setPipeline(1);
+		Robot.m_limelight.setCamMode(1);
+    Robot.m_limelight.setLED(1);
     //SmartDashboard.putNumber("Disabled", 0);
     // SmartDashboard.putNumber("Left Encoder Values", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
     Robot.m_drivetrain.leftMotorA.getEncoder().setPosition(0);
@@ -186,11 +195,11 @@ public class Robot extends TimedRobot {
     Robot.m_drivetrain.rightMotorB.getEncoder().setPosition(0);
     Robot.m_intake.intakeMotor.setSmartCurrentLimit(RobotMap.intakeCurrentLimit);
     if (ds.getAlliance().toString().toLowerCase().equals("blue")) {
-      SmartDashboard.putString("Alliance: ", "Blue");
+      SmartDashboard.putString("Alliance Color: ", "Blue");
       allianceColor = 1;
     }
     else if (ds.getAlliance().toString().toLowerCase().equals("red")) {
-      SmartDashboard.putString("Alliance: ", "Red");
+      SmartDashboard.putString("Alliance Color: ", "Red");
       allianceColor = 2;
     }
     // Initialize the timer.
@@ -221,7 +230,7 @@ public class Robot extends TimedRobot {
   
   @Override
   public void autonomousPeriodic() {
-    
+    SmartDashboard.putData("Auto Chooser", autoChooser);
     // Update odometry.
 
     // Update robot position on Field2d.
@@ -237,6 +246,11 @@ public class Robot extends TimedRobot {
   @Override
 
   public void teleopInit() {
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+    Robot.m_limelight.setPipeline(1);
+		Robot.m_limelight.setCamMode(1);
+    Robot.m_limelight.setLED(1);
+    
     Robot.m_drivetrain.leftMotorA.setIdleMode(CANSparkMax.IdleMode.kCoast);
     Robot.m_drivetrain.leftMotorB.setIdleMode(CANSparkMax.IdleMode.kCoast);
     Robot.m_drivetrain.rightMotorA.setIdleMode(CANSparkMax.IdleMode.kCoast);
@@ -254,11 +268,11 @@ public class Robot extends TimedRobot {
     Robot.m_drivetrain.rightMotorB.getEncoder().setPosition(0);
     
     if (ds.getAlliance().toString().toLowerCase().equals("blue")) {
-      SmartDashboard.putString("Alliance: ", "Blue");
+      SmartDashboard.putString("Alliance Color: ", "Blue");
       allianceColor = 1;
     }
     else if (ds.getAlliance().toString().toLowerCase().equals("red")) {
-      SmartDashboard.putString("Alliance: ", "Red");
+      SmartDashboard.putString("Alliance Color: ", "Red");
       allianceColor = 2;
     }
     
@@ -286,6 +300,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+    SmartDashboard.putData("Auto Chooser", autoChooser);
     // Get the x speed. We are inverting this because Xbox controllers return
     // negative values when we push forward.
     // final var xSpeed = -m_speedLimiter.calculate(m_controller.getLeftY()) *
@@ -301,16 +316,16 @@ public class Robot extends TimedRobot {
 SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)",
     Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.leftMotorA.getEncoder().getPosition()));
     */
-    SmartDashboard.putData("Auto Number Chooser", autoChooser);
+    //SmartDashboard.putData("Auto Number Chooser", autoChooser);
     //SmartDashboard.putData("Auto Height Chooser", autoHeightChooser);
-    SmartDashboard.putNumber("Ball 1 Type", Feeder.checkBall1());
+//SmartDashboard.putNumber("Ball 1 Type", Feeder.checkBall1());
     if (Feeder.checkBall1()==1){
       // Shuffleboard.getTab("Balls").addBoolean("e", RobotMap.colorTrue).withProperties("ColorWhenTrue", Color.kBlue);
     }
     
-    SmartDashboard.putNumber("Ball 2 Type", Feeder.checkBall2());
+//SmartDashboard.putNumber("Ball 2 Type", Feeder.checkBall2());
     m_led.setData(m_ledBuffer);
-    SmartDashboard.putNumber("ToF Range", m_feeder.timeOfFlightSensor.getRange());
+    //SmartDashboard.putNumber("ToF Range", m_feeder.timeOfFlightSensor.getRange());
     // Get the rate of angular rotation. We are inverting this because we want a
     // positive value when we pull to the left (remember, CCW is positive in
     // mathematics). Xbox controllers return positive values when you pull to
@@ -322,10 +337,26 @@ SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)",
   }
   @Override
   public void disabledInit(){
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+    Robot.m_limelight.setPipeline(1);
+		Robot.m_limelight.setCamMode(1);
+    Robot.m_limelight.setLED(1);
     OI.operatorController.setRumble(RumbleType.kRightRumble, RobotMap.rumbleOff);
 		OI.driverController.setRumble(RumbleType.kRightRumble, RobotMap.rumbleOff);
 		OI.operatorController.setRumble(RumbleType.kLeftRumble, RobotMap.rumbleOff);
 		OI.driverController.setRumble(RumbleType.kLeftRumble, RobotMap.rumbleOff);
     //SmartDashboard.putNumber("Disabled", 1);
+  }
+  @Override
+  public void disabledPeriodic(){
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+    if (ds.getAlliance().toString().toLowerCase().equals("blue")) {
+      SmartDashboard.putString("Alliance Color: ", "Blue");
+      allianceColor = 1;
+    }
+    else if (ds.getAlliance().toString().toLowerCase().equals("red")) {
+      SmartDashboard.putString("Alliance Color: ", "Red");
+      allianceColor = 2;
+    }
   }
 }

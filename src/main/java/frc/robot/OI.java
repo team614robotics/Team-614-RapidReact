@@ -93,18 +93,21 @@ public class OI {
 
 
 
+
+
+
   //Driver Controller 
   public static final XboxController driverController = new XboxController(0);
 
   public static final Button RunIntake = new JoystickButton(driverController, RobotMap.LeftBumper);
   public static final Button ReverseIntake = new JoystickButton(driverController, RobotMap.XButton);
-  public static final Button IntakeNoColor = new JoystickButton(driverController, RobotMap.BButton);
+  //public static final Button IntakeNoColor = new JoystickButton(driverController, RobotMap.BButton);
   
 
   // public static final Button RunFeeder = new JoystickButton(driverController, RobotMap.AButton);
   public static final Button ToggleIntake = new JoystickButton(driverController, RobotMap.RightBumper);
   // public static final Button ReverseFeeder = new JoystickButton(driverController, RobotMap.BackButton);
-  public static final Button ColorSensor = new JoystickButton(driverController, RobotMap.BackButton);
+  //public static final Button ColorSensor = new JoystickButton(driverController, RobotMap.BackButton);
 
   //Operator controller
   public static final XboxController operatorController = new XboxController(1);
@@ -112,20 +115,24 @@ public class OI {
   public static final Button MoveClimberUpwards = new JoystickButton(operatorController, RobotMap.YButton);
   public static final Button MoveClimberDownwards = new JoystickButton(operatorController, RobotMap.XButton);
   public static final Button AccelerateFlywheel = new JoystickButton(operatorController, RobotMap.BButton);
-  public static final Button ShootLowWithLogic = new JoystickButton(operatorController, RobotMap.LeftBumper);
-  public static final Button ShootHighWithLogic = new JoystickButton(operatorController, RobotMap.RightBumper);
+  public static final Button ShootLowWithLogic = new JoystickButton(operatorController, RobotMap.RightBumper);
+  public static final Button ShootHighWithLogic = new JoystickButton(operatorController, RobotMap.LeftBumper);
+  public static final Button OperatorReverseIntake = new JoystickButton(operatorController, RobotMap.LeftStick);
   // public static final Button AccelerateFlywheel = new JoystickButton(operatorController, RobotMap.BButton);
-  public static final Button RunFeeder = new JoystickButton(operatorController, RobotMap.AButton);
-  public static final Button ReverseFeeder = new JoystickButton(operatorController, RobotMap.BackButton);
-  public static final Button ReverseShooter = new JoystickButton(operatorController, RobotMap.StartButton);
+ // public static final Button RunFeeder = new JoystickButton(operatorController, RobotMap.AButton);
+  public static final Button ReverseFeeder = new JoystickButton(operatorController, RobotMap.RightStick);
+  public static final Button ReverseShooter = new JoystickButton(operatorController, RobotMap.AButton);
 
   public OI() {
     /* Driver Controller */
+    // RunIntake.whileHeld(new RunIntakeBasic(RobotMap.intakeSpeed, RobotMap.doIntakeColor));
+    //RunIntake.whenReleased(new IntakeToggle());
+    //RunIntake.whenPressed(new IntakeToggle());
     RunIntake.whileHeld(new RunIntakeBasic(RobotMap.intakeSpeed, RobotMap.doIntakeColor));
-    IntakeNoColor.whileHeld(new RunIntakeBasic (RobotMap.reverseIntakeSpeed, RobotMap.doNotIntakeColor));
+    //IntakeNoColor.whileHeld(new RunIntakeBasic (RobotMap.reverseIntakeSpeed, RobotMap.doNotIntakeColor));
     ToggleIntake.whenPressed(new IntakeToggle());
     ReverseIntake.whileHeld(new RunIntakeBasic(RobotMap.reverseIntakeSpeed, RobotMap.doNotIntakeColor));
-    ColorSensor.whileHeld(new GetColor());
+    //ColorSensor.whileHeld(new GetColor());
 
     /* Operator Controller */
     MoveClimberUpwards.whileHeld(new MoveClimberUpwards());
@@ -133,9 +140,10 @@ public class OI {
     ShootLowWithLogic.whileHeld(new RunShooterLowLogic());
     ShootHighWithLogic.whileHeld(new RunShooterHighWithLogic());
     AccelerateFlywheel.whileHeld(new AccelerateFlywheel(RobotMap.shooterVelocitySetpointOurs));
-    RunFeeder.whileHeld(new RunFeeder(RobotMap.feederSpeed));
+    //RunFeeder.whileHeld(new RunFeeder(RobotMap.feederSpeed));
     ReverseFeeder.whileHeld(new RunFeeder(RobotMap.reverseFeederSpeed));
     ReverseShooter.whileHeld(new ReverseShooter(RobotMap.reverseShooterSpeed));
+    OperatorReverseIntake.whileHeld(new RunIntakeBasic(RobotMap.reverseIntakeSpeed, RobotMap.doNotIntakeColor));
   }
 
   /**

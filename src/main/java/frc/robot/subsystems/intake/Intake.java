@@ -22,6 +22,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import frc.robot.commands.intake.IntakeOnJoystick;
 //import frc.robot.subsystems.compressorcontrol.*;
 import frc.robot.commands.intake.RunIntakeBasic;
+import frc.robot.commands.intake.oneButtonIntake;
+
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.SparkMaxRelativeEncoder;
 import com.revrobotics.RelativeEncoder;
@@ -63,7 +65,7 @@ public class Intake extends Subsystem {
 
    @Override
    public void initDefaultCommand() {
-      // setDefaultCommand(new RunIntakeBasic(RobotMap.intakeSpeed));
+      setDefaultCommand(new oneButtonIntake(RobotMap.intakeSpeed));
    }
 
    public DoubleSolenoid.Value getDoubleSolenoidA() {
@@ -99,6 +101,13 @@ public class Intake extends Subsystem {
       setDoubleSolenoidB(getOppositeState(getDoubleSolenoidB()));
    }
 
+   public void toggleIntake() {
+      toggleDoubleSolenoidA();
+      toggleDoubleSolenoidB();
+      RobotMap.isDumb = !RobotMap.isDumb;
+   }
+
+
    public void intakemotorPortSpeed(double speed) {
       intakeMotor.set(speed);
    }
@@ -112,10 +121,17 @@ public class Intake extends Subsystem {
    }
    public void rumble(double value) {
 		OI.operatorController.setRumble(GenericHID.RumbleType.kRightRumble, value);
-		OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, value);
+		//OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, value);
 		OI.operatorController.setRumble(GenericHID.RumbleType.kLeftRumble, value);
-		OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, value);
+		//OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, value);
 		}
+
+      public void rumbleOff() {
+         OI.operatorController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
+         //OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
+         OI.operatorController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
+         //OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
+         }
 
    // public void runSerializer(Serializer serializer, double current, double speed) {
    //    if (checkCurrent(current)) {

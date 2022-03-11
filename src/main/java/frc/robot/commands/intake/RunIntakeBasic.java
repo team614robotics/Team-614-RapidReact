@@ -57,34 +57,33 @@ public class RunIntakeBasic extends Command {
 		Robot.m_intake.intakeMotor.set(speed);
 	    }
 
-        timer.start();
-        SmartDashboard.putNumber("Bus Volts", timer.get());
-        SmartDashboard.putNumber("Out Current", Robot.m_intake.intakeMotor.getOutputCurrent()  );
-        SmartDashboard.putBoolean("start", RobotMap.intakeStart);
-		SmartDashboard.putBoolean("1 Ball", RobotMap.oneBall);
-		SmartDashboard.putBoolean("2 Ball", RobotMap.twoBall);
+        // timer.start();
+        // SmartDashboard.putNumber("Bus Volts", Robot.m_intake.intakeMotor.getOutputCurrent());
+        // SmartDashboard.putNumber("Out Current", Robot.m_intake.intakeMotor.getAppliedOutput() );
+        // SmartDashboard.putBoolean("start", RobotMap.intakeStart);
+		// SmartDashboard.putBoolean("1 Ball", RobotMap.oneBall);
+		// SmartDashboard.putBoolean("2 Ball", RobotMap.twoBall);
 
-        if(Robot.m_intake.intakeMotor.getOutputCurrent()>25 && timer.get() > .5 )
-		{      
-			SmartDashboard.putNumber("Out Current", Robot.m_intake.intakeMotor.getOutputCurrent());
-            if(!RobotMap.oneBall)
-			{
-				//SmartDashboard.putNumber("Hi", 1);
-		        RobotMap.oneBall = true;
-				timer.reset();
-				Robot.m_intake.rumble(RobotMap.oneBallRumble);
-				OI.operatorController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
-				OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
-				OI.operatorController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.neutralRumble);
-				OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.neutralRumble);
-			}
-			else if(!RobotMap.twoBall)
-			{
-			RobotMap.twoBall = true;
-			timer.reset();
-			Robot.m_intake.rumble(RobotMap.twoBallRumble);
-			}
-		}
+        // if(Robot.m_intake.intakeMotor.getOutputCurrent()>25 && timer.get() > .5 &&  Robot.m_intake.intakeMotor.getAppliedOutput()>15)
+		// {      
+        //     if(!RobotMap.oneBall)
+		// 	{
+		// 		//SmartDashboard.putNumber("Hi", 1);
+		//         RobotMap.oneBall = true;
+		// 		timer.reset();
+		// 		Robot.m_intake.rumble(RobotMap.oneBallRumble);
+		// 		OI.operatorController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
+		// 		OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
+		// 		OI.operatorController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.neutralRumble);
+		// 		OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.neutralRumble);
+		// 	}
+		// 	else if(!RobotMap.twoBall)
+		// 	{
+		// 	RobotMap.twoBall = true;
+		// 	timer.reset();
+		// 	Robot.m_intake.rumble(RobotMap.twoBallRumble);
+		// 	}
+		// }
 		
 
 

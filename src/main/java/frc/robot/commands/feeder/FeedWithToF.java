@@ -26,13 +26,13 @@ public class FeedWithToF extends Command {
 		if(!Robot.m_shooter.shooting){
 			if (Robot.m_feeder.timeOfFlightSensor.getRange()>RobotMap.ToFRange){
         	    Robot.m_feeder.feederMotor.set(RobotMap.feederSpeed);
-				// OI.operatorController.setRumble(RumbleType.kRightRumble, RobotMap.rumbleOff);
-				// OI.driverController.setRumble(RumbleType.kRightRumble, RobotMap.rumbleOff);
-				// OI.operatorController.setRumble(RumbleType.kLeftRumble, RobotMap.rumbleOff);
-				// OI.driverController.setRumble(RumbleType.kLeftRumble, RobotMap.rumbleOff);
+				Robot.m_intake.rumbleOff();
+				SmartDashboard.putString("Ball Type:", "No Ball");
         	}
         	else {
 				Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
+				Robot.m_intake.rumble(RobotMap.neutralRumble);
+				SmartDashboard.putString("Ball Type:", "Ball");
 			}
 		}			
 	}
