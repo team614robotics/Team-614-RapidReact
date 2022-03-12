@@ -116,7 +116,7 @@ public class RobotMap {
   public static final double autoShooterSpeed = 0.5;
   public static final int shooterVelocitySetpointOurs = 1900; //actually reaches ~2130
   public static final int shooterVelocityThreshold = 2000;
-  public static final int shooterVelocitySetpointHigh = 3500;
+  public static final int shooterVelocitySetpointHigh = 3000;
   public static final int shooterVelocityThresholdHigh = 3000;
   public static final int shooterVelocitySetpointOpposing = 2100;//changed from 1800
   public static final int shooterVelocityThresholdOpposing = 2200;// 2100
@@ -156,18 +156,18 @@ public class RobotMap {
   public static final double moveClimberUp = 0.9;
   
   //Intake
-  public static final double intakePValue = 0.0008;
+  public static final double intakePValue = 0.00008;
   public static final double intakeIValue = 0;
-  public static final double intakeDValue = 0.001;
-  public static final double intakeFFValue = 0.00023;
+  public static final double intakeDValue = 0;
+  public static final double intakeFFValue = 0;
   public static final int intakeMotorPort = 11; //3 next? previously 8
   public static final int doubleSolenoidAPort1 = 4;
   public static final int doubleSolenoidAPort2 = 5;
   public static final int doubleSolenoidBPort1 = 6;//we will not remove double solenoid B
   public static final int doubleSolenoidBPort2 = 7;
   public static final double turnOffIntakeMotor = 0;
-  public static final double intakeSpeed = -0.5;//was .6
-  public static final double reverseIntakeSpeed = .5;//was .6
+  public static final double intakeSpeed = -0.6;//was .6
+  public static final double reverseIntakeSpeed = .6;//was .6
   public static final int intakeCurrentLimit = 25;
   public static final boolean doIntakeColor = true;
   public static final boolean doNotIntakeColor = false;

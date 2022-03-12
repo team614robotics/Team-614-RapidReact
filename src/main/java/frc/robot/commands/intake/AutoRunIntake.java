@@ -9,7 +9,7 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.feeder.*;
 import frc.robot.commands.feeder.*;
-import frc.robot.commands.feeder.GetColor;
+//import frc.robot.commands.feeder.GetColor;
 //import edu.wpi.first.wpilibj.GenericHID.Hand;
 //import frc.robot.subsystems.feeder.Feeder;
 import frc.robot.commands.feeder.RunFeeder;
@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class AutoRunIntake extends Command {
     double speed;
-	Command intakeGetColor = new GetColor();
+	//Command intakeGetColor = new GetColor();
 	Timer timer;
     Timer timer2;
 	boolean continueColor;

@@ -12,7 +12,7 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.feeder.*;
 import frc.robot.commands.feeder.*;
-import frc.robot.commands.feeder.GetColor;
+//import frc.robot.commands.feeder.GetColor;
 //import edu.wpi.first.wpilibj.GenericHID.Hand;
 //import frc.robot.subsystems.feeder.Feeder;
 import frc.robot.commands.feeder.RunFeeder;
@@ -23,24 +23,24 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class RunIntakeBasic extends Command {
     double speed;
-	Command intakeGetColor;
-	Timer timer;
-	boolean continueColor;
-	boolean doColor;
+	// Command intakeGetColor;
+	//Timer timer;
+	// boolean continueColor;
+	// boolean doColor;
 	public RunIntakeBasic(double speed, boolean doColor) {
         requires(Robot.m_intake);
-		intakeGetColor = new GetColor();
+		//intakeGetColor = new GetColor();
         this.speed = speed;
-		timer = new Timer();
-		continueColor = false;
-		this.doColor = doColor;
+		//timer = new Timer();
+		//continueColor = false;
+		//this.doColor = doColor;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
         Robot.m_intake.intakeMotor.set(RobotMap.turnOffIntakeMotor);
-		timer.reset();
-		continueColor = false;
+		//timer.reset();
+		//continueColor = false;
 		
 
 		//Robot.m_feeder.feederMotor.set(0);
@@ -51,9 +51,10 @@ public class RunIntakeBasic extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-
+		SmartDashboard.putNumber("Intake Speed", Robot.m_intake.intakeMotor.getEncoder().getVelocity());
 		if(!RobotMap.isDumb)
 		{
+		//Robot.m_intake.setIntakeReference(-10000);
 		Robot.m_intake.intakeMotor.set(speed);
 	    }
 
@@ -117,11 +118,11 @@ public class RunIntakeBasic extends Command {
 		// 	if (continueColor == true){
 		// 		timer.start();
 		// 		if (timer.get() > RobotMap.colorTime){
-					intakeGetColor.cancel();
-					Robot.m_feeder.doColor = false;
-					timer.stop();
-					continueColor = false;
-					timer.reset();
+					//intakeGetColor.cancel();
+					// Robot.m_feeder.doColor = false;
+					// timer.stop();
+					// continueColor = false;
+					// timer.reset();
 					//Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
 					//Robot.m_feeder.continueFeeder();
 					// OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
@@ -147,10 +148,10 @@ public class RunIntakeBasic extends Command {
 		// 	if (continueColor == true){
 		// 		timer.start();
 		// 		if (timer.get() > RobotMap.colorTime){
-					intakeGetColor.cancel();
-					timer.stop();
-					continueColor = false;
-					timer.reset();
+					// intakeGetColor.cancel();
+					// timer.stop();
+					// //continueColor = false;
+					// timer.reset();
 					//Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
 					//Robot.m_feeder.continueFeeder();
 		// 		}

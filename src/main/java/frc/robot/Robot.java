@@ -93,7 +93,7 @@ public class Robot extends TimedRobot {
   public static Ramsete m_ramsete;
   
 
-  public static ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
+  //public static ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
 
   Command m_autonomousCommand;
   //Command m_getColor;
@@ -319,12 +319,12 @@ SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)",
     //SmartDashboard.putData("Auto Number Chooser", autoChooser);
     //SmartDashboard.putData("Auto Height Chooser", autoHeightChooser);
 //SmartDashboard.putNumber("Ball 1 Type", Feeder.checkBall1());
-    if (Feeder.checkBall1()==1){
-      // Shuffleboard.getTab("Balls").addBoolean("e", RobotMap.colorTrue).withProperties("ColorWhenTrue", Color.kBlue);
-    }
+    // if (Feeder.checkBall1()==1){
+    //   // Shuffleboard.getTab("Balls").addBoolean("e", RobotMap.colorTrue).withProperties("ColorWhenTrue", Color.kBlue);
+    // }
     
 //SmartDashboard.putNumber("Ball 2 Type", Feeder.checkBall2());
-    m_led.setData(m_ledBuffer);
+    //m_led.setData(m_ledBuffer);
     //SmartDashboard.putNumber("ToF Range", m_feeder.timeOfFlightSensor.getRange());
     // Get the rate of angular rotation. We are inverting this because we want a
     // positive value when we pull to the left (remember, CCW is positive in

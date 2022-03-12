@@ -111,7 +111,7 @@ public class OI {
 
   //Operator controller
   public static final XboxController operatorController = new XboxController(1);
-  
+
   public static final Button MoveClimberUpwards = new JoystickButton(operatorController, RobotMap.YButton);
   public static final Button MoveClimberDownwards = new JoystickButton(operatorController, RobotMap.XButton);
   public static final Button AccelerateFlywheel = new JoystickButton(operatorController, RobotMap.BButton);

@@ -8,7 +8,7 @@ import frc.robot.RobotMap;
 import frc.robot.subsystems.feeder.*;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.commands.feeder.*;
-import frc.robot.commands.feeder.GetColor;
+//import frc.robot.commands.feeder.GetColor;
 import edu.wpi.first.wpilibj.GenericHID.*;
 //import frc.robot.subsystems.feeder.Feeder;
 import frc.robot.commands.feeder.RunFeeder;
@@ -46,7 +46,7 @@ public class AccelerateFlywheel extends Command {
 
 	    //SmartDashboard.putNumber("check", 0);
 	    Robot.m_shooter.setShooterReference(speed);
-		SmartDashboard.putNumber("Accelerate Timer", timer.get());
+		//SmartDashboard.putNumber("Accelerate Timer", timer.get());
 
 		
 		// boolean collisionDetected = false;

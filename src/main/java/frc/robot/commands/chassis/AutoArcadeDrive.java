@@ -39,7 +39,7 @@ public class AutoArcadeDrive extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (timer2.get() < time) {
+		if (timer2.get() < time + 1 && timer2.get() > 1) {
 			if (forward){
 				Robot.m_drivetrain.arcadeDrive(RobotMap.autoArcadeSpeed, RobotMap.autoRotateValue);
 			}
@@ -53,7 +53,7 @@ public class AutoArcadeDrive extends Command {
 		}
 		//.8 * (0 < 0 ? Math.pow(0, 2) : -Math.pow(0, 2)));
 
-		if (timer2.get() < time) {
+		if (timer2.get() < time + 1 && timer2.get() > 1) {
 			if (forward){
 				Robot.m_drivetrain.arcadeDrive(RobotMap.autoArcadeSpeed, RobotMap.autoRotateValue);
 			}

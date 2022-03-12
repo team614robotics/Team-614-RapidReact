@@ -36,7 +36,7 @@ public class Intake extends Subsystem {
    // One Intake Motor, simple speed
    public CANSparkMax intakeMotor;
    private SparkMaxPIDController intakePIDController;
-   //private RelativeEncoder encoder;
+   private RelativeEncoder encoder;
 
    public DoubleSolenoid intakeSolenoidA;
    public DoubleSolenoid intakeSolenoidB;
@@ -51,21 +51,21 @@ public class Intake extends Subsystem {
       intakeMotor.setSmartCurrentLimit(RobotMap.intakeCurrentLimit);
       //SmartDashboard.putNumber("Intake: Intake Speed", 0.0);
 
-      // intakePIDController = intakeMotor.getPIDController();
+      intakePIDController = intakeMotor.getPIDController();
 
-      // intakePIDController.setP(RobotMap.intakePValue);
-      // intakePIDController.setI(RobotMap.intakeIValue);
-      // intakePIDController.setD(RobotMap.intakeDValue);
-      // //shooterPIDController.setIZone(RobotMap.shooterIZValue);
-      // intakePIDController.setFF(RobotMap.intakeFFValue);
-      // intakePIDController.setOutputRange(RobotMap.minOutput, RobotMap.maxOutput);
-      //encoder = intakeMotor.getEncoder();
+      intakePIDController.setP(RobotMap.intakePValue);
+      intakePIDController.setI(RobotMap.intakeIValue);
+      intakePIDController.setD(RobotMap.intakeDValue);
+      //shooterPIDController.setIZone(RobotMap.shooterIZValue);
+      intakePIDController.setFF(RobotMap.intakeFFValue);
+      intakePIDController.setOutputRange(RobotMap.minOutput, RobotMap.maxOutput);
+      encoder = intakeMotor.getEncoder();
 
    }
 
    @Override
    public void initDefaultCommand() {
-      setDefaultCommand(new oneButtonIntake(RobotMap.intakeSpeed));
+      // setDefaultCommand(new oneButtonIntake(RobotMap.intakeSpeed));
    }
 
    public DoubleSolenoid.Value getDoubleSolenoidA() {
@@ -111,6 +111,11 @@ public class Intake extends Subsystem {
    public void intakemotorPortSpeed(double speed) {
       intakeMotor.set(speed);
    }
+   public void setIntakeReference(double setPoint) {
+      intakePIDController.setReference(setPoint, com.revrobotics.CANSparkMax.ControlType.kVelocity);
+      //SmartDashboard.putNumber("Shooter: Process Variable", encoder.getVelocity());
+      //SmartDashboard.putNumber("Shooter: Setpoint of Current Shot", setPoint);
+    }
 
    public double getCurrent() {
       return intakeMotor.getOutputCurrent();

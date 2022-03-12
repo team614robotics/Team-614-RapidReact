@@ -10,7 +10,7 @@ import frc.robot.RobotMap;
 import frc.robot.subsystems.feeder.*;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.commands.feeder.*;
-import frc.robot.commands.feeder.GetColor;
+//import frc.robot.commands.feeder.GetColor;
 //import edu.wpi.first.wpilibj.GenericHID.Hand;
 //import frc.robot.subsystems.feeder.Feeder;
 import frc.robot.commands.feeder.RunFeeder;
@@ -44,7 +44,7 @@ public class oneButtonIntake extends Command
 		if (OI.driverController.getLeftTriggerAxis()>0.5){
             Robot.m_intake.intakeSolenoidA.set(DoubleSolenoid.Value.kForward);
             Robot.m_intake.intakeSolenoidB.set(DoubleSolenoid.Value.kForward);
-            
+            RobotMap.isDumb = false; 
             Robot.m_intake.intakeMotor.set(RobotMap.intakeSpeed);
             stupid = false;
         } else {
