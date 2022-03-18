@@ -65,7 +65,7 @@ public class Intake extends Subsystem {
 
    @Override
    public void initDefaultCommand() {
-      // setDefaultCommand(new oneButtonIntake(RobotMap.intakeSpeed));
+      //setDefaultCommand(new oneButtonIntake(RobotMap.intakeSpeed));
    }
 
    public DoubleSolenoid.Value getDoubleSolenoidA() {

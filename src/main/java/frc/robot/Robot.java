@@ -18,6 +18,7 @@ import frc.robot.subsystems.shooter.*;
 import frc.robot.subsystems.vision.Vision;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.feeder.*;
 import frc.robot.commands.feeder.*;
 import edu.wpi.first.wpilibj.shuffleboard.*;
@@ -96,6 +97,7 @@ public class Robot extends TimedRobot {
   //public static ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
 
   Command m_autonomousCommand;
+  SequentialCommandGroup m_ramseteCommand;
   //Command m_getColor;
   SendableChooser autoChooser;
   SendableChooser autoHeightChooser;
@@ -179,10 +181,13 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic(){
     SmartDashboard.putData("Auto Chooser", autoChooser);
+    SmartDashboard.putNumber("2 High", 2);
   }
   @Override
   public void autonomousInit(){
     SmartDashboard.putData("Auto Chooser", autoChooser);
+    SmartDashboard.putNumber("2 High", 0);
+    SmartDashboard.putNumber("2 Low", 0);
     Robot.m_limelight.setPipeline(1);
 		Robot.m_limelight.setCamMode(1);
     Robot.m_limelight.setLED(1);
@@ -205,7 +210,9 @@ public class Robot extends TimedRobot {
     // Initialize the timer.
     m_timer = new Timer();
     m_timer.start();
-    //m_oi.getAutonomousCommand().schedule();
+    m_ramseteCommand = m_oi.getAutonomousCommand();
+    
+    m_ramseteCommand.schedule();
     // Reset the drivetrain's odometry to the starting pose of the trajectory.
     // SmartDashboard.putNumber("Distance Covered (Right Wheels) (In Feet)", Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.rightMotorA.getEncoder().getPosition()));
     // SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)", Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.leftMotorA.getEncoder().getPosition()));
@@ -224,7 +231,7 @@ public class Robot extends TimedRobot {
     //m_shooter.highShot = (boolean) autoHeightChooser.getSelected();
     
     if (m_autonomousCommand != null) {
-      m_autonomousCommand.start();
+      //m_autonomousCommand.start();
     }
   }
   
@@ -233,10 +240,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto Chooser", autoChooser);
     // Update odometry.
 
-    // Update robot position on Field2d.
-    
-    //SmartDashboard.putNumber("Right Encoder Values", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
-    //SmartDashboard.putNumber("Left Encoder Values", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
+    //Update robot position on Field2d.
+    SmartDashboard.putNumber("Left Encoder Value", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
+    SmartDashboard.putNumber("Right Encoder Value", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
+    SmartDashboard.putNumber("Right Encoder Values", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
+    SmartDashboard.putNumber("Left Encoder Values", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
     Scheduler.getInstance().run();
 
     

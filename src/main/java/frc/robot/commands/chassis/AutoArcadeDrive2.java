@@ -6,14 +6,14 @@ import frc.robot.Robot;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.RobotMap;
 
-public class AutoArcadeDrive extends Command {
+public class AutoArcadeDrive2 extends Command {
 	public static Timer timer;
 	Timer timer2;
 	double time;
 	boolean forward;
 	boolean finish;
     
-    public AutoArcadeDrive(double time, boolean forward) {
+    public AutoArcadeDrive2(double time, boolean forward) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.m_drivetrain);
@@ -39,7 +39,7 @@ public class AutoArcadeDrive extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (timer2.get() < time) {
+		if (timer2.get() < time + 1 && timer2.get() > 1) {
 			if (forward){
 				Robot.m_drivetrain.arcadeDrive(RobotMap.autoArcadeSpeed, RobotMap.autoRotateValue);
 			}

@@ -7,6 +7,7 @@
 
 //poopy butt face
 package frc.robot;
+
 import java.time.Duration;
 
 import com.fasterxml.jackson.databind.deser.impl.SetterlessProperty;
@@ -73,43 +74,44 @@ public class OI {
   // button.whenReleased(new ExampleCommand());
   public static final int AButton = 1;
 
-	public static final int BButton = 2;
+  public static final int BButton = 2;
 
-	public static final int XButton = 3;
+  public static final int XButton = 3;
 
-	public static final int YButton = 4;
+  public static final int YButton = 4;
 
-	public static final int LeftBumper = 5;
+  public static final int LeftBumper = 5;
 
-	public static final int RightBumper = 6;
+  public static final int RightBumper = 6;
 
-	public static final int BackButton = 7;
+  public static final int BackButton = 7;
 
-	public static final int StartButton = 8;
+  public static final int StartButton = 8;
 
   public static final int LeftStick = 9;
-  
-	public static final int RightStick = 10;
 
+  public static final int RightStick = 10;
 
-
-
-
-
-  //Driver Controller 
+  // Driver Controller
   public static final XboxController driverController = new XboxController(0);
 
   public static final Button RunIntake = new JoystickButton(driverController, RobotMap.LeftBumper);
-  public static final Button ReverseIntake = new JoystickButton(driverController, RobotMap.XButton);
-  //public static final Button IntakeNoColor = new JoystickButton(driverController, RobotMap.BButton);
-  
+  public static final Button ReverseIntake = new JoystickButton(driverController, RobotMap.AButton);
+  public static final Button DriverLowShot = new JoystickButton(driverController, RobotMap.BButton);
+  public static final Button DriverClimbUp = new JoystickButton(driverController, RobotMap.YButton);
+  public static final Button DriverClimbDown = new JoystickButton(driverController, RobotMap.XButton);
+  // public static final Button IntakeNoColor = new
+  // JoystickButton(driverController, RobotMap.BButton);
 
-  // public static final Button RunFeeder = new JoystickButton(driverController, RobotMap.AButton);
+  // public static final Button RunFeeder = new JoystickButton(driverController,
+  // RobotMap.AButton);
   public static final Button ToggleIntake = new JoystickButton(driverController, RobotMap.RightBumper);
-  // public static final Button ReverseFeeder = new JoystickButton(driverController, RobotMap.BackButton);
-  //public static final Button ColorSensor = new JoystickButton(driverController, RobotMap.BackButton);
+  // public static final Button ReverseFeeder = new
+  // JoystickButton(driverController, RobotMap.BackButton);
+  // public static final Button ColorSensor = new JoystickButton(driverController,
+  // RobotMap.BackButton);
 
-  //Operator controller
+  // Operator controller
   public static final XboxController operatorController = new XboxController(1);
 
   public static final Button MoveClimberUpwards = new JoystickButton(operatorController, RobotMap.YButton);
@@ -118,21 +120,28 @@ public class OI {
   public static final Button ShootLowWithLogic = new JoystickButton(operatorController, RobotMap.RightBumper);
   public static final Button ShootHighWithLogic = new JoystickButton(operatorController, RobotMap.LeftBumper);
   public static final Button OperatorReverseIntake = new JoystickButton(operatorController, RobotMap.LeftStick);
-  // public static final Button AccelerateFlywheel = new JoystickButton(operatorController, RobotMap.BButton);
- // public static final Button RunFeeder = new JoystickButton(operatorController, RobotMap.AButton);
+  // public static final Button AccelerateFlywheel = new
+  // JoystickButton(operatorController, RobotMap.BButton);
+  // public static final Button RunFeeder = new JoystickButton(operatorController,
+  // RobotMap.AButton);
   public static final Button ReverseFeeder = new JoystickButton(operatorController, RobotMap.RightStick);
   public static final Button ReverseShooter = new JoystickButton(operatorController, RobotMap.AButton);
 
   public OI() {
     /* Driver Controller */
-    // RunIntake.whileHeld(new RunIntakeBasic(RobotMap.intakeSpeed, RobotMap.doIntakeColor));
-    //RunIntake.whenReleased(new IntakeToggle());
-    //RunIntake.whenPressed(new IntakeToggle());
+    // RunIntake.whileHeld(new RunIntakeBasic(RobotMap.intakeSpeed,
+    // RobotMap.doIntakeColor));
+    // RunIntake.whenReleased(new IntakeToggle());
+    // RunIntake.whenPressed(new IntakeToggle());
     RunIntake.whileHeld(new RunIntakeBasic(RobotMap.intakeSpeed, RobotMap.doIntakeColor));
-    //IntakeNoColor.whileHeld(new RunIntakeBasic (RobotMap.reverseIntakeSpeed, RobotMap.doNotIntakeColor));
+    // IntakeNoColor.whileHeld(new RunIntakeBasic (RobotMap.reverseIntakeSpeed,
+    // RobotMap.doNotIntakeColor));
     ToggleIntake.whenPressed(new IntakeToggle());
     ReverseIntake.whileHeld(new RunIntakeBasic(RobotMap.reverseIntakeSpeed, RobotMap.doNotIntakeColor));
-    //ColorSensor.whileHeld(new GetColor());
+    DriverClimbDown.whileHeld(new MoveClimberDownwards());
+    DriverClimbUp.whileHeld(new MoveClimberUpwards());
+    DriverLowShot.whileHeld(new RunShooterLowLogic());
+    // ColorSensor.whileHeld(new GetColor());
 
     /* Operator Controller */
     MoveClimberUpwards.whileHeld(new MoveClimberUpwards());
@@ -140,7 +149,7 @@ public class OI {
     ShootLowWithLogic.whileHeld(new RunShooterLowLogic());
     ShootHighWithLogic.whileHeld(new RunShooterHighWithLogic());
     AccelerateFlywheel.whileHeld(new AccelerateFlywheel(RobotMap.shooterVelocitySetpointOurs));
-    //RunFeeder.whileHeld(new RunFeeder(RobotMap.feederSpeed));
+    // RunFeeder.whileHeld(new RunFeeder(RobotMap.feederSpeed));
     ReverseFeeder.whileHeld(new RunFeeder(RobotMap.reverseFeederSpeed));
     ReverseShooter.whileHeld(new ReverseShooter(RobotMap.reverseShooterSpeed));
     OperatorReverseIntake.whileHeld(new RunIntakeBasic(RobotMap.reverseIntakeSpeed, RobotMap.doNotIntakeColor));
@@ -152,59 +161,55 @@ public class OI {
    * @return the command to run in autonomous
    */
   public SequentialCommandGroup getAutonomousCommand() {
-
+    SmartDashboard.putNumber("Ransete", 1);
     // Create a voltage constraint to ensure we don't accelerate too fast
-    var autoVoltageConstraint =
-        new DifferentialDriveVoltageConstraint(
-            new SimpleMotorFeedforward(
-                RobotMap.ks,
-                RobotMap.kv,
-                RobotMap.ka),
-            RobotMap.kDriveKinematics,
-            10);
+    var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
+        new SimpleMotorFeedforward(
+            RobotMap.ks,
+            RobotMap.kv,
+            RobotMap.ka),
+        RobotMap.kDriveKinematics,
+        10);
 
     // Create config for trajectory
-    TrajectoryConfig config =
-        new TrajectoryConfig(
-                RobotMap.kMaxSpeedMetersPerSecond,
-                RobotMap.kMaxAccelerationMetersPerSecondSquared)
+    TrajectoryConfig config = new TrajectoryConfig(
+        RobotMap.kMaxSpeedMetersPerSecond,
+        RobotMap.kMaxAccelerationMetersPerSecondSquared)
             // Add kinematics to ensure max speed is actually obeyed
             .setKinematics(RobotMap.kDriveKinematics)
             // Apply the voltage constraint
             .addConstraint(autoVoltageConstraint);
 
-    // An example trajectory to follow.  All units in meters.
-    Trajectory exampleTrajectory =
-        TrajectoryGenerator.generateTrajectory(
-            // Start at the origin facing the +X direction
-            new Pose2d(0, 0, new Rotation2d(0)),
-            // Pass through these two interior waypoints, making an 's' curve path
-            List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-            // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(3, 0, new Rotation2d(0)),
-            // Pass config
-            config);
+    // An example trajectory to follow. All units in meters.
+    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+        // Start at the origin facing the +X direction
+        new Pose2d(0, 0, new Rotation2d(0)),
+        // Pass through these two interior waypoints, making an 's' curve path
+        List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+        // End 3 meters straight ahead of where we started, facing forward
+        new Pose2d(3, 0, new Rotation2d(0)),
+        // Pass config
+        config);
 
-    RamseteCommand ramseteCommand =
-        new RamseteCommand(
-            exampleTrajectory,
-            Robot.m_ramsete::getPose,
-            new RamseteController(RobotMap.kRamseteB, RobotMap.kRamseteZeta),
-            new SimpleMotorFeedforward(
-                RobotMap.ks,
-                RobotMap.kv,
-                RobotMap.ka),
-            RobotMap.kDriveKinematics,
-            Robot.m_ramsete::getWheelSpeeds,
-            new PIDController(RobotMap.kpVelocity, 0, 0),
-            new PIDController(RobotMap.kpVelocity, 0, 0),
-            // RamseteCommand passes volts to the callback
-            Robot.m_ramsete::tankDriveVolts,
-            Robot.m_ramsete);
+    RamseteCommand ramseteCommand = new RamseteCommand(
+        exampleTrajectory,
+        Robot.m_ramsete::getPose,
+        new RamseteController(RobotMap.kRamseteB, RobotMap.kRamseteZeta),
+        new SimpleMotorFeedforward(
+            RobotMap.ks,
+            RobotMap.kv,
+            RobotMap.ka),
+        RobotMap.kDriveKinematics,
+        Robot.m_ramsete::getWheelSpeeds,
+        new PIDController(RobotMap.kpVelocity, 0, 0),
+        new PIDController(RobotMap.kpVelocity, 0, 0),
+        // RamseteCommand passes volts to the callback
+        Robot.m_ramsete::tankDriveVolts,
+        Robot.m_ramsete);
 
     // Reset odometry to the starting pose of the trajectory.
     Robot.m_ramsete.resetOdometry(exampleTrajectory.getInitialPose());
-
+    //SmartDashboard.putNumber("Ramsete", 2);
     // Run path following command, then stop at the end.
     return ramseteCommand.andThen(() -> Robot.m_ramsete.tankDriveVolts(0, 0));
   }

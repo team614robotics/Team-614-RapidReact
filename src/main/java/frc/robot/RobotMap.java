@@ -78,16 +78,16 @@ public class RobotMap {
   public static final double rampR = .8;//was .5 deciedes the ramping of the rotateVal ramp = 1 == x^3, ramp = 0 == x,
 
 
-  public static final double ks = 0.11314;//0.18137
-  public static final double kv = 0.25777;//0.26569
-  public static final double ka = 0.15984;//0.041764
-  public static final double kpVelocity = 0.3855;//0.35292
+  public static final double ks = 0.2085;//0.11314
+  public static final double kv = 0.26409;//0.25777
+  public static final double ka = 0.049162;//0.15984
+  public static final double kpVelocity = 0.36134;//0.3855
 
   
 
   public static final double staticArcadeDriveValue = 0.8;
-  public static final double autoDriveTime = 1.5;
-  public static final double autoDriveTime2 = 3.5;
+  public static final double autoDriveTime = 2;
+  public static final double autoDriveTime2 = 4;
   public static final boolean forward = true;
   public static final boolean backward = false;
   
@@ -116,8 +116,8 @@ public class RobotMap {
   public static final double autoShooterSpeed = 0.5;
   public static final int shooterVelocitySetpointOurs = 1900; //actually reaches ~2130
   public static final int shooterVelocityThreshold = 2000;
-  public static final int shooterVelocitySetpointHigh = 3000;
-  public static final int shooterVelocityThresholdHigh = 3000;
+  public static final int shooterVelocitySetpointHigh = 3500;
+  public static final int shooterVelocityThresholdHigh = 3900;
   public static final int shooterVelocitySetpointOpposing = 2100;//changed from 1800
   public static final int shooterVelocityThresholdOpposing = 2200;// 2100
   public static final double collisionThreshold = 1;
@@ -166,7 +166,8 @@ public class RobotMap {
   public static final int doubleSolenoidBPort1 = 6;//we will not remove double solenoid B
   public static final int doubleSolenoidBPort2 = 7;
   public static final double turnOffIntakeMotor = 0;
-  public static final double intakeSpeed = -0.6;//was .6
+  public static final double intakeSpeed = -1;//1 works well with the 21:1
+  public static final double autoIntakeSpeed = -1;//1 works well with the 21:1
   public static final double reverseIntakeSpeed = .6;//was .6
   public static final int intakeCurrentLimit = 25;
   public static final boolean doIntakeColor = true;
