@@ -37,6 +37,7 @@ public class ResetEncoders extends Command {
         SmartDashboard.putNumber("hi", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
 
         if (!start) {
+            Robot.m_navX.reset();
             Robot.m_drivetrain.leftMotorA.getEncoder().setPosition(0);
             Robot.m_drivetrain.leftMotorB.getEncoder().setPosition(0);
             Robot.m_drivetrain.rightMotorA.getEncoder().setPosition(0);

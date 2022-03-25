@@ -13,17 +13,27 @@ public class TwoBallAutoHigh extends CommandGroup {
     int accelerationSpeed;
     public TwoBallAutoHigh() {
         //addSequential(new AutoShoot());
-        accelerationSpeed = RobotMap.shooterVelocitySetpointHigh;
-        //SmartDashboard.putNumber("2 High", 1);
-        addSequential(new IntakeToggle());
-        addParallel(new AutoRunIntake(RobotMap.autoIntakeSpeed, RobotMap.doNotIntakeColor, RobotMap.autoDriveTime));
-        addSequential(new AutoArcadeDrive(RobotMap.autoDriveTime, RobotMap.forward));
-        addSequential(new IntakeToggle());
-        addParallel(new AccelerateFlywheel(accelerationSpeed));
-        addSequential(new AutoArcadeDriveHighShot(RobotMap.backward));
+        // accelerationSpeed = RobotMap.shooterVelocitySetpointHigh;
+        // //SmartDashboard.putNumber("2 High", 1);
+        // addSequential(new IntakeToggle());
+        // addParallel(new AutoRunIntake(RobotMap.autoIntakeSpeed, RobotMap.doNotIntakeColor, RobotMap.autoDriveTime));
+        // addSequential(new AutoArcadeDrive(RobotMap.autoDriveTime, RobotMap.forward));
+        // addSequential(new IntakeToggle());
+        // addParallel(new AccelerateFlywheel(accelerationSpeed));
+        // addSequential(new AutoArcadeDriveHighShot(RobotMap.backward));
         
-        addSequential(new AutoShootLow(1));
+        // addSequential(new AutoShootLow(1));
         //SmartDashboard.putNumber("2 High", 2);
+
+        addSequential(new IntakeToggle());
+        addParallel(new AccelerateFlywheel(RobotMap.shooterVelocitySetpointHigh));
+        addParallel(new AutoRunIntake(RobotMap.autoIntakeSpeed, RobotMap.doNotIntakeColor, RobotMap.autoDriveTime));
+        addSequential(new AutoArcadeEnocderDrive(42, RobotMap.forward, RobotMap.driveFast));// was 42
+        addSequential(new ResetEncoders());
+        addSequential(new IntakeToggle());
+        addSequential(new AutoArcadeEnocderDrive(42, RobotMap.backward, RobotMap.driveFast));
+        addSequential(new ResetEncoders());
+        addSequential(new AutoShootHigh(RobotMap.autoShootTime));
 
      
 

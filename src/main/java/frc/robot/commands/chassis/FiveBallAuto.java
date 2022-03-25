@@ -8,30 +8,16 @@ import frc.robot.commands.chassis.ModifiedArcadeDrive;
 import frc.robot.commands.shooter.*;
 import frc.robot.commands.intake.*;
 
-public class ThreeBallHighAuto extends CommandGroup {
-  public ThreeBallHighAuto() {
-
-    // addSequential(new IntakeToggle());
-    // addParallel(new AutoRunIntake(RobotMap.autoIntakeSpeed,
-    // RobotMap.doNotIntakeColor,RobotMap.autoDriveTime));
-    // addSequential(new AutoArcadeEnocderDrive(38, RobotMap.forward));//was 42
-    // addSequential(new AutoArcadeRotate(Robot.m_navX, 120,
-    // RobotMap.forward));//was 177
-    // addParallel(new AutoRunIntake(RobotMap.autoIntakeSpeed,
-    // RobotMap.doNotIntakeColor,4));
-    // addSequential(new AutoArcadeEnocderDrive(110, RobotMap.forward));
-    // addParallel(new AccelerateFlywheel(RobotMap.shooterVelocitySetpointHigh));
-    // addSequential(new AutoArcadeRotate(Robot.m_navX, 76, RobotMap.backward));
-    // addSequential(new IntakeToggle());
-
+public class FiveBallAuto extends CommandGroup {
+  public FiveBallAuto() {
 
     addSequential(new IntakeToggle());
     addParallel(new AccelerateFlywheel(RobotMap.shooterVelocitySetpointHigh));
     addParallel(new AutoRunIntake(RobotMap.autoIntakeSpeed, RobotMap.doNotIntakeColor, RobotMap.autoDriveTime));
-    addSequential(new AutoArcadeEnocderDrive(38, RobotMap.forward, RobotMap.driveFast));// was 42
+    addSequential(new AutoArcadeEnocderDrive(38, RobotMap.forward, -.8));// was 42
     addSequential(new ResetEncoders());
     addSequential(new IntakeToggle());
-    addSequential(new AutoArcadeEnocderDrive(38, RobotMap.backward, RobotMap.driveFast));
+    addSequential(new AutoArcadeEnocderDrive(38, RobotMap.backward, -8));
     addSequential(new ResetEncoders());
     addSequential(new AutoShootHigh(RobotMap.autoShootTime));
     addSequential(new AutoArcadeRotate(Robot.m_navX, 93, RobotMap.clockwise, 1));
@@ -50,16 +36,6 @@ public class ThreeBallHighAuto extends CommandGroup {
     addSequential(new ResetEncoders());
     addSequential(new IntakeToggle());
     addSequential(new AutoArcadeEnocderDrive(185, RobotMap.backward, -.9));
-    addSequential(new AutoShootHigh(RobotMap.autoShootTime));
-
-    // addSequential(new AutoArcadeRotate(Robot.m_navX, 120,
-    // RobotMap.forward));//was 177
-    // addParallel(new AutoRunIntake(RobotMap.autoIntakeSpeed,
-    // RobotMap.doNotIntakeColor,4));
-    // addSequential(new AutoArcadeEnocderDrive(110, RobotMap.forward));
-    // addParallel(new AccelerateFlywheel(RobotMap.shooterVelocitySetpointHigh));
-    // addSequential(new AutoArcadeRotate(Robot.m_navX, 76, RobotMap.backward));
-    // addSequential(new IntakeToggle());
 
   }
 }

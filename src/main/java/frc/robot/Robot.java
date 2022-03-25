@@ -165,6 +165,7 @@ public class Robot extends TimedRobot {
     m_oneBallAutoHigh = new OneBallAutoHigh();
     m_twoBallAutoHigh = new TwoBallAutoHigh();
     m_threeBallHighAuto = new ThreeBallHighAuto();
+    m_threeBallLowAuto = new ThreeBallLowAuto();
     autoChooser = new SendableChooser<>();
     autoHeightChooser = new SendableChooser<>();
 
@@ -294,6 +295,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Right Encoder Values", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
     Robot.m_drivetrain.rightMotorA.getEncoder().setPosition(0);
     Robot.m_drivetrain.rightMotorB.getEncoder().setPosition(0);
+    Robot.m_climber.climberMotor.getEncoder().setPosition(0);
     
     if (ds.getAlliance().toString().toLowerCase().equals("blue")) {
       SmartDashboard.putString("Alliance Color: ", "Blue");
@@ -378,7 +380,16 @@ SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)",
     Robot.m_drivetrain.leftMotorB.setIdleMode(CANSparkMax.IdleMode.kCoast);
     Robot.m_drivetrain.rightMotorA.setIdleMode(CANSparkMax.IdleMode.kCoast);
     Robot.m_drivetrain.rightMotorB.setIdleMode(CANSparkMax.IdleMode.kCoast);
+    m_navX.reset();
+    Robot.m_drivetrain.leftMotorA.getEncoder().setPosition(0);
+    Robot.m_drivetrain.leftMotorB.getEncoder().setPosition(0);
+    Robot.m_drivetrain.rightMotorA.getEncoder().setPosition(0);
+    Robot.m_drivetrain.rightMotorB.getEncoder().setPosition(0);
+    Robot.m_climber.climberMotor.getEncoder().setPosition(0);
     //SmartDashboard.putNumber("Disabled", 1);
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.cancel();
+    }
   }
   @Override
   public void disabledPeriodic(){

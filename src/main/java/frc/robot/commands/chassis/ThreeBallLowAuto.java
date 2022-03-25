@@ -16,10 +16,18 @@ public class ThreeBallLowAuto extends CommandGroup {
     addSequential(new AutoArcadeEnocderDrive(38, RobotMap.forward, RobotMap.driveFast));// was 42
     addSequential(new ResetEncoders());
     addSequential(new IntakeToggle());
-    addSequential(new AutoArcadeEnocderDrive(50, RobotMap.backward, RobotMap.driveFast));
+    addSequential(new AutoArcadeEnocderDrive(110, RobotMap.backward, RobotMap.driveFast));
     addSequential(new ResetEncoders());
-    addSequential(new AutoShootLow());
-    // addSequential(new AutoArcadeRotate(Robot.m_navX, 93, RobotMap.clockwise,1));
+    addSequential(new AutoShootLow(RobotMap.autoThreeBallLowShootTime));
+    addSequential(new AutoArcadeRotate(Robot.m_navX, 42.5, RobotMap.clockwise,1));
+    addSequential(new IntakeToggle());
+    addParallel(new AutoRunIntake(RobotMap.autoIntakeSpeed, RobotMap.doNotIntakeColor, 2.5));
+    addSequential(new AutoArcadeEnocderDrive(100, RobotMap.forward, RobotMap.driveFast));
+    addSequential(new ResetEncoders());
+    addSequential(new IntakeToggle());
+    addSequential(new AutoArcadeEnocderDrive(100, RobotMap.backward, RobotMap.driveFast));
+    addSequential(new AutoShootLow(RobotMap.autoThreeBallLowShootTime));
+
     // addSequential(new IntakeToggle());
     // addParallel(new AutoRunIntake(RobotMap.autoIntakeSpeed, RobotMap.doNotIntakeColor, 3));
     // addSequential(new AutoArcadeEnocderDrive(94, RobotMap.forward));// was 42
