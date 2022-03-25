@@ -16,13 +16,13 @@ public class TwoBallAutoHigh extends CommandGroup {
         accelerationSpeed = RobotMap.shooterVelocitySetpointHigh;
         //SmartDashboard.putNumber("2 High", 1);
         addSequential(new IntakeToggle());
-        addParallel(new AutoRunIntake(RobotMap.autoIntakeSpeed, RobotMap.doNotIntakeColor));
+        addParallel(new AutoRunIntake(RobotMap.autoIntakeSpeed, RobotMap.doNotIntakeColor, RobotMap.autoDriveTime));
         addSequential(new AutoArcadeDrive(RobotMap.autoDriveTime, RobotMap.forward));
         addSequential(new IntakeToggle());
         addParallel(new AccelerateFlywheel(accelerationSpeed));
         addSequential(new AutoArcadeDriveHighShot(RobotMap.backward));
         
-        addSequential(new AutoShootHigh());
+        addSequential(new AutoShootLow(1));
         //SmartDashboard.putNumber("2 High", 2);
 
      

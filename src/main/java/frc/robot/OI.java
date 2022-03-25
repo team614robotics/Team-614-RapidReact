@@ -138,14 +138,16 @@ public class OI {
     // RobotMap.doNotIntakeColor));
     ToggleIntake.whenPressed(new IntakeToggle());
     ReverseIntake.whileHeld(new RunIntakeBasic(RobotMap.reverseIntakeSpeed, RobotMap.doNotIntakeColor));
-    DriverClimbDown.whileHeld(new MoveClimberDownwards());
-    DriverClimbUp.whileHeld(new MoveClimberUpwards());
+    DriverClimbDown.whileHeld(new MoveClimberDownwards(RobotMap.unRestricted));
+    DriverClimbUp.whileHeld(new MoveClimberUpwards(RobotMap.unRestricted));
+    // DriverLowShot.whileHeld(new RunShooterLowLogic());
     DriverLowShot.whileHeld(new RunShooterLowLogic());
+
     // ColorSensor.whileHeld(new GetColor());
 
     /* Operator Controller */
-    MoveClimberUpwards.whileHeld(new MoveClimberUpwards());
-    MoveClimberDownwards.whileHeld(new MoveClimberDownwards());
+    MoveClimberUpwards.whileHeld(new MoveClimberUpwards(RobotMap.restricted));
+    MoveClimberDownwards.whileHeld(new MoveClimberDownwards(RobotMap.restricted));
     ShootLowWithLogic.whileHeld(new RunShooterLowLogic());
     ShootHighWithLogic.whileHeld(new RunShooterHighWithLogic());
     AccelerateFlywheel.whileHeld(new AccelerateFlywheel(RobotMap.shooterVelocitySetpointOurs));
@@ -160,58 +162,58 @@ public class OI {
    *
    * @return the command to run in autonomous
    */
-  public SequentialCommandGroup getAutonomousCommand() {
-    SmartDashboard.putNumber("Ransete", 1);
-    // Create a voltage constraint to ensure we don't accelerate too fast
-    var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
-        new SimpleMotorFeedforward(
-            RobotMap.ks,
-            RobotMap.kv,
-            RobotMap.ka),
-        RobotMap.kDriveKinematics,
-        10);
+  // public SequentialCommandGroup getAutonomousCommand() {
+    // SmartDashboard.putNumber("Ransete", 1);
+    // // Create a voltage constraint to ensure we don't accelerate too fast
+    // var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
+    //     new SimpleMotorFeedforward(
+    //         RobotMap.ks,
+    //         RobotMap.kv,
+    //         RobotMap.ka),
+    //     RobotMap.kDriveKinematics,
+    //     10);
 
-    // Create config for trajectory
-    TrajectoryConfig config = new TrajectoryConfig(
-        RobotMap.kMaxSpeedMetersPerSecond,
-        RobotMap.kMaxAccelerationMetersPerSecondSquared)
-            // Add kinematics to ensure max speed is actually obeyed
-            .setKinematics(RobotMap.kDriveKinematics)
-            // Apply the voltage constraint
-            .addConstraint(autoVoltageConstraint);
+    // // Create config for trajectory
+    // TrajectoryConfig config = new TrajectoryConfig(
+    //     RobotMap.kMaxSpeedMetersPerSecond,
+    //     RobotMap.kMaxAccelerationMetersPerSecondSquared)
+    //         // Add kinematics to ensure max speed is actually obeyed
+    //         .setKinematics(RobotMap.kDriveKinematics)
+    //         // Apply the voltage constraint
+    //         .addConstraint(autoVoltageConstraint);
 
-    // An example trajectory to follow. All units in meters.
-    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
-        // Start at the origin facing the +X direction
-        new Pose2d(0, 0, new Rotation2d(0)),
-        // Pass through these two interior waypoints, making an 's' curve path
-        List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-        // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(3, 0, new Rotation2d(0)),
-        // Pass config
-        config);
+    // // An example trajectory to follow. All units in meters.
+    // Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+    //     // Start at the origin facing the +X direction
+    //     new Pose2d(0, 0, new Rotation2d(0)),
+    //     // Pass through these two interior waypoints, making an 's' curve path
+    //     List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+    //     // End 3 meters straight ahead of where we started, facing forward
+    //     new Pose2d(3, 0, new Rotation2d(0)),
+    //     // Pass config
+    //     config);
 
-    RamseteCommand ramseteCommand = new RamseteCommand(
-        exampleTrajectory,
-        Robot.m_ramsete::getPose,
-        new RamseteController(RobotMap.kRamseteB, RobotMap.kRamseteZeta),
-        new SimpleMotorFeedforward(
-            RobotMap.ks,
-            RobotMap.kv,
-            RobotMap.ka),
-        RobotMap.kDriveKinematics,
-        Robot.m_ramsete::getWheelSpeeds,
-        new PIDController(RobotMap.kpVelocity, 0, 0),
-        new PIDController(RobotMap.kpVelocity, 0, 0),
-        // RamseteCommand passes volts to the callback
-        Robot.m_ramsete::tankDriveVolts,
-        Robot.m_ramsete);
+    // RamseteCommand ramseteCommand = new RamseteCommand(
+    //     exampleTrajectory,
+    //     Robot.m_ramsete::getPose,
+    //     new RamseteController(RobotMap.kRamseteB, RobotMap.kRamseteZeta),
+    //     new SimpleMotorFeedforward(
+    //         RobotMap.ks,
+    //         RobotMap.kv,
+    //         RobotMap.ka),
+    //     RobotMap.kDriveKinematics,
+    //     Robot.m_ramsete::getWheelSpeeds,
+    //     new PIDController(RobotMap.kpVelocity, 0, 0),
+    //     new PIDController(RobotMap.kpVelocity, 0, 0),
+    //     // RamseteCommand passes volts to the callback
+    //     Robot.m_ramsete::tankDriveVolts,
+    //     Robot.m_ramsete);
 
-    // Reset odometry to the starting pose of the trajectory.
-    Robot.m_ramsete.resetOdometry(exampleTrajectory.getInitialPose());
-    //SmartDashboard.putNumber("Ramsete", 2);
-    // Run path following command, then stop at the end.
-    return ramseteCommand.andThen(() -> Robot.m_ramsete.tankDriveVolts(0, 0));
-  }
+    // // Reset odometry to the starting pose of the trajectory.
+    // Robot.m_ramsete.resetOdometry(exampleTrajectory.getInitialPose());
+    // //SmartDashboard.putNumber("Ramsete", 2);
+    // // Run path following command, then stop at the end.
+    // return ramseteCommand.andThen(() -> Robot.m_ramsete.tankDriveVolts(0, 0));
+  // }
 
 }

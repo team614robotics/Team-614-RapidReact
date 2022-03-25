@@ -16,7 +16,7 @@ public class TwoBallAutoLow extends CommandGroup {
         //SmartDashboard.putNumber("2 Low", 1);
         accelerationSpeed = RobotMap.shooterVelocitySetpointOurs;
         addSequential(new IntakeToggle());
-        addParallel(new AutoRunIntake(RobotMap.autoIntakeSpeed, RobotMap.doNotIntakeColor));
+        addParallel(new AutoRunIntake(RobotMap.autoIntakeSpeed, RobotMap.doNotIntakeColor,RobotMap.autoDriveTime));
         addSequential(new AutoArcadeDrive(RobotMap.autoDriveTime, RobotMap.forward));
         addSequential(new IntakeToggle());
         addParallel(new AccelerateFlywheel(accelerationSpeed));

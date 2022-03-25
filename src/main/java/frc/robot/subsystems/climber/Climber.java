@@ -7,7 +7,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
-import frc.robot.commands.climber.JoystickClimb;
 import edu.wpi.first.wpilibj.DigitalInput;
 import com.revrobotics.ControlType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -63,8 +62,6 @@ public class Climber extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        //SmartDashboard.putNumber("ClimberJoystick", -3);
-        setDefaultCommand(new JoystickClimb());
         
     }
 

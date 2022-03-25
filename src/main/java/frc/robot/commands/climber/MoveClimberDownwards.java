@@ -11,8 +11,10 @@ import frc.robot.RobotMap;
 
 public class MoveClimberDownwards extends Command {
 
-  public MoveClimberDownwards() {
+  boolean restricted;
 
+  public MoveClimberDownwards(boolean restricted) {
+    this.restricted = restricted;
   }
 
   // Called when the command is initially scheduled.
@@ -23,7 +25,7 @@ public class MoveClimberDownwards extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   public void execute() {
     // Robot.m_climber.motorBrake.set(DoubleSolenoid.Value.kReverse);
-    if(!Robot.m_climber.limitSwitch1.get()) {
+    if(restricted && (!Robot.m_climber.limitSwitch1.get() || Robot.m_climber.climberMotor.getEncoder().getPosition() < RobotMap.MinEncoderTick)) {
       // if(timer.get() > .2) {
       
       Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);

@@ -13,8 +13,5 @@ public class OneBallAuto extends CommandGroup {
         
         addSequential(new AutoShootLow());
         addSequential(new AutoArcadeDrive(RobotMap.autoDriveTime2, RobotMap.forward));
-
-     
-
     }
 }

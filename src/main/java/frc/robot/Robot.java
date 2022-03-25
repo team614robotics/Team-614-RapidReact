@@ -67,6 +67,9 @@ public class Robot extends TimedRobot {
   Command m_twoBallAuto;
   Command m_oneBallAutoHigh;
   Command m_twoBallAutoHigh;
+  Command m_threeBallHighAuto;
+  Command m_threeBallLowAuto;
+
 
   public static AHRS m_navX;
 
@@ -91,7 +94,7 @@ public class Robot extends TimedRobot {
 
   
   public static Pneumatics pneumatics;
-  public static Ramsete m_ramsete;
+  // public static Ramsete m_ramsete;
   
 
   //public static ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
@@ -118,7 +121,7 @@ public class Robot extends TimedRobot {
     }
     m_speedLimiter = new SlewRateLimiter(3);
     m_rotLimiter = new SlewRateLimiter(3);
-    m_ramseteController = new RamseteController();
+    // m_ramseteController = new RamseteController();
     
 
     pneumatics = new Pneumatics();
@@ -156,19 +159,25 @@ public class Robot extends TimedRobot {
 
     // Push the trajectory to Field2d.
     m_field.getObject("traj").setTrajectory(m_trajectory);
-    m_ramsete = new Ramsete();
+    // m_ramsete = new Ramsete();
     m_oneBallAuto = new OneBallAuto();
     m_twoBallAuto = new TwoBallAutoLow();
     m_oneBallAutoHigh = new OneBallAutoHigh();
     m_twoBallAutoHigh = new TwoBallAutoHigh();
+    m_threeBallHighAuto = new ThreeBallHighAuto();
     autoChooser = new SendableChooser<>();
     autoHeightChooser = new SendableChooser<>();
+
     ballNumber = 1;
     highAuto = false;
+    // autoChooser.setDefaultOption("1 Ball Low", m_oneBallAuto);
     autoChooser.setDefaultOption("1 Ball Low", m_oneBallAuto);
+
     autoChooser.addOption("2 Ball Low", m_twoBallAuto);
     autoChooser.setDefaultOption("1 Ball High", m_oneBallAutoHigh);
     autoChooser.addOption("2 Ball High", m_twoBallAutoHigh);
+    autoChooser.addOption("3 Ball High", m_threeBallHighAuto);
+    autoChooser.addOption("3 Ball Low", m_threeBallLowAuto);
     autoHeightChooser.setDefaultOption("Low", false);
     autoHeightChooser.addOption("High", true);
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -176,7 +185,10 @@ public class Robot extends TimedRobot {
     Robot.m_limelight.setPipeline(1);
 		Robot.m_limelight.setCamMode(1);
     Robot.m_limelight.setLED(1);
+
+    Robot.m_climber.climberMotor.getEncoder().setPosition(0);
   }
+
 
   @Override
   public void robotPeriodic(){
@@ -185,6 +197,14 @@ public class Robot extends TimedRobot {
   }
   @Override
   public void autonomousInit(){
+
+    m_navX.reset();
+    Robot.m_drivetrain.leftMotorA.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    Robot.m_drivetrain.leftMotorB.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    Robot.m_drivetrain.rightMotorA.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    Robot.m_drivetrain.rightMotorB.setIdleMode(CANSparkMax.IdleMode.kBrake);
+
+
     SmartDashboard.putData("Auto Chooser", autoChooser);
     SmartDashboard.putNumber("2 High", 0);
     SmartDashboard.putNumber("2 Low", 0);
@@ -210,9 +230,9 @@ public class Robot extends TimedRobot {
     // Initialize the timer.
     m_timer = new Timer();
     m_timer.start();
-    m_ramseteCommand = m_oi.getAutonomousCommand();
+    // m_ramseteCommand = m_oi.getAutonomousCommand();
     
-    m_ramseteCommand.schedule();
+    // m_ramseteCommand.schedule();
     // Reset the drivetrain's odometry to the starting pose of the trajectory.
     // SmartDashboard.putNumber("Distance Covered (Right Wheels) (In Feet)", Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.rightMotorA.getEncoder().getPosition()));
     // SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)", Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.leftMotorA.getEncoder().getPosition()));
@@ -220,7 +240,7 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("Output (Left Wheels)", 0);
     // SmartDashboard.putNumber("Output (Right Wheels)", 0);
     // SmartDashboard.putNumber("Heading ", 0);
-    // SmartDashboard.putNumber("Angle ", Robot.m_navX.getAngle());
+    SmartDashboard.putNumber("Angle ", Robot.m_navX.getAngle());
     
     // if (ballNumber == 1){
     //   m_autonomousCommand = new OneBallAuto();
@@ -231,7 +251,7 @@ public class Robot extends TimedRobot {
     //m_shooter.highShot = (boolean) autoHeightChooser.getSelected();
     
     if (m_autonomousCommand != null) {
-      //m_autonomousCommand.start();
+      m_autonomousCommand.start();
     }
   }
   
@@ -268,10 +288,10 @@ public class Robot extends TimedRobot {
       // Sets the specified LED to the RGB values for green
       m_ledBuffer.setRGB(i, 0, 255, 0);
     }
-    //SmartDashboard.putNumber("Left Encoder Values", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
+    SmartDashboard.putNumber("Left Encoder Values", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
     Robot.m_drivetrain.leftMotorA.getEncoder().setPosition(0);
     Robot.m_drivetrain.leftMotorB.getEncoder().setPosition(0);
-    //SmartDashboard.putNumber("Right Encoder Values", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
+    SmartDashboard.putNumber("Right Encoder Values", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
     Robot.m_drivetrain.rightMotorA.getEncoder().setPosition(0);
     Robot.m_drivetrain.rightMotorB.getEncoder().setPosition(0);
     
@@ -284,10 +304,10 @@ public class Robot extends TimedRobot {
       allianceColor = 2;
     }
     
-    // SmartDashboard.putNumber("Distance Covered (Right Wheels) (In Feet)",
-    //     Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.rightMotorA.getEncoder().getPosition()));
-    // SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)",
-    //     Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.leftMotorA.getEncoder().getPosition()));
+    SmartDashboard.putNumber("Distance Covered (Right Wheels) (In Feet)",
+        Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.rightMotorA.getEncoder().getPosition()));
+    SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)",
+        Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.leftMotorA.getEncoder().getPosition()));
     // m_getColor = new GetColor();
     Feeder.setBall1Type(0);
     Feeder.setBall2Type(0);
@@ -315,15 +335,16 @@ public class Robot extends TimedRobot {
     // Drivetrain.kMaxSpeed;
 
     Scheduler.getInstance().run();
-    
-    //SmartDashboard.putNumber("Right Encoder Values", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
-    //SmartDashboard.putNumber("Left Encoder Values", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
+    SmartDashboard.putNumber("NavX Rotation", m_navX.getRotation2d().getDegrees());
+    SmartDashboard.putNumber("Right Encoder Values", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
+    SmartDashboard.putNumber("Left Encoder Values", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
+    SmartDashboard.putNumber("Angle ", Robot.m_navX.getAngle());
 
-    /*SmartDashboard.putNumber("Distance Covered (Right Wheels) (In Feet)",
+    SmartDashboard.putNumber("Distance Covered (Right Wheels) (In Feet)",
     Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.rightMotorA.getEncoder().getPosition()));
 SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)",
     Robot.m_drivetrain.distanceInFeet(Robot.m_drivetrain.leftMotorA.getEncoder().getPosition()));
-    */
+    
     //SmartDashboard.putData("Auto Number Chooser", autoChooser);
     //SmartDashboard.putData("Auto Height Chooser", autoHeightChooser);
 //SmartDashboard.putNumber("Ball 1 Type", Feeder.checkBall1());
@@ -353,6 +374,10 @@ SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)",
 		OI.driverController.setRumble(RumbleType.kRightRumble, RobotMap.rumbleOff);
 		OI.operatorController.setRumble(RumbleType.kLeftRumble, RobotMap.rumbleOff);
 		OI.driverController.setRumble(RumbleType.kLeftRumble, RobotMap.rumbleOff);
+    Robot.m_drivetrain.leftMotorA.setIdleMode(CANSparkMax.IdleMode.kCoast);
+    Robot.m_drivetrain.leftMotorB.setIdleMode(CANSparkMax.IdleMode.kCoast);
+    Robot.m_drivetrain.rightMotorA.setIdleMode(CANSparkMax.IdleMode.kCoast);
+    Robot.m_drivetrain.rightMotorB.setIdleMode(CANSparkMax.IdleMode.kCoast);
     //SmartDashboard.putNumber("Disabled", 1);
   }
   @Override

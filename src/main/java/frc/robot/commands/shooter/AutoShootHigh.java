@@ -16,10 +16,12 @@ public class AutoShootHigh extends Command {
 	Timer timer2;
   private boolean isFinished = false;
   boolean atSpeed;
+  double time;
 
-  public AutoShootHigh() {
+  public AutoShootHigh(double time) {
     timer = new Timer();
 		timer2 = new Timer();
+    this.time = time;
   }
 
   // Called when the command is initially scheduled.
@@ -36,7 +38,12 @@ public class AutoShootHigh extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   public void execute() {
     // Robot.m_shooter.motorBrake.set(DoubleSolenoid.Value.kReverse);
-    if (timer2.get() < RobotMap.autoShootTime) {
+		if(timer2.get() < RobotMap.feederTime)
+		{
+          Robot.m_feeder.feederMotor.set(RobotMap.reverseFeederSpeed);
+		}
+
+    if (timer2.get() < time) {
       Robot.m_shooter.setShooterReference(RobotMap.shooterVelocitySetpointHigh);
       SmartDashboard.putNumber("Shooter Velocity", Robot.m_shooter.shooterMotor.getEncoder().getVelocity());
       if(Robot.m_shooter.shooterMotor.getEncoder().getVelocity() > RobotMap.shooterVelocityThresholdHigh){

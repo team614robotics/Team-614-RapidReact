@@ -26,11 +26,14 @@ public class AutoRunIntake extends Command {
 	boolean continueColor;
 	boolean doColor;
     boolean finished;
-	public AutoRunIntake(double speed, boolean doColor) {
+	double wait;
+
+	public AutoRunIntake(double speed, boolean doColor,double wait) {
         requires(Robot.m_intake);
         this.speed = speed;
 		timer = new Timer();
         timer2 = new Timer();
+		this.wait = wait;
 		// continueColor = false;
 		this.doColor = doColor;
 	}
@@ -61,7 +64,9 @@ public class AutoRunIntake extends Command {
 		Robot.m_intake.intakeMotor.set(speed);
 		
         timer2.start();
-        if (timer2.get()>RobotMap.autoDriveTime){
+        // if (timer2.get()>RobotMap.autoDriveTime){
+        if (timer2.get()>wait){
+
             finished = true;
         }
 

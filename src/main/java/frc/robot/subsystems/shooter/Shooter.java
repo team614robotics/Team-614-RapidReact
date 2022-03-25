@@ -45,7 +45,7 @@ public class Shooter extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-            setDefaultCommand(new LowShotTrigger(RobotMap.shooterVelocitySetpointOurs));
+            //setDefaultCommand(new LowShotTrigger(RobotMap.shooterVelocitySetpointOurs));
     }
 
     public static void setAccel_x(Double acx) {

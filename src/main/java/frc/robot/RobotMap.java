@@ -45,8 +45,11 @@ public class RobotMap {
   public static boolean oneBall = false;
   public static boolean twoBall = false;
 
+//68.57318878173828
+//67.83502197265625
 
   //Chassis
+  public static final double ticksPerInch = 0.6024925;//68.57318878173828 ticks/ 120 inch
   public static final int leftMotorAPort = 1; //previously 1
   public static final int leftMotorBPort = 2; //previously 2
   public static final int rightMotorAPort = 3; //previously 3
@@ -54,7 +57,7 @@ public class RobotMap {
   public static final MotorType brushless = MotorType.kBrushless;
   public static final MotorType brushed = MotorType.kBrushed;
   public static final double ticksInARevolution = 10.659;
-  public static final double wheelDiameter = 6;
+  public static final double wheelDiameter = 5.7;
   public static final double pValue = 0.3855;
   public static final double sumPValue = 0.03;
   public static final double iValue = 0.0;
@@ -70,12 +73,20 @@ public class RobotMap {
   public static final double chassisVelocityIZValue = 0;
   public static final double chassisVelocityMinOutput = -1;
   public static final double chassisVelocityMaxOutput = 1;
-  public static final double autoArcadeSpeed = -0.5;
+  public static final double autoArcadeSpeed = -0.5;//was -.5
   public static final double autoRotateValue = -0.11;
   public static final double kWheelDiameterMeters = 0.1524;
   public static final double encoderPerFeet = -6.766666666;
   public static final double rampD = .8;//was .5 deciedes the ramping of the driveVal ramp = 1 == x^3, ramp = 0 == x,
   public static final double rampR = .8;//was .5 deciedes the ramping of the rotateVal ramp = 1 == x^3, ramp = 0 == x,
+  public static final double rotateFast = .4;
+  public static final double rotateProp = .8;
+  public static final double rotateSlow = .1;
+  public static final double driveFast = -.7;
+  public static final double driveProp = .9;//was .9
+  public static final double driveSlow = -.4;//.3
+  public static final double rotateTime1 = .9;//was .9
+  public static final double rotateTime2 = -.4;//.3
 
 
   public static final double ks = 0.2085;//0.11314
@@ -90,6 +101,9 @@ public class RobotMap {
   public static final double autoDriveTime2 = 4;
   public static final boolean forward = true;
   public static final boolean backward = false;
+
+  public static final boolean clockwise = true;
+  public static final boolean counterClockwise = false;
   
   public static final double kTrackwidthMeters = 0.4572;
   public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
@@ -124,12 +138,15 @@ public class RobotMap {
   // public static final int acceleratorMotorPort = 7; //5 previous
   // public static double lowGoalSpeed = 4000;
   // public static double highGoalSpeed = 5000;
-  public static final int autoShootTime = 4;
+  public static final int autoShootTime = 1;
   public static final double reverseShooterSpeed = -0.5;
 
   //Climber
   public static final int limitSwitchPortA = 0;
   public static final int limitSwitchPortB = 1;
+  public static final double MaxEncoderTick = 180;
+  public static final double MinEncoderTick = 10;
+
   // public static final int limitSwitchPortC = 2;
   // public static final int limitSwitchPortD = 3;
   public static final int climberMotorPort = 31; //actually 2
@@ -154,6 +171,8 @@ public class RobotMap {
   public static final double turnOffClimberMotor = 0;
   public static final double moveClimberDown = -0.9;
   public static final double moveClimberUp = 0.9;
+  public static final boolean restricted = false; 
+  public static final boolean unRestricted = true;
   
   //Intake
   public static final double intakePValue = 0.00008;

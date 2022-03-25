@@ -13,10 +13,12 @@ import frc.robot.RobotMap;
 
 public class MoveClimberUpwards extends Command {
    
-  Timer timer; 
+  Timer timer;
+  boolean restricted;
 
-  public MoveClimberUpwards() {
+  public MoveClimberUpwards(boolean restricted) {
     timer = new Timer();
+    this.restricted = restricted;
     //SmartDashboard.putNumber("ClimberInit", 0);
     
   }
@@ -32,8 +34,10 @@ public class MoveClimberUpwards extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   public void execute() {
+    SmartDashboard.putNumber("climber ", Robot.m_climber.climberMotor.getEncoder().getPosition());
+
     //SmartDashboard.putNumber("ClimberExecute", 1);
-    if(Robot.m_climber.limitSwitch2.get()) {
+    if(restricted && (Robot.m_climber.limitSwitch2.get() || Robot.m_climber.climberMotor.getEncoder().getPosition() > RobotMap.MaxEncoderTick)) {
       // if(timer.get() > .2) {
       //SmartDashboard.putNumber("ClimberExecute", 2);
       Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);

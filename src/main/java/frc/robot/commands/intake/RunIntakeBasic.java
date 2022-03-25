@@ -52,15 +52,14 @@ public class RunIntakeBasic extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		SmartDashboard.putNumber("Intake Speed", Robot.m_intake.intakeMotor.getAppliedOutput());
-		if(!RobotMap.isDumb)
-		{
+
 		//Robot.m_intake.setIntakeReference(-10000);
 		Robot.m_intake.intakeMotor.set(speed);
-	    }
+	    
 
         // timer.start();
-        SmartDashboard.putNumber("Bus Volts", Robot.m_intake.intakeMotor.getOutputCurrent());
-        SmartDashboard.putNumber("Out Current", Robot.m_intake.intakeMotor.getAppliedOutput() );
+        // SmartDashboard.putNumber("Bus Volts", Robot.m_intake.intakeMotor.getOutputCurrent());
+        // SmartDashboard.putNumber("Out Current", Robot.m_intake.intakeMotor.getAppliedOutput() );
         // SmartDashboard.putBoolean("start", RobotMap.intakeStart);
 		// SmartDashboard.putBoolean("1 Ball", RobotMap.oneBall);
 		// SmartDashboard.putBoolean("2 Ball", RobotMap.twoBall);
