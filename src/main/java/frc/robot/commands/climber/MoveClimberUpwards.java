@@ -37,7 +37,7 @@ public class MoveClimberUpwards extends Command {
     SmartDashboard.putNumber("climber ", Robot.m_climber.climberMotor.getEncoder().getPosition());
 
     //SmartDashboard.putNumber("ClimberExecute", 1);
-    if(restricted && (Robot.m_climber.limitSwitch2.get() || Robot.m_climber.climberMotor.getEncoder().getPosition() > RobotMap.MaxEncoderTick)) {
+    if(restricted && (Robot.m_climber.climberMotor.getEncoder().getPosition() > RobotMap.MaxEncoderTick)) {
       // if(timer.get() > .2) {
       //SmartDashboard.putNumber("ClimberExecute", 2);
       Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);
