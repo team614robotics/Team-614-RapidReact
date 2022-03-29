@@ -31,7 +31,7 @@ public class AccelerateFlywheel extends Command {
 	protected void initialize() {
         Robot.m_shooter.shooterMotor.set(RobotMap.turnOffShooterMotor);
 		timer.reset();
-
+		Robot.m_shooter.setLowShot();
 	}
 
 	// Called repeatedly when this Command is scheduled to run

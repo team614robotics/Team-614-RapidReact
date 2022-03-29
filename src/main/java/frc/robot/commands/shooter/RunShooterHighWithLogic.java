@@ -6,37 +6,46 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import com.revrobotics.CANSparkMax.IdleMode;
+
+import java.sql.Time;
+
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.feeder.*;
 import frc.robot.subsystems.intake.Intake;
+import edu.wpi.first.wpilibj.Timer;
 
 
 public class RunShooterHighWithLogic extends Command {
   private boolean ourBall;
   private double shooterVelocity;
   private boolean atSpeed;
+  private Timer timer;
 
   public RunShooterHighWithLogic() {
+    timer = new Timer();
   }
 
   // Called when the command is initially scheduled.
   public void initialize() {
     Robot.m_shooter.shooterMotor.set(RobotMap.turnOffShooterMotor);
     atSpeed = false;
+    timer.reset();
+    timer.start();
+    Robot.m_shooter.setHighShot();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   public void execute() {
     // Robot.m_shooter.motorBrake.set(DoubleSolenoid.Value.kReverse);
-      if (Robot.m_feeder.checkBall1() != RobotMap.noBall){
-        if (Robot.allianceColor == Robot.m_feeder.checkBall1()){
-          ourBall = true;
-        }
-        else {
-          ourBall = false;
-        }
-      }
+      // if (Robot.m_feeder.checkBall1() != RobotMap.noBall){
+      //   if (Robot.allianceColor == Robot.m_feeder.checkBall1()){
+      //     ourBall = true;
+      //   }
+      //   else {
+      //     ourBall = false;
+      //   }
+      // }
       shooterVelocity = Robot.m_shooter.shooterMotor.getEncoder().getVelocity();
 
       
@@ -46,18 +55,18 @@ public class RunShooterHighWithLogic extends Command {
     
       Robot.m_shooter.setShooterReference(RobotMap.shooterVelocitySetpointHigh);
       SmartDashboard.putNumber("Shooter Velocity", Robot.m_shooter.shooterMotor.getEncoder().getVelocity());
-      if(Robot.m_shooter.shooterMotor.getEncoder().getVelocity() > RobotMap.shooterVelocityThresholdHigh){
+      if(Robot.m_shooter.shooterMotor.getEncoder().getVelocity() > RobotMap.shooterVelocityThresholdHigh || timer.get() > 2){
         Robot.m_feeder.feederMotor.set(RobotMap.feederShootSpeed);
-        if (atSpeed == false){
-          atSpeed = true;
-        }
+        // if (atSpeed == false){
+        //   atSpeed = true;
+        // }
       }
       else {
         Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
-        if (atSpeed == true){
-          Robot.m_feeder.setBall1Type(Robot.m_feeder.checkBall2());
-          Robot.m_feeder.setBall2Type(RobotMap.noBall);
-        }
+        // if (atSpeed == true){
+        //   Robot.m_feeder.setBall1Type(Robot.m_feeder.checkBall2());
+        //   Robot.m_feeder.setBall2Type(RobotMap.noBall);
+        // }
       }
      
     

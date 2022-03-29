@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
+import java.sql.Time;
+
 import javax.lang.model.util.ElementScanner6;
 
 import org.opencv.core.Mat;
@@ -20,14 +22,18 @@ public class AutoArcadeEnocderDrive extends Command {
     boolean finish;
     boolean move;
     boolean start=false;
+    private Timer timer;
+    private double time;
     
-    public AutoArcadeEnocderDrive(double inch, boolean forward, double speed) {// #endregion, boolean forward) {
+    public AutoArcadeEnocderDrive(double inch, boolean forward, double speed, double time) {// #endregion, boolean forward) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.m_drivetrain);
         encoder = RobotMap.ticksPerInch * inch;
         move = forward;
         this.speed = speed;
+        this.time = time;
+        timer = new Timer();
 
     }
     // Called just before this Command runs the first time
@@ -40,12 +46,20 @@ public class AutoArcadeEnocderDrive extends Command {
         SmartDashboard.putNumber("leftMotor ", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
         SmartDashboard.putNumber("encoder ", encoder);
 
+
+        if(timer.get()>time)
+        {
+            finish = true;
+        }
         if(!start)
         {
             Robot.m_drivetrain.leftMotorA.getEncoder().setPosition(0);
             Robot.m_drivetrain.leftMotorB.getEncoder().setPosition(0);
             Robot.m_drivetrain.rightMotorA.getEncoder().setPosition(0);
             Robot.m_drivetrain.rightMotorB.getEncoder().setPosition(0);
+            timer.stop();
+            timer.reset();
+            timer.start();
           start = true;
         }
         if (Math.abs(Robot.m_drivetrain.leftMotorA.getEncoder().getPosition()) < RobotMap.driveProp * encoder) {

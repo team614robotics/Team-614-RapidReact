@@ -19,22 +19,25 @@ public class ResetEncoders extends Command {
     boolean finish;
     boolean move;
     boolean start = false;
+    Timer timer;
 
     public ResetEncoders() {// #endregion, boolean forward) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.m_drivetrain);
+        timer = new Timer();
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        timer.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
         SmartDashboard.putNumber("leftMotor ", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
-        SmartDashboard.putNumber("hi", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
+        //SmartDashboard.putNumber("hi", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
 
         if (!start) {
             Robot.m_navX.reset();

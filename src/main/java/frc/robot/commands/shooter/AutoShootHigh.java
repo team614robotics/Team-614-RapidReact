@@ -33,6 +33,7 @@ public class AutoShootHigh extends Command {
 		timer2.start();
     atSpeed = false;
     Robot.m_shooter.shooting = true;
+    Robot.m_shooter.setHighShot();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -46,7 +47,7 @@ public class AutoShootHigh extends Command {
     if (timer2.get() < time) {
       Robot.m_shooter.setShooterReference(RobotMap.shooterVelocitySetpointHigh);
       SmartDashboard.putNumber("Shooter Velocity", Robot.m_shooter.shooterMotor.getEncoder().getVelocity());
-      if(Robot.m_shooter.shooterMotor.getEncoder().getVelocity() > RobotMap.shooterVelocityThresholdHigh){
+      if(Robot.m_shooter.shooterMotor.getEncoder().getVelocity() > RobotMap.shooterVelocityThresholdHigh || timer2.get() > 2){
         Robot.m_feeder.feederMotor.set(RobotMap.feederShootSpeed);
         //SmartDashboard.putNumber("AutoShootFeeder", 1);
         

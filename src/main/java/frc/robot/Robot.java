@@ -160,12 +160,11 @@ public class Robot extends TimedRobot {
     // Push the trajectory to Field2d.
     m_field.getObject("traj").setTrajectory(m_trajectory);
     // m_ramsete = new Ramsete();
-    m_oneBallAuto = new OneBallAuto();
+    // m_oneBallAuto = new OneBallAuto();
     m_twoBallAuto = new TwoBallAutoLow();
-    m_oneBallAutoHigh = new OneBallAutoHigh();
+   
     m_twoBallAutoHigh = new TwoBallAutoHigh();
-    m_threeBallHighAuto = new ThreeBallHighAuto();
-    m_threeBallLowAuto = new ThreeBallLowAuto();
+    
     autoChooser = new SendableChooser<>();
     autoHeightChooser = new SendableChooser<>();
 
@@ -337,7 +336,7 @@ public class Robot extends TimedRobot {
     // Drivetrain.kMaxSpeed;
 
     Scheduler.getInstance().run();
-    SmartDashboard.putNumber("NavX Rotation", m_navX.getRotation2d().getDegrees());
+    //SmartDashboard.putNumber("NavX Rotation", m_navX.getRotation2d().getDegrees());
     SmartDashboard.putNumber("Right Encoder Values", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
     SmartDashboard.putNumber("Left Encoder Values", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
     SmartDashboard.putNumber("Angle ", Robot.m_navX.getAngle());
@@ -402,5 +401,6 @@ SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)",
       SmartDashboard.putString("Alliance Color: ", "Red");
       allianceColor = 2;
     }
+    SmartDashboard.putNumber("Angle ", Robot.m_navX.getAngle());
   }
 }

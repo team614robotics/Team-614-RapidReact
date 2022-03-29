@@ -10,64 +10,63 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Timer;
 
-
 public class AutoShootLow extends Command {
   public static Timer timer;
-	Timer timer2;
+  Timer timer2;
   private boolean isFinished = false;
   boolean atSpeed;
   double time;
 
   public AutoShootLow(double time) {
     timer = new Timer();
-		timer2 = new Timer();
+    timer2 = new Timer();
     this.time = time;
   }
 
   // Called when the command is initially scheduled.
   public void initialize() {
-    Robot.m_shooter.shooterMotor.set(RobotMap.turnOffShooterMotor);
+    // Robot.m_shooter.shooterMotor.set(RobotMap.turnOffShooterMotor);
     timer.reset();
-		timer2.reset();
-		timer.start();
-		timer2.start();
+    timer2.reset();
+    timer.start();
+    timer2.start();
     atSpeed = false;
     Robot.m_shooter.shooting = true;
+    Robot.m_shooter.setLowShot();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   public void execute() {
     // Robot.m_shooter.motorBrake.set(DoubleSolenoid.Value.kReverse);
     if (timer2.get() < time) {
-      Robot.m_shooter.setShooterReference(RobotMap.shooterVelocitySetpointOurs);
+      Robot.m_shooter.setShooterReference(RobotMap.shooterVelocitySetpointOurs + 100);
       SmartDashboard.putNumber("Shooter Velocity", Robot.m_shooter.shooterMotor.getEncoder().getVelocity());
-      if(Robot.m_shooter.shooterMotor.getEncoder().getVelocity() > RobotMap.shooterVelocityThreshold){
+      if (Robot.m_shooter.shooterMotor.getEncoder().getVelocity() > RobotMap.shooterVelocityThreshold
+          || timer2.get() > 1) {
         Robot.m_feeder.feederMotor.set(RobotMap.feederShootSpeed);
-        //SmartDashboard.putNumber("AutoShootFeeder", 1);
-        
+        // SmartDashboard.putNumber("AutoShootFeeder", 1);
+
         // if (atSpeed == false){
-        //   atSpeed = true;
+        // atSpeed = true;
         // }
-      }
-      else {
+      } else {
         Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
-        //SmartDashboard.putNumber("AutoShootFeeder", 0);
+        // SmartDashboard.putNumber("AutoShootFeeder", 0);
         // if (atSpeed == true){
-        //   Robot.m_feeder.setBall1Type(Robot.m_feeder.checkBall2());
-        //   Robot.m_feeder.setBall2Type(RobotMap.noBall);
+        // Robot.m_feeder.setBall1Type(Robot.m_feeder.checkBall2());
+        // Robot.m_feeder.setBall2Type(RobotMap.noBall);
         // }
       }
     }
-      
-    else{
+
+    else {
       Robot.m_shooter.shooterMotor.set(RobotMap.turnOffShooterMotor);
       Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
       isFinished = true;
 
-    }  
-       //}
-    
-    
+    }
+    // }
+
   }
 
   // Returns true when the command should end.

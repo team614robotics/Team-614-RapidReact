@@ -21,6 +21,7 @@ public class ReverseShooter extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
         Robot.m_feeder.feederMotor.set(RobotMap.turnOffShooterMotor);
+		Robot.m_shooter.setLowShot();
 		// Robot.m_intake.setDoubleSolenoidA(Robot.m_intake.pistonIn);
 		// Robot.m_intake.setDoubleSolenoidB(Robot.m_intake.pistonOut);
         // Robot.m_intake.setDoubleSolenoidB(Robot.m_intake.pistonOut);

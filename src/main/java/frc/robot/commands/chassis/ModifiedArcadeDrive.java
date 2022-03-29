@@ -32,20 +32,20 @@ public class ModifiedArcadeDrive extends Command {
 		//Robot.m_drivetrain.arcadeDrive((0.5 * OI.driverController.getLeftY()) + (0.5* (Math.pow(OI.driverController.getLeftY())), 3), 1);
 		
 
-		//driveVal = ((1-RobotMap.rampD)*yVal) + RobotMap.rampD*Math.pow(yVal, 3);//changed from 3
+		driveVal = ((1-RobotMap.rampD)*yVal) + RobotMap.rampD*Math.pow(yVal, 3);//changed from 3
 
-		//rotateVal = -1*(((1-RobotMap.rampR)*xVal) + RobotMap.rampR*Math.pow(xVal, 3));//changed from 3
+		rotateVal = -1*(((1-RobotMap.rampR)*xVal) + RobotMap.rampR*Math.pow(xVal, 3));//changed from 3
 
 		// driveVal = (0.5*yVal) + 0.5*Math.pow(yVal, 3);
 		// rotateVal = -1*((0.5*xVal) + 0.5*Math.pow(xVal, 3));
 		
 		//SmartDashboard.putNumber("Drive Value", driveVal);
 		//SmartDashboard.putNumber("Rotate Value", rotateVal);
-if (OI.driverController.getLeftY()>0) {
-	Robot.m_drivetrain.arcadeDrive(OI.driverController.getLeftY(), -1 * OI.driverController.getRightX());
-} else {
-	Robot.m_drivetrain.arcadeDrive(OI.driverController.getLeftY(), -1 * OI.driverController.getRightX());
-}
+		if (OI.driverController.getLeftY()>0) {
+			Robot.m_drivetrain.arcadeDrive(driveVal, -1 * rotateVal);
+		} else {
+			Robot.m_drivetrain.arcadeDrive(driveVal, rotateVal);
+		}
 
 
 // Robot.m_drivetrain.arcadeDrive(OI.driverController.getLeftY(), -1 * OI.driverController.getRightX());

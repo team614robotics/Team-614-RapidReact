@@ -141,14 +141,14 @@ public class OI {
     DriverClimbDown.whileHeld(new MoveClimberDownwards(RobotMap.unRestricted));
     DriverClimbUp.whileHeld(new MoveClimberUpwards(RobotMap.unRestricted));
     // DriverLowShot.whileHeld(new RunShooterLowLogic());
-    DriverLowShot.whileHeld(new RunShooterLowLogic());
+    DriverLowShot.whileHeld(new RunShooterLowLogic(RobotMap.shooterVelocitySetpointOurs));
 
     // ColorSensor.whileHeld(new GetColor());
 
     /* Operator Controller */
     MoveClimberUpwards.whileHeld(new MoveClimberUpwards(RobotMap.restricted));
     MoveClimberDownwards.whileHeld(new MoveClimberDownwards(RobotMap.restricted));
-    ShootLowWithLogic.whileHeld(new RunShooterLowLogic());
+    ShootLowWithLogic.whileHeld(new RunShooterLowLogic(RobotMap.shooterVelocitySetpointOurs));
     ShootHighWithLogic.whileHeld(new RunShooterHighWithLogic());
     AccelerateFlywheel.whileHeld(new AccelerateFlywheel(RobotMap.shooterVelocitySetpointOurs));
     // RunFeeder.whileHeld(new RunFeeder(RobotMap.feederSpeed));

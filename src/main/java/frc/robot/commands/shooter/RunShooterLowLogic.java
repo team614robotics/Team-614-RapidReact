@@ -10,19 +10,27 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.feeder.*;
 import frc.robot.subsystems.intake.*;
+import edu.wpi.first.wpilibj.Timer;
 
 public class RunShooterLowLogic extends Command {
   private boolean ourBall;
   private double shooterVelocity;
   private boolean atSpeed;
+  private int speed;
+  private Timer timer;
 
-  public RunShooterLowLogic() {
+  public RunShooterLowLogic(int speed) {
+    this.speed = speed;
+    timer = new Timer();
   }
 
   // Called when the command is initially scheduled.
   public void initialize() {
     Robot.m_shooter.shooterMotor.set(RobotMap.turnOffShooterMotor);
+    Robot.m_shooter.setLowShot();
     atSpeed = false;
+    timer.reset();
+    timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -44,9 +52,9 @@ public class RunShooterLowLogic extends Command {
       //Robot.m_shooter.shooterMotor.set(0.5);
     //if (ourBall == true){
       //SmartDashboard.putNumber("Our Ball", 1);
-      Robot.m_shooter.setShooterReference(RobotMap.shooterVelocitySetpointOurs);
+      Robot.m_shooter.setShooterReference(speed);
       SmartDashboard.putNumber("Shooter Velocity", Robot.m_shooter.shooterMotor.getEncoder().getVelocity());
-      if(Robot.m_shooter.shooterMotor.getEncoder().getVelocity() > RobotMap.shooterVelocityThreshold){
+      if(Robot.m_shooter.shooterMotor.getEncoder().getVelocity() > RobotMap.shooterVelocityThreshold || timer.get() > 1){
         Robot.m_feeder.feederMotor.set(RobotMap.feederShootSpeed);
         //SmartDashboard.putNumber("Shooter Run Feeder", 1);
         if (atSpeed == false){
@@ -56,11 +64,11 @@ public class RunShooterLowLogic extends Command {
       else {
         Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
         //SmartDashboard.putNumber("Shooter Run Feeder", 0);
-        if (atSpeed == true){
-          Robot.m_feeder.setBall1Type(Robot.m_feeder.checkBall2());
-          Robot.m_feeder.setBall2Type(RobotMap.noBall);
-          atSpeed = false;
-        }
+        // if (atSpeed == true){
+        //   Robot.m_feeder.setBall1Type(Robot.m_feeder.checkBall2());
+        //   Robot.m_feeder.setBall2Type(RobotMap.noBall);
+        //   atSpeed = false;
+        // }
       }
     //}
     // else if (ourBall == false){

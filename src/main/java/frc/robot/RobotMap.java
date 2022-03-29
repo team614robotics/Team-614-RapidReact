@@ -90,12 +90,12 @@ public class RobotMap {
   public static final double autoRotateValue = -0.11;
   public static final double kWheelDiameterMeters = 0.1524;
   public static final double encoderPerFeet = -6.766666666;
-  public static final double rampD = .8;// was .5 deciedes the ramping of the driveVal ramp = 1 == x^3, ramp = 0 == x,
+  public static final double rampD = .5;// was .5 deciedes the ramping of the driveVal ramp = 1 == x^3, ramp = 0 == x,
   public static final double rampR = .8;// was .5 deciedes the ramping of the rotateVal ramp = 1 == x^3, ramp = 0 == x,
   public static final double rotateFast = .4;
   public static final double rotateProp = .8;
   public static final double rotateSlow = .1;
-  public static final double driveFast = -.7;
+  public static final double driveFast = -.5;
   public static final double driveProp = .9;// was .9
   public static final double driveSlow = -.4;// .3
   public static final double rotateTime1 = .9;// was .9
@@ -124,21 +124,27 @@ public class RobotMap {
   public static final double kRamseteZeta = 0.7;
 
   // Shooter
-  public static final double shooterPValue = 0.00008;
-  public static final double shooterIValue = 0;
-  public static final double shooterDValue = 0.001;
+  public static final double shooterPValueLow = 0.0004;//0.00008;
+  public static final double shooterIValueLow = 0;
+  public static final double shooterDValueLow = 0.001;//0.001;
   // public static final double shooterIZValue = 0;
-  public static final double shooterFFValue = 0.00023;
+  public static final double shooterFFValueLow = 0.00018;//0.00023;
+
+  public static final double shooterPValueHigh = 0.00025;//0.00008;
+  public static final double shooterIValueHigh = 0;
+  public static final double shooterDValueHigh = 0.001;//0.001;
+  public static final double shooterFFValueHigh = 0.00018;//0.00023;
+
   public static final double maxOutput = 1;
   public static final double minOutput = -1;
   public static final double maxRPM = 5700;
   public static final int shooterMotorPort = 21;
   public static final double turnOffShooterMotor = 0;
   public static final double autoShooterSpeed = 0.5;
-  public static final int shooterVelocitySetpointOurs = 1900; // actually reaches ~2130
+  public static final int shooterVelocitySetpointOurs = 2150; // was 1900 with old pid 
   public static final int shooterVelocityThreshold = 2000;
-  public static final int shooterVelocitySetpointHigh = 3500;
-  public static final int shooterVelocityThresholdHigh = 3900;
+  public static final int shooterVelocitySetpointHigh = 4000; //was 3600 with old pid
+  public static final int shooterVelocityThresholdHigh = 3800;
   public static final int shooterVelocitySetpointOpposing = 2100;// changed from 1800
   public static final int shooterVelocityThresholdOpposing = 2200;// 2100
   public static final double collisionThreshold = 1;
@@ -273,9 +279,9 @@ public class RobotMap {
   public static final int defaultRValue = 0;
   public static final int defaultGValue = 255;
   public static final int defaultBValue = 0;
-  public static final double feederSpeed = -0.3;
+  public static final double feederSpeed = -0.2;
   public static final double feederShootSpeed = -0.8;
-  public static final double feederTime = 0.1;
+  public static final double feederTime = 0;
   public static final double reverseFeederSpeed = .5;
   public static final int colorTime = 5;
   public static final double continueFeederTime = 0.8;

@@ -22,7 +22,7 @@ public class OneBallAutoHigh extends CommandGroup {
         
         addSequential(new AutoShootHigh(RobotMap.autoOneBallHighShootTime));
         // addSequential(new AutoArcadeDrive(RobotMap.autoDriveTime2, RobotMap.forward));
-        addSequential(new AutoArcadeEnocderDrive(50, RobotMap.forward,RobotMap.driveFast));
+        addSequential(new AutoArcadeEnocderDrive(50, RobotMap.forward,RobotMap.driveFast, 10));
 
         
         
