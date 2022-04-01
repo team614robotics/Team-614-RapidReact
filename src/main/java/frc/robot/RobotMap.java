@@ -143,8 +143,8 @@ public class RobotMap {
   public static final double autoShooterSpeed = 0.5;
   public static final int shooterVelocitySetpointOurs = 2150; // was 1900 with old pid 
   public static final int shooterVelocityThreshold = 2000;
-  public static final int shooterVelocitySetpointHigh = 4000; //was 3600 with old pid
-  public static final int shooterVelocityThresholdHigh = 3800;
+  public static final int shooterVelocitySetpointHigh = 3800; //was 3600 with old pid// was 4000
+  public static final int shooterVelocityThresholdHigh = 3600; // was 3800
   public static final int shooterVelocitySetpointOpposing = 2100;// changed from 1800
   public static final int shooterVelocityThresholdOpposing = 2200;// 2100
   public static final double collisionThreshold = 1;
@@ -188,19 +188,19 @@ public class RobotMap {
   public static final boolean unRestricted = false;
 
   // Intake
-  public static final double intakePValue = 0.00008;
+  public static final double intakePValue = 0.000007;
   public static final double intakeIValue = 0;
-  public static final double intakeDValue = 0;
-  public static final double intakeFFValue = 0;
+  public static final double intakeDValue = 0.0001;
+  public static final double intakeFFValue = 0.0000874;
   public static final int intakeMotorPort = 11; // 3 next? previously 8
   public static final int doubleSolenoidAPort1 = 4;
   public static final int doubleSolenoidAPort2 = 5;
   public static final int doubleSolenoidBPort1 = 6;// we will not remove double solenoid B
   public static final int doubleSolenoidBPort2 = 7;
   public static final double turnOffIntakeMotor = 0;
-  public static final double intakeSpeed = -1;// 1 works well with the 21:1
-  public static final double autoIntakeSpeed = -1;// 1 works well with the 21:1
-  public static final double reverseIntakeSpeed = .6;// was .6
+  public static final double intakeSpeed = -9120;// 1 works well with the 21:1
+  public static final double autoIntakeSpeed = -9120;// 1 works well with the 21:1
+  public static final double reverseIntakeSpeed = 9120;// was .6
   public static final int intakeCurrentLimit = 25;
   public static final boolean doIntakeColor = true;
   public static final boolean doNotIntakeColor = false;
@@ -286,6 +286,7 @@ public class RobotMap {
   public static final int colorTime = 5;
   public static final double continueFeederTime = 0.8;
   public static final int timeOfFlightPort = 0;
+  public static final int timeOfFlightPort2 = 1;
   public static final int ToFRange = 300;
 
 }

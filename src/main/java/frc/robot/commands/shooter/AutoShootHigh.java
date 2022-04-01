@@ -39,10 +39,10 @@ public class AutoShootHigh extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   public void execute() {
     // Robot.m_shooter.motorBrake.set(DoubleSolenoid.Value.kReverse);
-		if(timer2.get() < RobotMap.feederTime)
-		{
-          Robot.m_feeder.feederMotor.set(RobotMap.reverseFeederSpeed);
-		}
+		// if(timer2.get() < RobotMap.feederTime)
+		// {
+    //       Robot.m_feeder.feederMotor.set(RobotMap.reverseFeederSpeed);
+		// }
 
     if (timer2.get() < time) {
       Robot.m_shooter.setShooterReference(RobotMap.shooterVelocitySetpointHigh);

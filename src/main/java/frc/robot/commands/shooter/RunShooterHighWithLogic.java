@@ -21,6 +21,7 @@ public class RunShooterHighWithLogic extends Command {
   private double shooterVelocity;
   private boolean atSpeed;
   private Timer timer;
+  private boolean shooting;
 
   public RunShooterHighWithLogic() {
     timer = new Timer();
@@ -33,6 +34,7 @@ public class RunShooterHighWithLogic extends Command {
     timer.reset();
     timer.start();
     Robot.m_shooter.setHighShot();
+    shooting = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -55,8 +57,9 @@ public class RunShooterHighWithLogic extends Command {
     
       Robot.m_shooter.setShooterReference(RobotMap.shooterVelocitySetpointHigh);
       SmartDashboard.putNumber("Shooter Velocity", Robot.m_shooter.shooterMotor.getEncoder().getVelocity());
-      if(Robot.m_shooter.shooterMotor.getEncoder().getVelocity() > RobotMap.shooterVelocityThresholdHigh || timer.get() > 2){
+      if(Robot.m_shooter.shooterMotor.getEncoder().getVelocity() > RobotMap.shooterVelocityThresholdHigh || (timer.get() > 2 && shooting == false)){
         Robot.m_feeder.feederMotor.set(RobotMap.feederShootSpeed);
+        shooting = true;
         // if (atSpeed == false){
         //   atSpeed = true;
         // }

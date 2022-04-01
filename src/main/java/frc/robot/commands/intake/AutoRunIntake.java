@@ -28,7 +28,7 @@ public class AutoRunIntake extends Command {
     boolean finished;
 	double wait;
 
-	public AutoRunIntake(double speed, boolean doColor,double wait) {
+	public AutoRunIntake(boolean doColor,double wait) {
         requires(Robot.m_intake);
         this.speed = speed;
 		timer = new Timer();
@@ -61,7 +61,7 @@ public class AutoRunIntake extends Command {
 		// }
         OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
         OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
-		Robot.m_intake.intakeMotor.set(speed);
+		Robot.m_intake.setIntakeReference(RobotMap.intakeSpeed);
 		
         timer2.start();
         // if (timer2.get()>RobotMap.autoDriveTime){

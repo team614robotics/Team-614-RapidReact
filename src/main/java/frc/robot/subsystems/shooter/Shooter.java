@@ -70,10 +70,19 @@ public class Shooter extends Subsystem {
 
     public void setHighShot() {
         //shooterPIDController.s
+        shooterPIDController.setP(RobotMap.shooterPValueHigh,0);
+        shooterPIDController.setI(RobotMap.shooterIValueHigh,0);
+        shooterPIDController.setD(RobotMap.shooterDValueHigh,0);
+        //shooterPIDController.setIZone(RobotMap.shooterIZValue);
+        shooterPIDController.setFF(RobotMap.shooterFFValueHigh,0);
     }
 
     public void setLowShot() {
-
+        shooterPIDController.setP(RobotMap.shooterPValueLow,0);
+        shooterPIDController.setI(RobotMap.shooterIValueLow,0);
+        shooterPIDController.setD(RobotMap.shooterDValueLow,0);
+        //shooterPIDController.setIZone(RobotMap.shooterIZValue);
+        shooterPIDController.setFF(RobotMap.shooterFFValueLow,0);
     }
 
     public void setShooterReference(double setPoint) {

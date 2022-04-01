@@ -31,6 +31,7 @@ public class RunShooterLowLogic extends Command {
     atSpeed = false;
     timer.reset();
     timer.start();
+    Robot.m_shooter.shooting = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -56,7 +57,8 @@ public class RunShooterLowLogic extends Command {
       SmartDashboard.putNumber("Shooter Velocity", Robot.m_shooter.shooterMotor.getEncoder().getVelocity());
       if(Robot.m_shooter.shooterMotor.getEncoder().getVelocity() > RobotMap.shooterVelocityThreshold || timer.get() > 1){
         Robot.m_feeder.feederMotor.set(RobotMap.feederShootSpeed);
-        //SmartDashboard.putNumber("Shooter Run Feeder", 1);
+
+        SmartDashboard.putNumber("Shooter Run Feeder", 1);
         if (atSpeed == false){
           atSpeed = true;
         }
@@ -128,6 +130,7 @@ public class RunShooterLowLogic extends Command {
     Feeder.setBall2Type(RobotMap.noBall);
     RobotMap.oneBall = false;
     RobotMap.twoBall = false;
+    Robot.m_shooter.shooting = false;
     
     atSpeed = false;
     for (var i = 0; i < Robot.m_ledBuffer.getLength(); i++) {
@@ -141,6 +144,7 @@ public class RunShooterLowLogic extends Command {
     Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
     RobotMap.oneBall = false;
     RobotMap.twoBall = false;
+    Robot.m_shooter.shooting = false;
     //SmartDashboard.putNumber("ShooterInt",-10);
     Feeder.setBall1Type(RobotMap.noBall);
     Feeder.setBall2Type(RobotMap.noBall);

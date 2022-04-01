@@ -20,9 +20,10 @@ public class OneBallAutoHigh extends CommandGroup {
         // addSequential(new AutoArcadeDrive(RobotMap.autoDriveTime2, RobotMap.backward));
         
         
-        addSequential(new AutoShootHigh(RobotMap.autoOneBallHighShootTime));
-        // addSequential(new AutoArcadeDrive(RobotMap.autoDriveTime2, RobotMap.forward));
-        addSequential(new AutoArcadeEnocderDrive(50, RobotMap.forward,RobotMap.driveFast, 10));
+        addParallel(new HighShotSequence());
+        addSequential(new Wait(5));
+        //addSequential(new AutoArcadeRotate(Robot.m_navX, 15, RobotMap.clockwise, 2));
+        addSequential(new AutoArcadeEnocderDrive(120, RobotMap.forward, RobotMap.driveFast, 3));
 
         
         

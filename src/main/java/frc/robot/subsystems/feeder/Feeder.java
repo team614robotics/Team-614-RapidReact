@@ -19,8 +19,10 @@ public class Feeder extends Subsystem
     public static int ball1Type;
     public static int ball2Type;
     public static boolean ball;
+    
     public static boolean doColor;
-    public TimeOfFlight timeOfFlightSensor;
+    public TimeOfFlight feederTimeOfFlightSensor;
+    public TimeOfFlight intakeTimeOfFlightSensor;
     Timer timer;
     
     //1 = BLUE, 2 = RED
@@ -31,8 +33,10 @@ public class Feeder extends Subsystem
         ball2Type = RobotMap.noBall;
         ball = false;
         doColor = false;
+        
         timer = new Timer();
-        timeOfFlightSensor = new TimeOfFlight(RobotMap.timeOfFlightPort);
+        feederTimeOfFlightSensor = new TimeOfFlight(RobotMap.timeOfFlightPort);
+        intakeTimeOfFlightSensor = new TimeOfFlight(RobotMap.timeOfFlightPort2);
     } 
     
     @Override

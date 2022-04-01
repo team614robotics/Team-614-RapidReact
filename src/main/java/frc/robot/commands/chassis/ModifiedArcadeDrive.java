@@ -41,8 +41,8 @@ public class ModifiedArcadeDrive extends Command {
 		
 		//SmartDashboard.putNumber("Drive Value", driveVal);
 		//SmartDashboard.putNumber("Rotate Value", rotateVal);
-		if (OI.driverController.getLeftY()>0) {
-			Robot.m_drivetrain.arcadeDrive(driveVal, -1 * rotateVal);
+		if (OI.driverController.getLeftY()<0) {
+			Robot.m_drivetrain.arcadeDrive(driveVal, rotateVal);
 		} else {
 			Robot.m_drivetrain.arcadeDrive(driveVal, rotateVal);
 		}

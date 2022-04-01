@@ -112,6 +112,7 @@ public class Intake extends Subsystem {
       intakeMotor.set(speed);
    }
    public void setIntakeReference(double setPoint) {
+      SmartDashboard.putNumber("intakeReference", 3);
       intakePIDController.setReference(setPoint, com.revrobotics.CANSparkMax.ControlType.kVelocity);
       //SmartDashboard.putNumber("Shooter: Process Variable", encoder.getVelocity());
       //SmartDashboard.putNumber("Shooter: Setpoint of Current Shot", setPoint);

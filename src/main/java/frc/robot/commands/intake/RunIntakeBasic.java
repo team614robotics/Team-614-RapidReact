@@ -22,120 +22,107 @@ import edu.wpi.first.wpilibj.Timer;
  *
  */
 public class RunIntakeBasic extends Command {
-    double speed;
+	double speed;
 	// Command intakeGetColor;
-	//Timer timer;
+	Timer timer;
+
 	// boolean continueColor;
 	// boolean doColor;
 	public RunIntakeBasic(double speed, boolean doColor) {
-        requires(Robot.m_intake);
-		//intakeGetColor = new GetColor();
-        this.speed = speed;
-		//timer = new Timer();
-		//continueColor = false;
-		//this.doColor = doColor;
+		requires(Robot.m_intake);
+		// intakeGetColor = new GetColor();
+		this.speed = speed;
+		timer = new Timer();
+		// continueColor = false;
+		// this.doColor = doColor;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-        Robot.m_intake.intakeMotor.set(RobotMap.turnOffIntakeMotor);
-		//timer.reset();
-		//continueColor = false;
-		
+		Robot.m_intake.intakeMotor.set(RobotMap.turnOffIntakeMotor);
+		timer.reset();
+		// continueColor = false;
 
-		//Robot.m_feeder.feederMotor.set(0);
+		// Robot.m_feeder.feederMotor.set(0);
 		// Robot.m_intake.setDoubleSolenoidA(Robot.m_intake.pistonIn);
 		// Robot.m_intake.setDoubleSolenoidB(Robot.m_intake.pistonOut);
-        // Robot.m_intake.setDoubleSolenoidB(Robot.m_intake.pistonOut);
+		// Robot.m_intake.setDoubleSolenoidB(Robot.m_intake.pistonOut);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		SmartDashboard.putNumber("Intake Speed", Robot.m_intake.intakeMotor.getAppliedOutput());
 
-		//Robot.m_intake.setIntakeReference(-10000);
-		Robot.m_intake.intakeMotor.set(speed);
-	    
+		// Robot.m_intake.setIntakeReference(-10000);
+		Robot.m_intake.setIntakeReference(speed);
 
-        // timer.start();
-        // SmartDashboard.putNumber("Bus Volts", Robot.m_intake.intakeMotor.getOutputCurrent());
-        // SmartDashboard.putNumber("Out Current", Robot.m_intake.intakeMotor.getAppliedOutput() );
-        // SmartDashboard.putBoolean("start", RobotMap.intakeStart);
+		// timer.start();
+		SmartDashboard.putNumber("Bus Volts", Robot.m_intake.intakeMotor.getOutputCurrent());
+		SmartDashboard.putNumber("Out Current", Robot.m_intake.intakeMotor.getAppliedOutput());
+		// SmartDashboard.putBoolean("start", RobotMap.intakeStart);
 		// SmartDashboard.putBoolean("1 Ball", RobotMap.oneBall);
 		// SmartDashboard.putBoolean("2 Ball", RobotMap.twoBall);
 
-        // if(Robot.m_intake.intakeMotor.getOutputCurrent()>25 && timer.get() > .5 &&  Robot.m_intake.intakeMotor.getAppliedOutput()>15)
-		// {      
-        //     if(!RobotMap.oneBall)
-		// 	{
-		// 		//SmartDashboard.putNumber("Hi", 1);
-		//         RobotMap.oneBall = true;
-		// 		timer.reset();
-		// 		Robot.m_intake.rumble(RobotMap.oneBallRumble);
-		// 		OI.operatorController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
-		// 		OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
-		// 		OI.operatorController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.neutralRumble);
-		// 		OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.neutralRumble);
-		// 	}
-		// 	else if(!RobotMap.twoBall)
-		// 	{
-		// 	RobotMap.twoBall = true;
-		// 	timer.reset();
-		// 	Robot.m_intake.rumble(RobotMap.twoBallRumble);
-		// 	}
-		// }
-		
+		if (Robot.m_intake.intakeMotor.getOutputCurrent() > 25) {
+			OI.operatorController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
+			OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
+			OI.operatorController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.neutralRumble);
+			OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.neutralRumble);
+		} else {
+			Robot.m_intake.rumble(RobotMap.rumbleOff);
+		}
+	}
 
 
-	} 
-				
-		// Robot.m_serializer.serializerMotorA.set(0);
-		// Robot.m_serializer.serializerMotorB.set(0);
-		// Robot.m_feeder.feederMotor.set(0);
-		
-		// public void rumbleOff() {
-		// OI.operatorController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
-		// OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
-		// OI.operatorController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
-		// OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
-		// }
+	// Robot.m_serializer.serializerMotorA.set(0);
+	// Robot.m_serializer.serializerMotorB.set(0);
+	// Robot.m_feeder.feederMotor.set(0);
 
-		
+	// public void rumbleOff() {
+	// OI.operatorController.setRumble(GenericHID.RumbleType.kRightRumble,
+	// RobotMap.rumbleOff);
+	// OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble,
+	// RobotMap.rumbleOff);
+	// OI.operatorController.setRumble(GenericHID.RumbleType.kLeftRumble,
+	// RobotMap.rumbleOff);
+	// OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble,
+	// RobotMap.rumbleOff);
+	// }
 
-		
 	// Make this return true when this Command no lo
 	protected boolean isFinished() {
 		return false;
 	}
-
 
 	// Called once after isFinished returns true
 	protected void end() {
 		RobotMap.intakeStart = false;
 		Robot.m_intake.intakeMotor.set(RobotMap.turnOffIntakeMotor);
 		// if (doColor){
-		// 	if (continueColor == true){
-		// 		timer.start();
-		// 		if (timer.get() > RobotMap.colorTime){
-					//intakeGetColor.cancel();
-					// Robot.m_feeder.doColor = false;
-					// timer.stop();
-					// continueColor = false;
-					// timer.reset();
-					//Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
-					//Robot.m_feeder.continueFeeder();
-					// OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
-            		// OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
-		// 		}
-		// 	}
+		// if (continueColor == true){
+		// timer.start();
+		// if (timer.get() > RobotMap.colorTime){
+		// intakeGetColor.cancel();
+		// Robot.m_feeder.doColor = false;
+		// timer.stop();
+		// continueColor = false;
+		// timer.reset();
+		// Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
+		// Robot.m_feeder.continueFeeder();
+		// OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble,
+		// RobotMap.rumbleOff);
+		// OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble,
+		// RobotMap.rumbleOff);
 		// }
-		//Robot.m_feeder.feederMotor.set(0);
+		// }
+		// }
+		// Robot.m_feeder.feederMotor.set(0);
 		// Robot.m_serializer.serializerMotorA.set(0);
 		// Robot.m_serializer.serializerMotorB.set(0);
 		// Robot.m_feeder.feederMotor.set(0);
 		// Robot.m_intake.setDoubleSolenoidA(Robot.m_intake.pistonIn);
 		// Robot.m_intake.setDoubleSolenoidB(Robot.m_intake.pistonOut);
-        // Robot.m_intake.setDoubleSolenoidB(Robot.m_intake.pistonIn);
+		// Robot.m_intake.setDoubleSolenoidB(Robot.m_intake.pistonIn);
 	}
 
 	// Called when another command which requires one or more of the same
@@ -144,32 +131,34 @@ public class RunIntakeBasic extends Command {
 		RobotMap.intakeStart = false;
 		Robot.m_intake.intakeMotor.set(RobotMap.turnOffIntakeMotor);
 		// if (doColor){
-		// 	if (continueColor == true){
-		// 		timer.start();
-		// 		if (timer.get() > RobotMap.colorTime){
-					// intakeGetColor.cancel();
-					// timer.stop();
-					// //continueColor = false;
-					// timer.reset();
-					//Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
-					//Robot.m_feeder.continueFeeder();
-		// 		}
-		// 	}
+		// if (continueColor == true){
+		// timer.start();
+		// if (timer.get() > RobotMap.colorTime){
+		// intakeGetColor.cancel();
+		// timer.stop();
+		// //continueColor = false;
+		// timer.reset();
+		// Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
+		// Robot.m_feeder.continueFeeder();
 		// }
-		// OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
-        // OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
-		
-		//Robot.m_feeder.feederMotor.set(0);
+		// }
+		// }
+		// OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble,
+		// RobotMap.rumbleOff);
+		// OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble,
+		// RobotMap.rumbleOff);
+
+		// Robot.m_feeder.feederMotor.set(0);
 		// Robot.m_serializer.serializerMotorA.set(0);
 		// Robot.m_serializer.serializerMotorB.set(0);
 		// Robot.m_feeder.feederMotor.set(0);
 		// Robot.m_intake.setDoubleSolenoidA(Robot.m_intake.pistonIn);
 		// Robot.m_intake.setDoubleSolenoidB(Robot.m_intake.pistonOut);
-        // Robot.m_intake.setDoubleSolenoidB(Robot.m_intake.pistonIn);
-    }
-    
-    // protected void pistonToggle() {
-    //     Robot.m_intake.toggleDoubleSolenoidA();
-    //     Robot.m_intake.toggleDoubleSolenoidB();
-    // }
+		// Robot.m_intake.setDoubleSolenoidB(Robot.m_intake.pistonIn);
+	}
+
+	// protected void pistonToggle() {
+	// Robot.m_intake.toggleDoubleSolenoidA();
+	// Robot.m_intake.toggleDoubleSolenoidB();
+	// }
 }

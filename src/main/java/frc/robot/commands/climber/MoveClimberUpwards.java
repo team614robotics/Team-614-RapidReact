@@ -29,6 +29,7 @@ public class MoveClimberUpwards extends Command {
     //SmartDashboard.putNumber("ClimberInit", 1);
     timer.reset();
     timer.start();
+    Robot.pneumatics.compressor.stop();
     SmartDashboard.putNumber("Climbup", 1);
   }
 
@@ -62,6 +63,7 @@ public class MoveClimberUpwards extends Command {
     Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);
     Robot.m_climber.climberMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
     SmartDashboard.putNumber("Climbup", 4);
+    Robot.pneumatics.compressor.start();
     // Robot.m_climber.motorBrake.set(DoubleSoleno]d.Value.kReverse);
   }
 
@@ -69,6 +71,7 @@ public class MoveClimberUpwards extends Command {
     Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);
     Robot.m_climber.climberMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
     SmartDashboard.putNumber("Climbup", 5);
+    Robot.pneumatics.compressor.start();
     // Robot.m_climber.motorBrake.set(DoubleSolenoid.Value.kReverse);
   } 
 

@@ -60,15 +60,19 @@ public class Robot extends TimedRobot {
   public static AddressableLED m_led;
   public static AddressableLEDBuffer m_ledBuffer;
   public static Vision m_limelight;
+  public static boolean limelightLED;
   //public static final DriverStation.Alliance R_ALLIANCE;
   Alliance bAlliance;
   Alliance rAlliance;
   Command m_oneBallAuto;
-  Command m_twoBallAuto;
+  Command m_twoBallAutoLowHangar;
   Command m_oneBallAutoHigh;
-  Command m_twoBallAutoHigh;
-  Command m_threeBallHighAuto;
-  Command m_threeBallLowAuto;
+  Command m_twoBallAutoHighHangar;
+  Command m_twoBallAutoHighWall;
+  Command m_twoBallAutoLowWall;
+  Command m_twoBallAutoHighWeird;
+  Command m_twoBallAutoLowWeird;
+  Command m_funAuto;
 
 
   public static AHRS m_navX;
@@ -160,26 +164,35 @@ public class Robot extends TimedRobot {
     // Push the trajectory to Field2d.
     m_field.getObject("traj").setTrajectory(m_trajectory);
     // m_ramsete = new Ramsete();
-    // m_oneBallAuto = new OneBallAuto();
-    m_twoBallAuto = new TwoBallAutoLow();
+    m_oneBallAuto = new OneBallAuto();
+    m_oneBallAutoHigh = new OneBallAutoHigh();
+    m_twoBallAutoLowHangar = new TwoBallAutoLowHangar();
    
-    m_twoBallAutoHigh = new TwoBallAutoHigh();
+    m_twoBallAutoHighHangar = new TwoBallAutoHighHangar();
+    m_twoBallAutoHighWall = new TwoBallAutoHighWall();
+    m_twoBallAutoLowWall = new TwoBallAutoLowWall();
+    m_twoBallAutoHighWeird = new TwoBallAutoHighWeird();
+    m_twoBallAutoLowWeird = new TwoBallAutoLowWeird();
+    m_funAuto = new FunAuto();
     
     autoChooser = new SendableChooser<>();
     autoHeightChooser = new SendableChooser<>();
 
     ballNumber = 1;
     highAuto = false;
-    // autoChooser.setDefaultOption("1 Ball Low", m_oneBallAuto);
+    //autoChooser.setDefaultOption("1 Ball Low", m_oneBallAuto);
     autoChooser.setDefaultOption("1 Ball Low", m_oneBallAuto);
 
-    autoChooser.addOption("2 Ball Low", m_twoBallAuto);
+    autoChooser.addOption("2 Ball Low Hangar", m_twoBallAutoLowHangar);
     autoChooser.setDefaultOption("1 Ball High", m_oneBallAutoHigh);
-    autoChooser.addOption("2 Ball High", m_twoBallAutoHigh);
-    autoChooser.addOption("3 Ball High", m_threeBallHighAuto);
-    autoChooser.addOption("3 Ball Low", m_threeBallLowAuto);
-    autoHeightChooser.setDefaultOption("Low", false);
-    autoHeightChooser.addOption("High", true);
+    autoChooser.addOption("2 Ball High Hangar", m_twoBallAutoHighHangar);
+    autoChooser.addOption("2 Ball High Wall", m_twoBallAutoHighWall);
+    autoChooser.addOption("2 Ball Low Wall", m_twoBallAutoLowWall);
+    autoChooser.addOption("2 Ball High Weird", m_twoBallAutoHighWeird);
+    autoChooser.addOption("2 Ball Low Weird", m_twoBallAutoLowWeird);
+    autoChooser.addOption("Spin Auto", m_funAuto);
+    // autoHeightChooser.setDefaultOption("Low", false);
+    // autoHeightChooser.addOption("High", true);
     SmartDashboard.putData("Auto Chooser", autoChooser);
     //SmartDashboard.putData("Auto Height Chooser", autoHeightChooser);
     Robot.m_limelight.setPipeline(1);
@@ -187,6 +200,10 @@ public class Robot extends TimedRobot {
     Robot.m_limelight.setLED(1);
 
     Robot.m_climber.climberMotor.getEncoder().setPosition(0);
+    Robot.m_limelight.setPipeline(1);
+		Robot.m_limelight.setCamMode(1);
+    Robot.m_limelight.setLED(1);
+    limelightLED = false;
   }
 
 
@@ -279,6 +296,10 @@ public class Robot extends TimedRobot {
 		Robot.m_limelight.setCamMode(1);
     Robot.m_limelight.setLED(1);
     
+    // Robot.m_drivetrain.leftMotorA.setIdleMode(CANSparkMax.IdleMode.kCoast);
+    // Robot.m_drivetrain.leftMotorB.setIdleMode(CANSparkMax.IdleMode.kCoast);
+    // Robot.m_drivetrain.rightMotorA.setIdleMode(CANSparkMax.IdleMode.kCoast);
+    // Robot.m_drivetrain.rightMotorB.setIdleMode(CANSparkMax.IdleMode.kCoast);
     Robot.m_drivetrain.leftMotorA.setIdleMode(CANSparkMax.IdleMode.kCoast);
     Robot.m_drivetrain.leftMotorB.setIdleMode(CANSparkMax.IdleMode.kCoast);
     Robot.m_drivetrain.rightMotorA.setIdleMode(CANSparkMax.IdleMode.kCoast);
@@ -334,7 +355,6 @@ public class Robot extends TimedRobot {
     // negative values when we push forward.
     // final var xSpeed = -m_speedLimiter.calculate(m_controller.getLeftY()) *
     // Drivetrain.kMaxSpeed;
-
     Scheduler.getInstance().run();
     //SmartDashboard.putNumber("NavX Rotation", m_navX.getRotation2d().getDegrees());
     SmartDashboard.putNumber("Right Encoder Values", Robot.m_drivetrain.rightMotorA.getEncoder().getPosition());
@@ -368,9 +388,9 @@ SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)",
   @Override
   public void disabledInit(){
     SmartDashboard.putData("Auto Chooser", autoChooser);
-    Robot.m_limelight.setPipeline(1);
-		Robot.m_limelight.setCamMode(1);
-    Robot.m_limelight.setLED(1);
+    // Robot.m_limelight.setPipeline(1);
+		// Robot.m_limelight.setCamMode(1);
+    // Robot.m_limelight.setLED(0);
     OI.operatorController.setRumble(RumbleType.kRightRumble, RobotMap.rumbleOff);
 		OI.driverController.setRumble(RumbleType.kRightRumble, RobotMap.rumbleOff);
 		OI.operatorController.setRumble(RumbleType.kLeftRumble, RobotMap.rumbleOff);

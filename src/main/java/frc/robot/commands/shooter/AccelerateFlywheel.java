@@ -38,11 +38,11 @@ public class AccelerateFlywheel extends Command {
 	protected void execute() {
 
         timer.start();
-		if(timer.get() < RobotMap.feederTime)
-		{
-          Robot.m_feeder.feederMotor.set(RobotMap.reverseFeederSpeed);
-          //SmartDashboard.putNumber("check", 1);
-		}
+		// if(timer.get() < RobotMap.feederTime)
+		// {
+        //   Robot.m_feeder.feederMotor.set(RobotMap.reverseFeederSpeed);
+        //   //SmartDashboard.putNumber("check", 1);
+		// }
 
 	    //SmartDashboard.putNumber("check", 0);
 	    Robot.m_shooter.setShooterReference(speed);

@@ -11,6 +11,8 @@ package frc.robot;
 import java.time.Duration;
 
 import com.fasterxml.jackson.databind.deser.impl.SetterlessProperty;
+
+import frc.robot.commands.Compressor.RunCommpressor;
 import frc.robot.commands.climber.*;
 
 import edu.wpi.first.wpilibj.XboxController;
@@ -38,6 +40,8 @@ import frc.robot.commands.feeder.*;
 import frc.robot.commands.intake.*;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import java.util.List;
+
+import javax.sound.sampled.CompoundControl;
 
 //import frc.robot.commands.intake.runOuttake;
 /**
@@ -100,6 +104,10 @@ public class OI {
   public static final Button DriverLowShot = new JoystickButton(driverController, RobotMap.BButton);
   public static final Button DriverClimbUp = new JoystickButton(driverController, RobotMap.YButton);
   public static final Button DriverClimbDown = new JoystickButton(driverController, RobotMap.XButton);
+  public static final Button ReverseBall = new JoystickButton(driverController, RobotMap.LeftStick);
+  public static final Button LimelightLED = new JoystickButton(driverController, RobotMap.BackButton);
+  public static final Button Compressor = new JoystickButton(driverController, RobotMap.StartButton);
+
   // public static final Button IntakeNoColor = new
   // JoystickButton(driverController, RobotMap.BButton);
 
@@ -133,13 +141,18 @@ public class OI {
     // RobotMap.doIntakeColor));
     // RunIntake.whenReleased(new IntakeToggle());
     // RunIntake.whenPressed(new IntakeToggle());
-    RunIntake.whileHeld(new RunIntakeBasic(RobotMap.intakeSpeed, RobotMap.doIntakeColor));
+    RunIntake.whileHeld(new RunIntakeBasic(RobotMap.intakeSpeed, RobotMap.doNotIntakeColor));
     // IntakeNoColor.whileHeld(new RunIntakeBasic (RobotMap.reverseIntakeSpeed,
     // RobotMap.doNotIntakeColor));
     ToggleIntake.whenPressed(new IntakeToggle());
     ReverseIntake.whileHeld(new RunIntakeBasic(RobotMap.reverseIntakeSpeed, RobotMap.doNotIntakeColor));
     DriverClimbDown.whileHeld(new MoveClimberDownwards(RobotMap.unRestricted));
     DriverClimbUp.whileHeld(new MoveClimberUpwards(RobotMap.unRestricted));
+    ReverseBall.whileHeld(new RunIntakeBasic(RobotMap.reverseIntakeSpeed, RobotMap.doNotIntakeColor));
+    ReverseBall.whileHeld(new RunFeeder(.8));
+    LimelightLED.whenPressed(new SetLimelightLED());
+    Compressor.whileHeld(new RunCommpressor());
+
     // DriverLowShot.whileHeld(new RunShooterLowLogic());
     DriverLowShot.whileHeld(new RunShooterLowLogic(RobotMap.shooterVelocitySetpointOurs));
 
@@ -149,7 +162,7 @@ public class OI {
     MoveClimberUpwards.whileHeld(new MoveClimberUpwards(RobotMap.restricted));
     MoveClimberDownwards.whileHeld(new MoveClimberDownwards(RobotMap.restricted));
     ShootLowWithLogic.whileHeld(new RunShooterLowLogic(RobotMap.shooterVelocitySetpointOurs));
-    ShootHighWithLogic.whileHeld(new RunShooterHighWithLogic());
+    ShootHighWithLogic.whileHeld(new HighShotSequence());
     AccelerateFlywheel.whileHeld(new AccelerateFlywheel(RobotMap.shooterVelocitySetpointOurs));
     // RunFeeder.whileHeld(new RunFeeder(RobotMap.feederSpeed));
     ReverseFeeder.whileHeld(new RunFeeder(RobotMap.reverseFeederSpeed));

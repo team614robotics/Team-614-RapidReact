@@ -15,7 +15,7 @@ public class CompressorControl extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.pneumatics.compressor.start();
+		// Robot.pneumatics.compressor.start();
 	}
 
 	// Called repeatedly when this Command is scheduled to run

@@ -20,6 +20,7 @@ public class MoveClimberDownwards extends Command {
   // Called when the command is initially scheduled.
   public void initialize() {
     Robot.m_climber.climberMotor.set(RobotMap.initalClimberMotor);
+    Robot.pneumatics.compressor.stop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -47,11 +48,13 @@ public class MoveClimberDownwards extends Command {
   public void end() {
     Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);
     Robot.m_climber.climberMotor.setIdleMode(IdleMode.kBrake);
+    Robot.pneumatics.compressor.start();
   }
 
   public void interrupted() {
     Robot.m_climber.climberMotor.set(RobotMap.turnOffClimberMotor);
     Robot.m_climber.climberMotor.setIdleMode(IdleMode.kBrake);
+    Robot.pneumatics.compressor.start();
   }
 
 }

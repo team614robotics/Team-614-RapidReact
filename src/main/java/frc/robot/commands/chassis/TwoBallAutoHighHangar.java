@@ -9,9 +9,9 @@ import frc.robot.commands.feeder.RunFeeder;
 import frc.robot.commands.shooter.*;
 import frc.robot.commands.intake.*;
 
-public class TwoBallAutoHigh extends CommandGroup {
+public class TwoBallAutoHighHangar extends CommandGroup {
     int accelerationSpeed;
-    public TwoBallAutoHigh() {
+    public TwoBallAutoHighHangar() {
         //addSequential(new AutoShoot());
         // accelerationSpeed = RobotMap.shooterVelocitySetpointHigh;
         // //SmartDashboard.putNumber("2 High", 1);
@@ -27,16 +27,17 @@ public class TwoBallAutoHigh extends CommandGroup {
 
         addSequential(new IntakeToggle());
         addParallel(new AccelerateFlywheel(RobotMap.shooterVelocitySetpointOurs));
-        addParallel(new AutoRunIntake(RobotMap.autoIntakeSpeed, RobotMap.doNotIntakeColor, RobotMap.autoDriveTime));
-        addSequential(new AutoArcadeEnocderDrive(42, RobotMap.forward, RobotMap.driveFast, 3));// was 42
+        addParallel(new AutoRunIntake(RobotMap.doNotIntakeColor, RobotMap.autoDriveTime));
+        addSequential(new AutoArcadeEnocderDrive(46, RobotMap.forward, RobotMap.driveFast, 3));// was 42
         addSequential(new ResetEncoders());
         addSequential(new IntakeToggle());
         //addSequential(new Wait(4));
         addParallel(new AccelerateFlywheel(RobotMap.shooterVelocitySetpointOurs));
-        addSequential(new AutoArcadeEnocderDrive(130, RobotMap.backward, RobotMap.driveFast, 5));
+        addSequential(new AutoArcadeEnocderDrive(54, RobotMap.backward, RobotMap.driveFast, 5));
         addSequential(new ResetEncoders());
-        addSequential(new AutoArcadeEnocderDrive(40, RobotMap.forward, RobotMap.driveFast, 2));
-        addSequential(new AutoShootHigh(5));
+        //addSequential(new AutoArcadeEnocderDrive(40, RobotMap.forward, RobotMap.driveFast, 2));
+        addSequential(new Wait(1));
+        addSequential(new HighShotSequence());
 
      
 

@@ -24,7 +24,7 @@ public class FeedWithToF extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		if(!Robot.m_shooter.shooting){
-			if (Robot.m_feeder.timeOfFlightSensor.getRange()>RobotMap.ToFRange){
+			if (Robot.m_feeder.feederTimeOfFlightSensor.getRange()>RobotMap.ToFRange){
         	    Robot.m_feeder.feederMotor.set(RobotMap.feederSpeed);
 				Robot.m_intake.rumbleOff();
 				SmartDashboard.putString("Ball Type:", "No Ball");
