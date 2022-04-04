@@ -21,7 +21,7 @@ public class RunShooterHighWithLogic extends Command {
   private double shooterVelocity;
   private boolean atSpeed;
   private Timer timer;
-  private boolean shooting;
+
 
   public RunShooterHighWithLogic() {
     timer = new Timer();
@@ -34,42 +34,25 @@ public class RunShooterHighWithLogic extends Command {
     timer.reset();
     timer.start();
     Robot.m_shooter.setHighShot();
-    shooting = false;
+  
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   public void execute() {
-    // Robot.m_shooter.motorBrake.set(DoubleSolenoid.Value.kReverse);
-      // if (Robot.m_feeder.checkBall1() != RobotMap.noBall){
-      //   if (Robot.allianceColor == Robot.m_feeder.checkBall1()){
-      //     ourBall = true;
-      //   }
-      //   else {
-      //     ourBall = false;
-      //   }
-      // }
+
       shooterVelocity = Robot.m_shooter.shooterMotor.getEncoder().getVelocity();
 
-      
-       //}
-    
-      //Robot.m_shooter.shooterMotor.set(0.5);
-    
       Robot.m_shooter.setShooterReference(RobotMap.shooterVelocitySetpointHigh);
+      SmartDashboard.putBoolean("Shooting", true);
       SmartDashboard.putNumber("Shooter Velocity", Robot.m_shooter.shooterMotor.getEncoder().getVelocity());
-      if(Robot.m_shooter.shooterMotor.getEncoder().getVelocity() > RobotMap.shooterVelocityThresholdHigh || (timer.get() > 2 && shooting == false)){
+      if(Robot.m_shooter.shooterMotor.getEncoder().getVelocity() > RobotMap.shooterVelocityThresholdHigh+150
+      || timer.get() > 2){
         Robot.m_feeder.feederMotor.set(RobotMap.feederShootSpeed);
-        shooting = true;
-        // if (atSpeed == false){
-        //   atSpeed = true;
-        // }
+        SmartDashboard.putBoolean("Feeder", true);
       }
       else {
         Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
-        // if (atSpeed == true){
-        //   Robot.m_feeder.setBall1Type(Robot.m_feeder.checkBall2());
-        //   Robot.m_feeder.setBall2Type(RobotMap.noBall);
-        // }
+        SmartDashboard.putBoolean("Feeder", false);
       }
      
     
@@ -106,6 +89,7 @@ public class RunShooterHighWithLogic extends Command {
     RobotMap.oneBall = false;
     RobotMap.twoBall = false;
     atSpeed = false;
+
     for (var i = 0; i < Robot.m_ledBuffer.getLength(); i++) {
       // Sets the specified LED to the RGB values for red
       Robot.m_ledBuffer.setRGB(i, RobotMap.defaultRValue, RobotMap.defaultGValue, RobotMap.defaultBValue);

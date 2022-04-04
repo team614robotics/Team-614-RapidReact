@@ -26,13 +26,13 @@ public class TwoBallAutoHighHangar extends CommandGroup {
         //SmartDashboard.putNumber("2 High", 2);
 
         addSequential(new IntakeToggle());
-        addParallel(new AccelerateFlywheel(RobotMap.shooterVelocitySetpointOurs));
+       // addParallel(new AccelerateFlywheel(RobotMap.shooterVelocitySetpointOurs));
         addParallel(new AutoRunIntake(RobotMap.doNotIntakeColor, RobotMap.autoDriveTime));
         addSequential(new AutoArcadeEnocderDrive(46, RobotMap.forward, RobotMap.driveFast, 3));// was 42
         addSequential(new ResetEncoders());
         addSequential(new IntakeToggle());
         //addSequential(new Wait(4));
-        addParallel(new AccelerateFlywheel(RobotMap.shooterVelocitySetpointOurs));
+        //addParallel(new AccelerateFlywheel(RobotMap.shooterVelocitySetpointOurs));
         addSequential(new AutoArcadeEnocderDrive(54, RobotMap.backward, RobotMap.driveFast, 5));
         addSequential(new ResetEncoders());
         //addSequential(new AutoArcadeEnocderDrive(40, RobotMap.forward, RobotMap.driveFast, 2));

@@ -11,9 +11,8 @@ import frc.robot.commands.chassis.Wait;
 public class HighShotSequence extends CommandGroup {
     public HighShotSequence() {
         // addSequential(new BlinkForATime(3));
-        SmartDashboard.putNumber(" HI", 999);
-        addParallel(new RotateToAngleBackwards());   
-        addParallel(new RunShooterHighWithLogic());   
+        addSequential(new RotateToAngleBackwards(),.25);   
+        addSequential(new RunShooterHighWithLogic());   
         // addParallel(new DeliverGoalLow());
         // addSequential(new FollowPathBackwards());
         // addSequential(new BlinkForATime(3));

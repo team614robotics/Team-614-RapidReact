@@ -195,15 +195,18 @@ public class Robot extends TimedRobot {
     // autoHeightChooser.addOption("High", true);
     SmartDashboard.putData("Auto Chooser", autoChooser);
     //SmartDashboard.putData("Auto Height Chooser", autoHeightChooser);
-    Robot.m_limelight.setPipeline(1);
-		Robot.m_limelight.setCamMode(1);
-    Robot.m_limelight.setLED(1);
+    Robot.m_limelight.setPipeline(2);
+		Robot.m_limelight.setCamMode(0);
+    Robot.m_limelight.setLED(0);
 
     Robot.m_climber.climberMotor.getEncoder().setPosition(0);
-    Robot.m_limelight.setPipeline(1);
-		Robot.m_limelight.setCamMode(1);
-    Robot.m_limelight.setLED(1);
-    limelightLED = false;
+    // Robot.m_limelight.setPipeline(1);
+		// Robot.m_limelight.setCamMode(1);
+    // Robot.m_limelight.setLED(1);
+    // limelightLED was false
+    limelightLED = true;
+    RobotMap.ToF = false;
+    
   }
 
 
@@ -225,9 +228,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto Chooser", autoChooser);
     SmartDashboard.putNumber("2 High", 0);
     SmartDashboard.putNumber("2 Low", 0);
-    Robot.m_limelight.setPipeline(1);
-		Robot.m_limelight.setCamMode(1);
-    Robot.m_limelight.setLED(1);
+    // Robot.m_limelight.setPipeline(1);
+		// Robot.m_limelight.setCamMode(1);
+    // Robot.m_limelight.setLED(1);
     //SmartDashboard.putNumber("Disabled", 0);
     // SmartDashboard.putNumber("Left Encoder Values", Robot.m_drivetrain.leftMotorA.getEncoder().getPosition());
     Robot.m_drivetrain.leftMotorA.getEncoder().setPosition(0);
@@ -270,6 +273,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
     }
+    RobotMap.ToF = false;
   }
   
   @Override
@@ -292,9 +296,11 @@ public class Robot extends TimedRobot {
 
   public void teleopInit() {
     SmartDashboard.putData("Auto Chooser", autoChooser);
-    Robot.m_limelight.setPipeline(1);
-		Robot.m_limelight.setCamMode(1);
-    Robot.m_limelight.setLED(1);
+    // Robot.m_limelight.setPipeline(1);
+		// Robot.m_limelight.setCamMode(1);
+    // Robot.m_limelight.setLED(1);
+
+    pneumatics.compressor.stop();
     
     // Robot.m_drivetrain.leftMotorA.setIdleMode(CANSparkMax.IdleMode.kCoast);
     // Robot.m_drivetrain.leftMotorB.setIdleMode(CANSparkMax.IdleMode.kCoast);
@@ -304,6 +310,7 @@ public class Robot extends TimedRobot {
     Robot.m_drivetrain.leftMotorB.setIdleMode(CANSparkMax.IdleMode.kCoast);
     Robot.m_drivetrain.rightMotorA.setIdleMode(CANSparkMax.IdleMode.kCoast);
     Robot.m_drivetrain.rightMotorB.setIdleMode(CANSparkMax.IdleMode.kCoast);
+
     //SmartDashboard.putNumber("Disabled", 0);
     for (var i = 0; i < m_ledBuffer.getLength(); i++) {
       // Sets the specified LED to the RGB values for green
@@ -316,6 +323,7 @@ public class Robot extends TimedRobot {
     Robot.m_drivetrain.rightMotorA.getEncoder().setPosition(0);
     Robot.m_drivetrain.rightMotorB.getEncoder().setPosition(0);
     Robot.m_climber.climberMotor.getEncoder().setPosition(0);
+
     
     if (ds.getAlliance().toString().toLowerCase().equals("blue")) {
       SmartDashboard.putString("Alliance Color: ", "Blue");
@@ -346,10 +354,13 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    RobotMap.ToF = true;
   }
 
   @Override
   public void teleopPeriodic() {
+    SmartDashboard.putBoolean("ToF", RobotMap.ToF);
     SmartDashboard.putData("Auto Chooser", autoChooser);
     // Get the x speed. We are inverting this because Xbox controllers return
     // negative values when we push forward.
@@ -388,9 +399,9 @@ SmartDashboard.putNumber("Distance Covered (Left Wheels) (In Feet)",
   @Override
   public void disabledInit(){
     SmartDashboard.putData("Auto Chooser", autoChooser);
-    // Robot.m_limelight.setPipeline(1);
-		// Robot.m_limelight.setCamMode(1);
-    // Robot.m_limelight.setLED(0);
+    Robot.m_limelight.setPipeline(1);
+		Robot.m_limelight.setCamMode(1);
+    Robot.m_limelight.setLED(1);
     OI.operatorController.setRumble(RumbleType.kRightRumble, RobotMap.rumbleOff);
 		OI.driverController.setRumble(RumbleType.kRightRumble, RobotMap.rumbleOff);
 		OI.operatorController.setRumble(RumbleType.kLeftRumble, RobotMap.rumbleOff);

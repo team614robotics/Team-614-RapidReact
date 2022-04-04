@@ -25,7 +25,7 @@ public class TwoBallAutoHighWall extends CommandGroup {
         // addSequential(new AutoShootLow(1));
         //SmartDashboard.putNumber("2 High", 2);
 
-        addSequential(new RotateToAngleBackwards(),2); 
+        //addSequential(new RotateToAngleBackwards(),2); 
         addSequential(new IntakeToggle());
         addParallel(new AccelerateFlywheel(RobotMap.shooterVelocitySetpointHigh));
         addParallel(new AutoRunIntake(RobotMap.doNotIntakeColor, RobotMap.autoDriveTime));

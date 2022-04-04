@@ -63,16 +63,20 @@ public class RunIntakeBasic extends Command {
 		// SmartDashboard.putBoolean("1 Ball", RobotMap.oneBall);
 		// SmartDashboard.putBoolean("2 Ball", RobotMap.twoBall);
 
-		if (Robot.m_intake.intakeMotor.getOutputCurrent() > 25) {
+		if (Robot.m_intake.intakeMotor.getOutputCurrent() > 10) {
+			SmartDashboard.putNumber("intake", 123);
 			OI.operatorController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
 			OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.neutralRumble);
 			OI.operatorController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.neutralRumble);
 			OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.neutralRumble);
 		} else {
-			Robot.m_intake.rumble(RobotMap.rumbleOff);
+			SmartDashboard.putNumber("intake", 987);
+			OI.operatorController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
+			OI.driverController.setRumble(GenericHID.RumbleType.kRightRumble, RobotMap.rumbleOff);
+			OI.operatorController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
+			OI.driverController.setRumble(GenericHID.RumbleType.kLeftRumble, RobotMap.rumbleOff);
 		}
 	}
-
 
 	// Robot.m_serializer.serializerMotorA.set(0);
 	// Robot.m_serializer.serializerMotorB.set(0);

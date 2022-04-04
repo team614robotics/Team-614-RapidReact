@@ -100,7 +100,8 @@ public class OI {
   public static final XboxController driverController = new XboxController(0);
 
   public static final Button RunIntake = new JoystickButton(driverController, RobotMap.LeftBumper);
-  public static final Button ReverseIntake = new JoystickButton(driverController, RobotMap.AButton);
+ // public static final Button ReverseIntake = new JoystickButton(driverController, RobotMap.AButton);
+  public static final Button HighShotNoLimelight = new JoystickButton(driverController, RobotMap.AButton);
   public static final Button DriverLowShot = new JoystickButton(driverController, RobotMap.BButton);
   public static final Button DriverClimbUp = new JoystickButton(driverController, RobotMap.YButton);
   public static final Button DriverClimbDown = new JoystickButton(driverController, RobotMap.XButton);
@@ -145,16 +146,19 @@ public class OI {
     // IntakeNoColor.whileHeld(new RunIntakeBasic (RobotMap.reverseIntakeSpeed,
     // RobotMap.doNotIntakeColor));
     ToggleIntake.whenPressed(new IntakeToggle());
-    ReverseIntake.whileHeld(new RunIntakeBasic(RobotMap.reverseIntakeSpeed, RobotMap.doNotIntakeColor));
+    //ReverseIntake.whileHeld(new RunIntakeBasic(RobotMap.reverseIntakeSpeed, RobotMap.doNotIntakeColor));
+    HighShotNoLimelight.whenPressed(new RunShooterHighWithLogic());
     DriverClimbDown.whileHeld(new MoveClimberDownwards(RobotMap.unRestricted));
     DriverClimbUp.whileHeld(new MoveClimberUpwards(RobotMap.unRestricted));
     ReverseBall.whileHeld(new RunIntakeBasic(RobotMap.reverseIntakeSpeed, RobotMap.doNotIntakeColor));
-    ReverseBall.whileHeld(new RunFeeder(.8));
+    ReverseBall.whileHeld(new RunFeeder(RobotMap.reverseFeederSpeed));
+    ReverseBall.whileHeld(new ReverseShooter(RobotMap.reverseShooterSpeed));
+    DriverLowShot.whileHeld(new RunShooterLowLogic(RobotMap.driverShooterVelocitySetpointOurs));
     LimelightLED.whenPressed(new SetLimelightLED());
     Compressor.whileHeld(new RunCommpressor());
 
     // DriverLowShot.whileHeld(new RunShooterLowLogic());
-    DriverLowShot.whileHeld(new RunShooterLowLogic(RobotMap.shooterVelocitySetpointOurs));
+   
 
     // ColorSensor.whileHeld(new GetColor());
 

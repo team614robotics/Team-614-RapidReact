@@ -44,6 +44,7 @@ public class RobotMap {
   public static boolean intakeStart = false;
   public static boolean oneBall = false;
   public static boolean twoBall = false;
+  public static boolean ToF;
 
   public static final double autoDriveTime = 2;
   public static final double autoDriveTime2 = 4;
@@ -100,6 +101,7 @@ public class RobotMap {
   public static final double driveSlow = -.4;// .3
   public static final double rotateTime1 = .9;// was .9
   public static final double rotateTime2 = -.4;// .3
+  public static final double pidAngleThreshold = 1;
 
   public static final double ks = 0.2085;// 0.11314
   public static final double kv = 0.26409;// 0.25777
@@ -142,6 +144,7 @@ public class RobotMap {
   public static final double turnOffShooterMotor = 0;
   public static final double autoShooterSpeed = 0.5;
   public static final int shooterVelocitySetpointOurs = 2150; // was 1900 with old pid 
+  public static final int driverShooterVelocitySetpointOurs = 2300;
   public static final int shooterVelocityThreshold = 2000;
   public static final int shooterVelocitySetpointHigh = 3800; //was 3600 with old pid// was 4000
   public static final int shooterVelocityThresholdHigh = 3600; // was 3800
@@ -282,7 +285,7 @@ public class RobotMap {
   public static final double feederSpeed = -0.2;
   public static final double feederShootSpeed = -0.8;
   public static final double feederTime = 0;
-  public static final double reverseFeederSpeed = .5;
+  public static final double reverseFeederSpeed = .7;
   public static final int colorTime = 5;
   public static final double continueFeederTime = 0.8;
   public static final int timeOfFlightPort = 0;

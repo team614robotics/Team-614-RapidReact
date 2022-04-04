@@ -10,31 +10,29 @@ import edu.wpi.first.wpilibj.GenericHID.*;
 //import frc.robot.subsystems.feeder.Feeder;
 
 public class FeedWithToF extends Command {
-    double speed;
+	double speed;
+
 	public FeedWithToF() {
-        requires(Robot.m_feeder);
-        //this.speed = speed;
+		requires(Robot.m_feeder);
+		// this.speed = speed;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-        Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
+		Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if(!Robot.m_shooter.shooting){
-			if (Robot.m_feeder.feederTimeOfFlightSensor.getRange()>RobotMap.ToFRange){
-        	    Robot.m_feeder.feederMotor.set(RobotMap.feederSpeed);
-				Robot.m_intake.rumbleOff();
-				SmartDashboard.putString("Ball Type:", "No Ball");
-        	}
-        	else {
-				Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
-				Robot.m_intake.rumble(RobotMap.neutralRumble);
-				SmartDashboard.putString("Ball Type:", "Ball");
-			}
-		}			
+
+		if (RobotMap.ToF == true) {
+				if (Robot.m_feeder.feederTimeOfFlightSensor.getRange() > RobotMap.ToFRange) {
+					Robot.m_feeder.feederMotor.set(RobotMap.feederSpeed);
+				} else {
+					Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
+					Robot.m_intake.rumble(RobotMap.neutralRumble);
+				}
+		}
 	}
 
 	protected boolean isFinished() {
@@ -48,6 +46,6 @@ public class FeedWithToF extends Command {
 	protected void interrupted() {
 		Robot.m_feeder.feederMotor.set(RobotMap.turnOffFeederMotor);
 
-    }
+	}
 
 }
